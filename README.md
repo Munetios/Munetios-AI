@@ -142,7 +142,7 @@ Unauthorized copying, modification, or redistribution of this content is prohibi
 | **Email** | [minecraftgamer97529@gmail.com](mailto:minecraftgamer97529@gmail.com) |
 | **Brand Website** | [https://www.munetios.com](https://www.munetios.com) |
 | **GitHub** | [@GAMERYTDeveloper](https://github.com/GAMERYTDeveloper) |
-| **Location** | Abington, Massachusetts, USA |
+| **Location** |  Massachusetts, USA |
 
 > *Designed with ❤️ and Liquid Glass by Munetios Technologies™*
 
