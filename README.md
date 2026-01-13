@@ -3,7 +3,7 @@
 > **Next-generation intelligence designed by Munetios Technologies™**
 
 ---
-
+Note: This is outdated readme
 ## 📘 Table of Contents
 1. [ℹ️ Info](#️-info)
 2. [💠 Branding](#-branding)
