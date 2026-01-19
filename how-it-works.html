@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Munetios AI - How it Works</title>
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="shortcut icon" type="image/png" href="logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://api.munetios.com/beautiful-css/beautiful.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght,ROND@6..144,1..1000,80&display=swap"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'nonce-ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg'; style-src 'self' https://fonts.googleapis.com https://api.munetios.com 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com  data:; connect-src 'self';"
+    />
+    <style>
+      * {
+        font-family: "Google Sans Flex", sans-serif;
+        font-variation-settings:
+          "opsz" 14,
+          "wght" 400,
+          "ROND" 80;
+        box-sizing: border-box;
+        font-feature-settings:
+          "liga" 0,
+          "ss01" 1;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        color: white;
+        background: #222;
+        font-family: "Google Sans Flex", sans-serif;
+        font-variation-settings:
+          "opsz" 14,
+          "wght" 400,
+          "ROND" 80;
+        transition:
+          background 0.3s ease,
+          color 0.3s ease;
+      }
+      .topbar-header {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        backdrop-filter: blur(2px) saturate(190%) brightness(105%)
+          contrast(100%);
+        background-color: rgba(51, 51, 51, 0.01);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+      .logo-text {
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+      .topbar-container {
+        max-width: 1500px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 16px;
+        margin: 0 auto;
+      }
+      .top-left {
+        display: flex;
+        align-items: center;
+      }
+      .topbar-middle {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex: 1;
+      }
+      .topbar-middle a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .top-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+      }
+      .btn-label {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .select-btn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        backdrop-filter: none;
+        color: inherit;
+        border-radius: 999px;
+        transition: background 0.3s ease;
+      }
+      .select-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .btn {
+        border-radius: 999px;
+        padding: 8px 13px;
+        background: rgba(71, 17, 197, 0.685);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+      .btn:hover {
+        background: rgba(71, 17, 197, 0.85);
+      }
+      .dropdown-wrapper {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px;
+        border-radius: 20px;
+        z-index: 1001;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+      .dropdown-wrapper[style*="display: flex"] {
+        animation: dropdownOpen 0.3s ease forwards;
+      }
+      @keyframes dropdownOpen {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .dropdown-item {
+        padding: 8px 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        opacity: 0;
+        animation: dropdownItemFadeIn 0.3s ease forwards;
+      }
+      .dropdown-item:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .dropdown-item:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .dropdown-item:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .dropdown-item:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .dropdown-item:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .dropdown-item:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .dropdown-item:nth-child(7) {
+        animation-delay: 0.35s;
+      }
+      .dropdown-item:nth-child(8) {
+        animation-delay: 0.4s;
+      }
+      .dropdown-item:nth-child(9) {
+        animation-delay: 0.45s;
+      }
+      .dropdown-item:nth-child(10) {
+        animation-delay: 0.5s;
+      }
+      .dropdown-item:nth-child(11) {
+        animation-delay: 0.55s;
+      }
+      @keyframes dropdownItemFadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      content {
+        display: block;
+        padding: 20px;
+        max-width: 1500px;
+        margin: 10px auto;
+        position: relative;
+        top: 50px;
+      }
+      .hamburger-menu {
+        display: none;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+      .hamburger-menu:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(34, 34, 34, 0.01);
+        backdrop-filter: blur(2px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        z-index: 999;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .mobile-menu.active {
+        display: flex;
+      }
+      .mobile-menu a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 12px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+      .mobile-menu a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      @media (max-width: 768px) {
+        .topbar-container {
+          padding: 0;
+        }
+        .topbar-header {
+          padding: 0 4px;
+        }
+      }
+      @media (max-width: 1060px) {
+        .topbar-middle {
+          display: none;
+        }
+        .hamburger-menu {
+          display: block;
+        }
+      }
+      @media (max-width: 800px) {
+        .logo-text {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <munetios-app id="munetios-app" class="app-container" __ng-content-random>
+      <ai-header-documentation class="topbar-header" __ng-content-random>
+        <div class="topbar-container">
+          <div class="top-left">
+            <icon
+              class="material-symbols-rounded hamburger-menu"
+              id="hamburgerBtn"
+              >menu</icon
+            >
+            <div class="logo-text text-glow">How Munetios AI Works</div>
+          </div>
+          <div class="topbar-middle">
+            <a href="index.html">Home</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="how-it-works.html">How it Works</a>
+            <a href="models.html">Models</a>
+          </div>
+          <div class="top-right">
+            <button class="select-btn cursor-pointer" id="selectLanguageBtn">
+              <div class="btn-label">English</div>
+              <icon class="material-symbols-rounded">expand_more</icon>
+            </button>
+            <icon
+              class="material-symbols-rounded cursor-pointer"
+              id="themeToggleBtn"
+              >light_mode</icon
+            >
+            <button class="btn cursor-pointer" id="signInBtn">Sign In</button>
+          </div>
+        </div>
+      </ai-header-documentation>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="documentation.html">Documentation</a>
+        <a href="how-it-works.html">How it Works</a>
+        <a href="models.html">Models</a>
+      </div>
+      <content>
+        <h1>How Munetios AI Works</h1>
+        <p>
+          Discover the technology and architecture behind Munetios AI and how it
+          delivers powerful AI capabilities to users worldwide.
+        </p>
+
+        <h2>Architecture Overview</h2>
+        <p>
+          Munetios AI is built on a modern, scalable architecture designed to
+          provide seamless AI experiences. The system consists of multiple
+          layers working together to deliver intelligent responses and creative
+          outputs.
+        </p>
+        <ul>
+          <li>
+            <strong>Frontend Interface:</strong> A responsive web application
+            built with modern frameworks, providing an intuitive user
+            experience.
+          </li>
+          <li>
+            <strong>API Gateway:</strong> Manages all incoming requests, handles
+            authentication, and routes traffic to appropriate services.
+          </li>
+          <li>
+            <strong>AI Engine:</strong> Powers the core AI models including
+            Munet, Munet-Code, and specialized models for different tasks.
+          </li>
+          <li>
+            <strong>Media Processing:</strong> Dedicated systems for image and
+            video generation, utilizing advanced diffusion models.
+          </li>
+          <li>
+            <strong>Data Storage:</strong> Secure, distributed storage for user
+            data, conversations, projects, and generated content.
+          </li>
+        </ul>
+
+        <h2>AI Model Processing</h2>
+        <p>
+          When you interact with Munetios AI, your request goes through a
+          sophisticated processing pipeline:
+        </p>
+        <ol>
+          <li>
+            <strong>Input Processing:</strong> Your message or prompt is
+            analyzed and tokenized, preserving context and intent.
+          </li>
+          <li>
+            <strong>Context Assembly:</strong> The system retrieves relevant
+            conversation history, project files, and user preferences.
+          </li>
+          <li>
+            <strong>Model Selection:</strong> Based on your task, the
+            appropriate model (Munet, Munet-Code, etc.) is selected.
+          </li>
+          <li>
+            <strong>Inference:</strong> The AI model processes your request
+            using advanced neural networks and transformer architectures.
+          </li>
+          <li>
+            <strong>Response Generation:</strong> The model generates a
+            response, which is formatted and optimized for your needs.
+          </li>
+          <li>
+            <strong>Output Delivery:</strong> The response is sent back to you
+            through the interface in real-time.
+          </li>
+        </ol>
+
+        <h2>Agent Mode</h2>
+        <p>
+          Agent Mode enables Munetios AI to perform complex, multi-step tasks
+          autonomously. When activated, the AI:
+        </p>
+        <ul>
+          <li>Breaks down complex requests into manageable subtasks</li>
+          <li>Executes each step systematically, adapting as needed</li>
+          <li>Uses external tools and APIs when required</li>
+          <li>Verifies results and adjusts its approach dynamically</li>
+          <li>Provides detailed updates on progress throughout the process</li>
+        </ul>
+
+        <h2>Code Generation System</h2>
+        <p>
+          The code generation capabilities of Munetios AI leverage specialized
+          Munet-Code models trained on vast amounts of programming knowledge:
+        </p>
+        <ul>
+          <li>
+            <strong>Multi-Language Support:</strong> Generates code in dozens of
+            programming languages with proper syntax and best practices.
+          </li>
+          <li>
+            <strong>Context-Aware:</strong> Understands your project structure,
+            dependencies, and existing codebase.
+          </li>
+          <li>
+            <strong>Real-Time Preview:</strong> See your applications come to
+            life instantly in the integrated preview window.
+          </li>
+          <li>
+            <strong>Bug Detection:</strong> Automatically identifies potential
+            issues and suggests improvements.
+          </li>
+          <li>
+            <strong>Documentation:</strong> Generates comments and documentation
+            alongside your code.
+          </li>
+        </ul>
+
+        <h2>Image & Video Creation</h2>
+        <p>
+          Munetios AI's media generation uses state-of-the-art diffusion models:
+        </p>
+        <ul>
+          <li>
+            <strong>Text-to-Image:</strong> Advanced diffusion models interpret
+            your prompts and generate high-quality images.
+          </li>
+          <li>
+            <strong>Style Control:</strong> Fine-tune artistic style,
+            composition, lighting, and other parameters.
+          </li>
+          <li>
+            <strong>Video Generation:</strong> Creates animated sequences from
+            text descriptions or image inputs.
+          </li>
+          <li>
+            <strong>Iterative Refinement:</strong> Edit and improve generated
+            media through conversational feedback.
+          </li>
+        </ul>
+
+        <h2>Collaboration Features</h2>
+        <p>Munetios AI enables seamless collaboration between users and AI:</p>
+        <ul>
+          <li>
+            <strong>Shared Conversations:</strong> Invite team members to join
+            AI-assisted discussions.
+          </li>
+          <li>
+            <strong>Project Workspaces:</strong> Organize related chats, code,
+            and files in collaborative projects.
+          </li>
+          <li>
+            <strong>Real-Time Sync:</strong> All changes and AI responses are
+            synchronized across team members instantly.
+          </li>
+          <li>
+            <strong>Permission Controls:</strong> Manage access levels and
+            editing rights for different collaborators.
+          </li>
+        </ul>
+
+        <h2>My Bots - Custom AI</h2>
+        <p>Create personalized AI assistants tailored to specific tasks:</p>
+        <ul>
+          <li>
+            <strong>Custom Instructions:</strong> Define your bot's personality,
+            expertise, and behavior patterns.
+          </li>
+          <li>
+            <strong>Knowledge Base:</strong> Upload documents and data to give
+            your bot specialized knowledge.
+          </li>
+          <li>
+            <strong>Training:</strong> Fine-tune bot responses through examples
+            and feedback.
+          </li>
+          <li>
+            <strong>Sharing:</strong> Make your bots available to others or keep
+            them private.
+          </li>
+        </ul>
+
+        <h2>Connectors Integration</h2>
+        <p>Munetios AI can connect to external services and APIs:</p>
+        <ul>
+          <li>
+            <strong>Authentication:</strong> Secure OAuth integration with
+            popular platforms.
+          </li>
+          <li>
+            <strong>Data Access:</strong> Read and write data from connected
+            services with user permission.
+          </li>
+          <li>
+            <strong>Automation:</strong> Trigger actions across multiple
+            platforms based on AI insights.
+          </li>
+          <li>
+            <strong>Custom Connectors:</strong> Build your own integrations
+            using our connector SDK.
+          </li>
+        </ul>
+
+        <h2>Web Search Integration</h2>
+        <p>
+          When you enable web search, Munetios AI enhances its responses with
+          real-time information:
+        </p>
+        <ul>
+          <li>Queries multiple search engines simultaneously</li>
+          <li>Extracts and synthesizes relevant information</li>
+          <li>Cites sources and provides links for verification</li>
+          <li>Combines web data with AI reasoning for comprehensive answers</li>
+        </ul>
+
+        <h2>Privacy & Security</h2>
+        <p>
+          Munetios AI is privacy-focused and prioritizes user privacy and data
+          security:
+        </p>
+        <ul>
+          <li>
+            <strong>End-to-End Encryption:</strong> All chats are end-to-end
+            encrypted, ensuring that only you can read your conversations.
+          </li>
+          <li>
+            <strong>Privacy-First Architecture:</strong> Munetios does not send
+            AI prompts to Munetios servers unless you explicitly turn on the
+            "improve model" feature. Your conversations stay private by default.
+          </li>
+          <li>
+            <strong>Temporary Chats:</strong> Option to use ephemeral sessions
+            that don't save conversation history.
+          </li>
+          <li>
+            <strong>Data Control:</strong> You own your data and can export or
+            delete it at any time.
+          </li>
+          <li>
+            <strong>Model Privacy:</strong> Conversations are not used to train
+            models without your explicit consent through the "improve model"
+            setting.
+          </li>
+        </ul>
+
+        <h2>Continuous Learning</h2>
+        <p>Munetios AI evolves and improves over time:</p>
+        <ul>
+          <li>Regular model updates with improved capabilities</li>
+          <li>Integration of latest AI research and techniques</li>
+          <li>User feedback helps refine and enhance AI behavior</li>
+          <li>New features and models added based on user needs</li>
+        </ul>
+
+        <h2>Coming Soon</h2>
+        <p>
+          Munetios AI is currently in development. We're working hard to bring
+          you the best AI experience possible. Stay tuned for updates on our
+          official launch!
+        </p>
+      </content>
+    </munetios-app>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper"
+      id="languageDropdown"
+    >
+      <div class="dropdown-item">English</div>
+      <div class="dropdown-item">Spanish</div>
+      <div class="dropdown-item">French</div>
+      <div class="dropdown-item">German</div>
+      <div class="dropdown-item">Italian</div>
+      <div class="dropdown-item">Portuguese</div>
+      <div class="dropdown-item">Chinese</div>
+      <div class="dropdown-item">Japanese</div>
+      <div class="dropdown-item">Korean</div>
+      <div class="dropdown-item">Russian</div>
+      <div class="dropdown-item">Arabic</div>
+    </munetios-dropdown>
+    <script nonce="ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg">
+      // Theme toggle functionality
+      const themeToggleBtn = document.getElementById("themeToggleBtn");
+      let isDarkMode = localStorage.getItem("theme") === "light" ? false : true;
+
+      // Apply saved theme on load
+      if (!isDarkMode) {
+        document.body.style.background = "#f5f5f5";
+        document.body.style.color = "#222";
+        themeToggleBtn.textContent = "dark_mode";
+      } else {
+        document.body.style.background = "#222";
+        document.body.style.color = "white";
+        themeToggleBtn.textContent = "light_mode";
+      }
+
+      themeToggleBtn.addEventListener("click", () => {
+        isDarkMode = !isDarkMode;
+
+        if (isDarkMode) {
+          document.body.style.background = "#222";
+          document.body.style.color = "white";
+          themeToggleBtn.textContent = "light_mode";
+          localStorage.setItem("theme", "dark");
+        } else {
+          document.body.style.background = "#f5f5f5";
+          document.body.style.color = "#222";
+          themeToggleBtn.textContent = "dark_mode";
+          localStorage.setItem("theme", "light");
+        }
+      });
+
+      // Language translations
+      const translations = {
+        en: {
+          title: "How Munetios AI Works",
+          home: "Home",
+          documentation: "Documentation",
+          howItWorks: "How it Works",
+          models: "Models",
+          signIn: "Sign In",
+          heading: "How Munetios AI Works",
+          subheading:
+            "Discover the technology and architecture behind Munetios AI and how it delivers powerful AI capabilities to users worldwide.",
+        },
+        es: {
+          title: "Cómo Funciona Munetios AI",
+          home: "Inicio",
+          documentation: "Documentación",
+          howItWorks: "Cómo Funciona",
+          models: "Modelos",
+          signIn: "Iniciar Sesión",
+          heading: "Cómo Funciona Munetios AI",
+          subheading:
+            "Descubra la tecnología y arquitectura detrás de Munetios AI y cómo ofrece capacidades de IA potentes a usuarios de todo el mundo.",
+        },
+        fr: {
+          title: "Comment Fonctionne Munetios AI",
+          home: "Accueil",
+          documentation: "Documentation",
+          howItWorks: "Comment ça Marche",
+          models: "Modèles",
+          signIn: "Se Connecter",
+          heading: "Comment Fonctionne Munetios AI",
+          subheading:
+            "Découvrez la technologie et l'architecture derrière Munetios AI et comment il offre de puissantes capacités d'IA aux utilisateurs du monde entier.",
+        },
+        de: {
+          title: "Wie Munetios AI Funktioniert",
+          home: "Startseite",
+          documentation: "Dokumentation",
+          howItWorks: "Wie es Funktioniert",
+          models: "Modelle",
+          signIn: "Anmelden",
+          heading: "Wie Munetios AI Funktioniert",
+          subheading:
+            "Entdecken Sie die Technologie und Architektur hinter Munetios AI und wie es leistungsstarke KI-Funktionen für Benutzer weltweit bereitstellt.",
+        },
+        ar: {
+          title: "كيف يعمل Munetios AI",
+          home: "الرئيسية",
+          documentation: "التوثيق",
+          howItWorks: "كيف يعمل",
+          models: "النماذج",
+          signIn: "تسجيل الدخول",
+          heading: "كيف يعمل Munetios AI",
+          subheading:
+            "اكتشف التكنولوجيا والبنية التحتية وراء Munetios AI وكيف يقدم قدرات ذكاء اصطناعي قوية للمستخدمين في جميع أنحاء العالم.",
+        },
+        zh: {
+          title: "Munetios AI 工作原理",
+          home: "首页",
+          documentation: "文档",
+          howItWorks: "工作原理",
+          models: "模型",
+          signIn: "登录",
+          heading: "Munetios AI 工作原理",
+          subheading:
+            "了解 Munetios AI 背后的技术和架构，以及它如何为全球用户提供强大的 AI 功能。",
+        },
+        ja: {
+          title: "Munetios AI の仕組み",
+          home: "ホーム",
+          documentation: "ドキュメント",
+          howItWorks: "仕組み",
+          models: "モデル",
+          signIn: "サインイン",
+          heading: "Munetios AI の仕組み",
+          subheading:
+            "Munetios AI の背後にある技術とアーキテクチャ、そして世界中のユーザーに強力な AI 機能を提供する仕組みをご覧ください。",
+        },
+        ko: {
+          title: "Munetios AI 작동 방식",
+          home: "홈",
+          documentation: "문서",
+          howItWorks: "작동 방식",
+          models: "모델",
+          signIn: "로그인",
+          heading: "Munetios AI 작동 방식",
+          subheading:
+            "Munetios AI의 기술과 아키텍처, 그리고 전 세계 사용자에게 강력한 AI 기능을 제공하는 방법을 알아보세요.",
+        },
+        ru: {
+          title: "Как Работает Munetios AI",
+          home: "Главная",
+          documentation: "Документация",
+          howItWorks: "Как это Работает",
+          models: "Модели",
+          signIn: "Войти",
+          heading: "Как Работает Munetios AI",
+          subheading:
+            "Узнайте о технологии и архитектуре Munetios AI и о том, как он предоставляет мощные возможности ИИ пользователям по всему миру.",
+        },
+        it: {
+          title: "Come Funziona Munetios AI",
+          home: "Home",
+          documentation: "Documentazione",
+          howItWorks: "Come Funziona",
+          models: "Modelli",
+          signIn: "Accedi",
+          heading: "Come Funziona Munetios AI",
+          subheading:
+            "Scopri la tecnologia e l'architettura dietro Munetios AI e come fornisce potenti capacità di IA agli utenti in tutto il mondo.",
+        },
+        pt: {
+          title: "Como Funciona o Munetios AI",
+          home: "Início",
+          documentation: "Documentação",
+          howItWorks: "Como Funciona",
+          models: "Modelos",
+          signIn: "Entrar",
+          heading: "Como Funciona o Munetios AI",
+          subheading:
+            "Descubra a tecnologia e arquitetura por trás do Munetios AI e como ele oferece recursos poderosos de IA para usuários em todo o mundo.",
+        },
+      };
+
+      const languageMap = {
+        English: "en",
+        Spanish: "es",
+        French: "fr",
+        German: "de",
+        Italian: "it",
+        Portuguese: "pt",
+        Chinese: "zh",
+        Japanese: "ja",
+        Korean: "ko",
+        Russian: "ru",
+        Arabic: "ar",
+      };
+
+      let currentLanguage = "en";
+
+      function updatePageContent(lang) {
+        const trans = translations[lang] || translations.en;
+
+        // Update document title
+        document.title = trans.title;
+
+        // Update header
+        document.querySelector(".logo-text").textContent = trans.title;
+        document.querySelectorAll(".topbar-middle a")[0].textContent =
+          trans.home;
+        document.querySelectorAll(".topbar-middle a")[1].textContent =
+          trans.documentation;
+        document.querySelectorAll(".topbar-middle a")[2].textContent =
+          trans.howItWorks;
+        document.querySelectorAll(".topbar-middle a")[3].textContent =
+          trans.models;
+        document.getElementById("signInBtn").textContent = trans.signIn;
+
+        // Update content
+        const content = document.querySelector("content");
+        content.querySelector("h1").textContent = trans.heading;
+        content.querySelector("p").textContent = trans.subheading;
+
+        // Update text direction for Arabic
+        if (lang === "ar") {
+          document.body.setAttribute("dir", "rtl");
+          document.documentElement.setAttribute("dir", "rtl");
+        } else {
+          document.body.setAttribute("dir", "ltr");
+          document.documentElement.setAttribute("dir", "ltr");
+        }
+      }
+
+      // Dropdown functionality
+      const selectBtn = document.getElementById("selectLanguageBtn");
+      const dropdown = document.getElementById("languageDropdown");
+      const dropdownItems = document.querySelectorAll(".dropdown-item");
+
+      // Load saved language
+      const savedLanguage = localStorage.getItem("preferredLanguage");
+      if (savedLanguage && languageMap[savedLanguage]) {
+        currentLanguage = languageMap[savedLanguage];
+        selectBtn.querySelector(".btn-label").textContent = savedLanguage;
+        updatePageContent(currentLanguage);
+      }
+
+      selectBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdown.style.display =
+          dropdown.style.display === "flex" ? "none" : "flex";
+
+        // Position dropdown
+        const rect = selectBtn.getBoundingClientRect();
+        dropdown.style.position = "fixed";
+        dropdown.style.top = rect.bottom + 5 + "px";
+        dropdown.style.right = window.innerWidth - rect.right + "px";
+      });
+
+      dropdownItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          const selectedLang = item.textContent;
+          const langCode = languageMap[selectedLang];
+
+          selectBtn.querySelector(".btn-label").textContent = selectedLang;
+          currentLanguage = langCode;
+          updatePageContent(langCode);
+          localStorage.setItem("preferredLanguage", selectedLang);
+          dropdown.style.display = "none";
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target) && e.target !== selectBtn) {
+          dropdown.style.display = "none";
+        }
+      });
+
+      document
+        .getElementById("signInBtn")
+        .addEventListener("click", function () {
+          showToast("Munetios Accounts/Auth is Coming Soon. Stay tuned!");
+        });
+
+      function showToast(message, duration = 3000) {
+        const toast = document.createElement("div");
+        toast.textContent = message;
+        toast.classList.add("liquid-glass");
+        toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: white;
+                padding: 12px 24px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                animation: fadeIn 0.3s ease;
+            `;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.animation = "fadeOut 0.3s ease";
+          setTimeout(() => toast.remove(), 300);
+        }, duration);
+      }
+
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+      document.head.appendChild(style);
+
+      // Hamburger menu functionality
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      hamburgerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        mobileMenu.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!mobileMenu.contains(e.target) && e.target !== hamburgerBtn) {
+          mobileMenu.classList.remove("active");
+        }
+      });
+
+      // Close mobile menu when clicking a link
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+        });
+      });
+
+      // Generate random attribute name
+      const randomAttr =
+        "__ng-content-" + Math.random().toString(36).substring(2, 15);
+      document.getElementById("munetios-app").setAttribute(randomAttr, "");
+      document
+        .getElementById("munetios-app")
+        .removeAttribute("__ng-content-random");
+    </script>
+  </body>
+</html>

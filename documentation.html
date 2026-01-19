@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Munetios AI - Documentation</title>
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="shortcut icon" type="image/png" href="logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://api.munetios.com/beautiful-css/beautiful.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght,ROND@6..144,1..1000,80&display=swap"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'nonce-ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg'; style-src 'self' https://fonts.googleapis.com https://api.munetios.com 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com  data:; connect-src 'self';"
+    />
+    <style>
+      * {
+        font-family: "Google Sans Flex", sans-serif;
+        font-variation-settings:
+          "opsz" 14,
+          "wght" 400,
+          "ROND" 80;
+        box-sizing: border-box;
+        font-feature-settings:
+          "liga" 0,
+          "ss01" 1;
+      }
+      /* styles are different than the other one */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        color: white;
+        background: #222;
+        font-family: "Google Sans Flex", sans-serif;
+        font-variation-settings:
+          "opsz" 14,
+          "wght" 400,
+          "ROND" 80;
+        transition:
+          background 0.3s ease,
+          color 0.3s ease;
+      }
+      .topbar-header {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        backdrop-filter: blur(2px) saturate(190%) brightness(105%)
+          contrast(100%);
+        background-color: rgba(51, 51, 51, 0.01);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+      .logo-text {
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+      .topbar-container {
+        max-width: 1500px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 16px;
+        margin: 0 auto;
+      }
+      .top-left {
+        display: flex;
+        align-items: center;
+      }
+      .topbar-middle {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex: 1;
+      }
+      .topbar-middle a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .top-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+      }
+      .btn-label {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .select-btn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        backdrop-filter: none;
+        color: inherit;
+        border-radius: 999px;
+        transition: background 0.3s ease;
+      }
+      .select-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .btn {
+        border-radius: 999px;
+        padding: 8px 13px;
+        background: rgba(71, 17, 197, 0.685);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+      .btn:hover {
+        background: rgba(71, 17, 197, 0.85);
+      }
+      .dropdown-wrapper {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px;
+        border-radius: 20px;
+        z-index: 1001;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+      .dropdown-wrapper[style*="display: flex"] {
+        animation: dropdownOpen 0.3s ease forwards;
+      }
+      @keyframes dropdownOpen {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .dropdown-item {
+        padding: 8px 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        opacity: 0;
+        animation: dropdownItemFadeIn 0.3s ease forwards;
+      }
+      .dropdown-item:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .dropdown-item:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .dropdown-item:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .dropdown-item:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .dropdown-item:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .dropdown-item:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .dropdown-item:nth-child(7) {
+        animation-delay: 0.35s;
+      }
+      .dropdown-item:nth-child(8) {
+        animation-delay: 0.4s;
+      }
+      .dropdown-item:nth-child(9) {
+        animation-delay: 0.45s;
+      }
+      .dropdown-item:nth-child(10) {
+        animation-delay: 0.5s;
+      }
+      .dropdown-item:nth-child(11) {
+        animation-delay: 0.55s;
+      }
+      @keyframes dropdownItemFadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      content {
+        display: block;
+        padding: 20px;
+        max-width: 1500px;
+        margin: 10px auto;
+        position: relative;
+        top: 50px;
+      }
+      .hamburger-menu {
+        display: none;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+      .hamburger-menu:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(34, 34, 34, 0.01);
+        backdrop-filter: blur(2px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        z-index: 999;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .mobile-menu.active {
+        display: flex;
+      }
+      .mobile-menu a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 12px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+      .mobile-menu a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      @media (max-width: 768px) {
+        .topbar-container {
+          padding: 0;
+        }
+        .topbar-header {
+          padding: 0 4px;
+        }
+      }
+      @media (max-width: 1060px) {
+        .topbar-middle {
+          display: none;
+        }
+        .hamburger-menu {
+          display: block;
+        }
+      }
+      @media (max-width: 800px) {
+        .logo-text {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <munetios-app id="munetios-app" class="app-container" __ng-content-random>
+      <ai-header-documentation class="topbar-header" __ng-content-random>
+        <div class="topbar-container">
+          <div class="top-left">
+            <icon
+              class="material-symbols-rounded hamburger-menu"
+              id="hamburgerBtn"
+              >menu</icon
+            >
+            <div class="logo-text text-glow">Munetios AI Documentation</div>
+          </div>
+          <div class="topbar-middle">
+            <a href="index.html">Home</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="how-it-works.html">How it Works</a>
+            <a href="models.html">Models</a>
+          </div>
+          <div class="top-right">
+            <button class="select-btn cursor-pointer" id="selectLanguageBtn">
+              <div class="btn-label">English</div>
+              <icon class="material-symbols-rounded">expand_more</icon>
+            </button>
+            <icon
+              class="material-symbols-rounded cursor-pointer"
+              id="themeToggleBtn"
+              >light_mode</icon
+            >
+            <button class="btn cursor-pointer" id="signInBtn">Sign In</button>
+          </div>
+        </div>
+      </ai-header-documentation>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="documentation.html">Documentation</a>
+        <a href="how-it-works.html">How it Works</a>
+        <a href="models.html">Models</a>
+      </div>
+      <content>
+        <h1>Munetios AI Documentation</h1>
+        <p>
+          Explaining the features and usage of Munetios AI. Note: Munetios AI is
+          Coming Soon
+        </p>
+        <h2>Features</h2>
+        <ul>
+          <li>Code Apps With AI</li>
+          <li>Agent Mode</li>
+          <li>Image Creation</li>
+          <li>Video Creation</li>
+          <li>Invite Collaborators to Chat</li>
+          <li>Use Projects</li>
+          <li>Customizable UI</li>
+          <li>Use My Bots for making your own AI</li>
+          <li>Multi-language Support</li>
+          <li>Temporary Chat</li>
+          <li>Web Search</li>
+          <li>Use Connectors to Integrate with Other Services</li>
+        </ul>
+        <h2>Models</h2>
+        <ul>
+          <li>Munet 1.5</li>
+          <p>Initial model of Munet AI with basic capabilities in future.</p>
+          <li>Munet 2.0</li>
+          <p>Great at natural language understanding and generation.</p>
+          <li>Munet 2.0 Thinking</li>
+          <p>Enhanced reasoning capabilities for complex problem solving.</p>
+          <li>Munet 2.0 Pro</li>
+          <p>
+            Professional version with advanced features for developers and
+            businesses.
+          </p>
+          <li>Munet 2.0 Instant</li>
+          <p>Optimized for quick responses and real-time applications.</p>
+          <li>Munet 2.9 Advanced Coding</li>
+          <p>Super Great at advanced coding tasks and problem-solving.</p>
+          <li>Munet-Code 1.5</li>
+          <p>Initial model of Munet-Code with basic coding capabilities.</p>
+          <li>Munet-Code 2.0</li>
+          <p>
+            Great at generating and understanding code in multiple programming
+            languages.
+          </p>
+          <li>Munet-Code 2.1</li>
+          <p>Great at advanced coding tasks and problem-solving.</p>
+          <li>Munet-Code 2.1 Pro</li>
+          <p>
+            Professional version with advanced coding features for developers
+            and businesses.
+          </p>
+          <li>Munet-Code 2.1 Instant</li>
+          <p>
+            Optimized for quick coding responses and real-time applications.
+          </p>
+          <li>Munet-Code 2.1 Pro Higher</li>
+          <p>
+            The Greatest Coding Model that they can do everything functional and
+            better UI/UX.
+          </p>
+        </ul>
+        <h2>Usage</h2>
+        <p>
+          To use Munetios AI, select the desired model from the Models dropdown
+          menu, choose your preferred language, and interact with the AI through
+          the provided interface. You can create code, images, videos, and more
+          using the AI's capabilities. Note that Munetios AI is coming soon, so
+          some features may not be fully available yet.
+        </p>
+        <h2>How To Use</h2>
+        <ul>
+          <li>
+            To use and send a message, type your message in the input field and
+            press the "Send" Icon or hit Enter.
+          </li>
+          <li>
+            To create images, click on the "Image" Button under the input field.
+          </li>
+          <li>
+            To create videos, click on the "Video" Button under the input field.
+          </li>
+          <li>
+            To change the language, click on settings in sidebar bottom then
+            select your preferred language from the dropdown menu.
+          </li>
+          <li>
+            To invite collaborators to chat, click on the more icon in the chat
+            window and select "Invite Collaborators".
+          </li>
+          <li>
+            To use connectors to integrate with other services, click on the
+            "Connectors" button in the sidebar and follow the instructions to
+            link your accounts.
+          </li>
+          <li>
+            To use the web search feature, click on the "Web Search" button
+            under the input field.
+          </li>
+          <li>
+            To use the code generation feature, click on the code in sidebar
+            section, then click on the input field to enter your code prompt.
+          </li>
+          <li>
+            To preview a app in the Code Section, click on the code document
+            then click the "Preview" button on the top right.
+          </li>
+          <li>
+            To create a bot, click on the "My Bots" button in the sidebar then
+            click on the "Create Bot" button and follow the instructions.
+          </li>
+          <li>
+            To use agent mode, click on the "Agent Mode" button under the input
+            field.
+          </li>
+          <li>
+            To create a project, click on the "Projects" button in the sidebar
+            then click on the "Create Project" button and follow the
+            instructions.
+          </li>
+        </ul>
+        <h2>Troubleshooting FAQ</h2>
+        <p>
+          Q: I got the screen "Munetios AI needs a break, please give a moment."
+          What should I do?<br />
+          A: This message indicates that you may went too fast so you can solve
+          the CAPTCHA to continue using the AI.
+        </p>
+        <p>
+          Q: The AI is not responding or is very slow. What should I do?<br />
+          A: This could be due to high server load or network issues. Try
+          refreshing the page or checking your internet connection. If the
+          problem persists, please contact support.
+        </p>
+        <p>
+          Q: The AI is not responding or is very slow. What should I do?<br />
+          A: This could be due to high server load or network issues. Try
+          refreshing the page or checking your internet connection. If the
+          problem persists, please contact support.
+        </p>
+        <p>
+          Q: The AI is not returning the expected results. What should I do?<br />
+          A: Ensure that your input is clear and specific. If the issue
+          continues, try rephrasing your query or consult the documentation for
+          guidance on how to structure your prompts effectively.
+        </p>
+        <h2>Contact</h2>
+        <p>
+          For support or inquiries, please contact us at
+          <a href="mailto:minecraftgamer97529@gmail.com"
+            >minecraftgamer97529@gmail.com</a
+          >.
+        </p>
+      </content>
+    </munetios-app>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper"
+      id="languageDropdown"
+    >
+      <div class="dropdown-item">English</div>
+      <div class="dropdown-item">Spanish</div>
+      <div class="dropdown-item">French</div>
+      <div class="dropdown-item">German</div>
+      <div class="dropdown-item">Italian</div>
+      <div class="dropdown-item">Portuguese</div>
+      <div class="dropdown-item">Chinese</div>
+      <div class="dropdown-item">Japanese</div>
+      <div class="dropdown-item">Korean</div>
+      <div class="dropdown-item">Russian</div>
+      <div class="dropdown-item">Arabic</div>
+    </munetios-dropdown>
+    <script nonce="ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg">
+      // Theme toggle functionality
+      const themeToggleBtn = document.getElementById("themeToggleBtn");
+      let isDarkMode = localStorage.getItem("theme") === "light" ? false : true;
+
+      // Apply saved theme on load
+      if (!isDarkMode) {
+        document.body.style.background = "#f5f5f5";
+        document.body.style.color = "#222";
+        themeToggleBtn.textContent = "dark_mode";
+      } else {
+        document.body.style.background = "#222";
+        document.body.style.color = "white";
+        themeToggleBtn.textContent = "light_mode";
+      }
+
+      themeToggleBtn.addEventListener("click", () => {
+        isDarkMode = !isDarkMode;
+
+        if (isDarkMode) {
+          document.body.style.background = "#222";
+          document.body.style.color = "white";
+          themeToggleBtn.textContent = "light_mode";
+          localStorage.setItem("theme", "dark");
+        } else {
+          document.body.style.background = "#f5f5f5";
+          document.body.style.color = "#222";
+          themeToggleBtn.textContent = "dark_mode";
+          localStorage.setItem("theme", "light");
+        }
+      });
+      // Language translations
+      const translations = {
+        en: {
+          title: "Munetios AI Documentation",
+          home: "Home",
+          documentation: "Documentation",
+          howItWorks: "How it Works",
+          models: "Models",
+          signIn: "Sign In",
+          heading: "Munetios AI Documentation",
+          subheading:
+            "Explaining the features and usage of Munetios AI. Note: Munetios AI is Coming Soon",
+          features: "Features",
+          usage: "Usage",
+          howToUse: "How To Use",
+          troubleshooting: "Troubleshooting FAQ",
+          contact: "Contact",
+          contactText: "For support or inquiries, please contact us at",
+          featuresList: [
+            "Code Apps With AI",
+            "Agent Mode",
+            "Image Creation",
+            "Video Creation",
+            "Invite Collaborators to Chat",
+            "Use Projects",
+            "Customizable UI",
+            "Use My Bots for making your own AI",
+            "Multi-language Support",
+            "Temporary Chat",
+            "Web Search",
+            "Use Connectors to Integrate with Other Services",
+          ],
+        },
+        es: {
+          title: "Documentación de Munetios AI",
+          home: "Inicio",
+          documentation: "Documentación",
+          howItWorks: "Cómo Funciona",
+          models: "Modelos",
+          signIn: "Iniciar Sesión",
+          heading: "Documentación de Munetios AI",
+          subheading:
+            "Explicación de las características y uso de Munetios AI. Nota: Munetios AI estará disponible pronto",
+          features: "Características",
+          usage: "Uso",
+          howToUse: "Cómo Usar",
+          troubleshooting: "Preguntas Frecuentes",
+          contact: "Contacto",
+          contactText: "Para soporte o consultas, contáctenos en",
+          featuresList: [
+            "Codificar Aplicaciones con IA",
+            "Modo Agente",
+            "Creación de Imágenes",
+            "Creación de Videos",
+            "Invitar Colaboradores al Chat",
+            "Usar Proyectos",
+            "Interfaz Personalizable",
+            "Usar Mis Bots para crear tu propia IA",
+            "Soporte Multiidioma",
+            "Chat Temporal",
+            "Búsqueda Web",
+            "Usar Conectores para Integrar con Otros Servicios",
+          ],
+        },
+        fr: {
+          title: "Documentation Munetios AI",
+          home: "Accueil",
+          documentation: "Documentation",
+          howItWorks: "Comment ça Marche",
+          models: "Modèles",
+          signIn: "Se Connecter",
+          heading: "Documentation Munetios AI",
+          subheading:
+            "Explication des fonctionnalités et de l'utilisation de Munetios AI. Note: Munetios AI arrive bientôt",
+          features: "Fonctionnalités",
+          usage: "Utilisation",
+          howToUse: "Comment Utiliser",
+          troubleshooting: "FAQ de Dépannage",
+          contact: "Contact",
+          contactText: "Pour le support ou les demandes, contactez-nous à",
+          featuresList: [
+            "Coder des Applications avec l'IA",
+            "Mode Agent",
+            "Création d'Images",
+            "Création de Vidéos",
+            "Inviter des Collaborateurs au Chat",
+            "Utiliser des Projets",
+            "Interface Personnalisable",
+            "Utiliser Mes Bots pour créer votre propre IA",
+            "Support Multilingue",
+            "Chat Temporaire",
+            "Recherche Web",
+            "Utiliser des Connecteurs pour Intégrer avec d'Autres Services",
+          ],
+        },
+        de: {
+          title: "Munetios AI Dokumentation",
+          home: "Startseite",
+          documentation: "Dokumentation",
+          howItWorks: "Wie es Funktioniert",
+          models: "Modelle",
+          signIn: "Anmelden",
+          heading: "Munetios AI Dokumentation",
+          subheading:
+            "Erklärung der Funktionen und Verwendung von Munetios AI. Hinweis: Munetios AI kommt bald",
+          features: "Funktionen",
+          usage: "Verwendung",
+          howToUse: "Wie zu Verwenden",
+          troubleshooting: "Fehlerbehebung FAQ",
+          contact: "Kontakt",
+          contactText: "Für Support oder Anfragen kontaktieren Sie uns unter",
+          featuresList: [
+            "Apps mit KI Programmieren",
+            "Agentenmodus",
+            "Bilderstellung",
+            "Videoerstellung",
+            "Mitarbeiter zum Chat Einladen",
+            "Projekte Verwenden",
+            "Anpassbare Benutzeroberfläche",
+            "Meine Bots zum Erstellen Ihrer Eigenen KI Verwenden",
+            "Mehrsprachige Unterstützung",
+            "Temporärer Chat",
+            "Websuche",
+            "Konnektoren zum Integrieren mit Anderen Diensten Verwenden",
+          ],
+        },
+        ar: {
+          title: "وثائق Munetios AI",
+          home: "الرئيسية",
+          documentation: "التوثيق",
+          howItWorks: "كيف يعمل",
+          models: "النماذج",
+          signIn: "تسجيل الدخول",
+          heading: "وثائق Munetios AI",
+          subheading:
+            "شرح ميزات واستخدام Munetios AI. ملاحظة: Munetios AI قادم قريباً",
+          features: "الميزات",
+          usage: "الاستخدام",
+          howToUse: "كيفية الاستخدام",
+          troubleshooting: "الأسئلة الشائعة",
+          contact: "اتصل بنا",
+          contactText: "للدعم أو الاستفسارات، يرجى الاتصال بنا على",
+          featuresList: [
+            "برمجة التطبيقات بالذكاء الاصطناعي",
+            "وضع الوكيل",
+            "إنشاء الصور",
+            "إنشاء الفيديو",
+            "دعوة المتعاونين للدردشة",
+            "استخدام المشاريع",
+            "واجهة قابلة للتخصيص",
+            "استخدام الروبوتات الخاصة بي لإنشاء الذكاء الاصطناعي الخاص بك",
+            "دعم متعدد اللغات",
+            "دردشة مؤقتة",
+            "البحث على الويب",
+            "استخدام الموصلات للتكامل مع الخدمات الأخرى",
+          ],
+        },
+        zh: {
+          title: "Munetios AI 文档",
+          home: "首页",
+          documentation: "文档",
+          howItWorks: "工作原理",
+          models: "模型",
+          signIn: "登录",
+          heading: "Munetios AI 文档",
+          subheading:
+            "解释 Munetios AI 的功能和用法。注意：Munetios AI 即将推出",
+          features: "功能",
+          usage: "使用",
+          howToUse: "如何使用",
+          troubleshooting: "故障排除常见问题",
+          contact: "联系我们",
+          contactText: "如需支持或咨询，请通过以下方式联系我们",
+          featuresList: [
+            "使用AI编写应用程序",
+            "代理模式",
+            "图像创建",
+            "视频创建",
+            "邀请协作者聊天",
+            "使用项目",
+            "可自定义界面",
+            "使用我的机器人创建自己的AI",
+            "多语言支持",
+            "临时聊天",
+            "网络搜索",
+            "使用连接器与其他服务集成",
+          ],
+        },
+        ja: {
+          title: "Munetios AI ドキュメント",
+          home: "ホーム",
+          documentation: "ドキュメント",
+          howItWorks: "仕組み",
+          models: "モデル",
+          signIn: "サインイン",
+          heading: "Munetios AI ドキュメント",
+          subheading:
+            "Munetios AI の機能と使用方法の説明。注：Munetios AI は近日公開予定",
+          features: "機能",
+          usage: "使用方法",
+          howToUse: "使い方",
+          troubleshooting: "トラブルシューティング FAQ",
+          contact: "お問い合わせ",
+          contactText: "サポートまたはお問い合わせは、こちらまでご連絡ください",
+          featuresList: [
+            "AIでアプリをコーディング",
+            "エージェントモード",
+            "画像作成",
+            "動画作成",
+            "チャットに協力者を招待",
+            "プロジェクトを使用",
+            "カスタマイズ可能なUI",
+            "マイボットを使用して独自のAIを作成",
+            "多言語サポート",
+            "一時的なチャット",
+            "ウェブ検索",
+            "コネクタを使用して他のサービスと統合",
+          ],
+        },
+        ko: {
+          title: "Munetios AI 문서",
+          home: "홈",
+          documentation: "문서",
+          howItWorks: "작동 방식",
+          models: "모델",
+          signIn: "로그인",
+          heading: "Munetios AI 문서",
+          subheading:
+            "Munetios AI의 기능 및 사용법 설명. 참고: Munetios AI가 곧 출시됩니다",
+          features: "기능",
+          usage: "사용법",
+          howToUse: "사용 방법",
+          troubleshooting: "문제 해결 FAQ",
+          contact: "연락처",
+          contactText: "지원 또는 문의 사항은 다음으로 연락해 주세요",
+          featuresList: [
+            "AI로 앱 코딩",
+            "에이전트 모드",
+            "이미지 생성",
+            "비디오 생성",
+            "채팅에 협력자 초대",
+            "프로젝트 사용",
+            "사용자 정의 가능한 UI",
+            "내 봇을 사용하여 자신만의 AI 만들기",
+            "다국어 지원",
+            "임시 채팅",
+            "웹 검색",
+            "커넥터를 사용하여 다른 서비스와 통합",
+          ],
+        },
+        ru: {
+          title: "Документация Munetios AI",
+          home: "Главная",
+          documentation: "Документация",
+          howItWorks: "Как это Работает",
+          models: "Модели",
+          signIn: "Войти",
+          heading: "Документация Munetios AI",
+          subheading:
+            "Объяснение функций и использования Munetios AI. Примечание: Munetios AI скоро появится",
+          features: "Функции",
+          usage: "Использование",
+          howToUse: "Как Использовать",
+          troubleshooting: "Часто Задаваемые Вопросы",
+          contact: "Контакт",
+          contactText: "Для поддержки или запросов свяжитесь с нами по адресу",
+          featuresList: [
+            "Программирование приложений с помощью ИИ",
+            "Режим агента",
+            "Создание изображений",
+            "Создание видео",
+            "Приглашение соавторов в чат",
+            "Использование проектов",
+            "Настраиваемый интерфейс",
+            "Использование моих ботов для создания собственного ИИ",
+            "Многоязычная поддержка",
+            "Временный чат",
+            "Веб-поиск",
+            "Использование коннекторов для интеграции с другими сервисами",
+          ],
+        },
+        it: {
+          title: "Documentazione Munetios AI",
+          home: "Home",
+          documentation: "Documentazione",
+          howItWorks: "Come Funziona",
+          models: "Modelli",
+          signIn: "Accedi",
+          heading: "Documentazione Munetios AI",
+          subheading:
+            "Spiegazione delle funzionalità e dell'utilizzo di Munetios AI. Nota: Munetios AI arriverà presto",
+          features: "Funzionalità",
+          usage: "Utilizzo",
+          howToUse: "Come Utilizzare",
+          troubleshooting: "Domande Frequenti",
+          contact: "Contatto",
+          contactText: "Per supporto o richieste, contattaci all'indirizzo",
+          featuresList: [
+            "Programma App con l'IA",
+            "Modalità Agente",
+            "Creazione di Immagini",
+            "Creazione di Video",
+            "Invita Collaboratori alla Chat",
+            "Usa Progetti",
+            "Interfaccia Personalizzabile",
+            "Usa i Miei Bot per creare la tua IA",
+            "Supporto Multilingue",
+            "Chat Temporanea",
+            "Ricerca Web",
+            "Usa Connettori per Integrare con Altri Servizi",
+          ],
+        },
+        pt: {
+          title: "Documentação Munetios AI",
+          home: "Início",
+          documentation: "Documentação",
+          howItWorks: "Como Funciona",
+          models: "Modelos",
+          signIn: "Entrar",
+          heading: "Documentação Munetios AI",
+          subheading:
+            "Explicação dos recursos e uso do Munetios AI. Nota: Munetios AI em breve",
+          features: "Recursos",
+          usage: "Uso",
+          howToUse: "Como Usar",
+          troubleshooting: "Perguntas Frequentes",
+          contact: "Contato",
+          contactText: "Para suporte ou consultas, entre em contato conosco em",
+          featuresList: [
+            "Programar Aplicativos com IA",
+            "Modo Agente",
+            "Criação de Imagens",
+            "Criação de Vídeos",
+            "Convidar Colaboradores para o Chat",
+            "Usar Projetos",
+            "Interface Personalizável",
+            "Usar Meus Bots para criar sua própria IA",
+            "Suporte Multilíngue",
+            "Chat Temporário",
+            "Pesquisa na Web",
+            "Usar Conectores para Integrar com Outros Serviços",
+          ],
+        },
+      };
+
+      const languageMap = {
+        English: "en",
+        Spanish: "es",
+        French: "fr",
+        German: "de",
+        Italian: "it",
+        Portuguese: "pt",
+        Chinese: "zh",
+        Japanese: "ja",
+        Korean: "ko",
+        Russian: "ru",
+        Arabic: "ar",
+      };
+
+      let currentLanguage = "en";
+
+      function updatePageContent(lang) {
+        const trans = translations[lang] || translations.en;
+
+        // Update document title
+        document.title = trans.title;
+
+        // Update header
+        document.querySelector(".logo-text").textContent = trans.title;
+        document.querySelectorAll(".topbar-middle a")[0].textContent =
+          trans.home;
+        document.querySelectorAll(".topbar-middle a")[1].textContent =
+          trans.documentation;
+        document.querySelectorAll(".topbar-middle a")[2].textContent =
+          trans.howItWorks;
+        document.querySelectorAll(".topbar-middle a")[3].textContent =
+          trans.models;
+        document.getElementById("signInBtn").textContent = trans.signIn;
+
+        // Update content
+        const content = document.querySelector("content");
+        content.querySelector("h1").textContent = trans.heading;
+        content.querySelector("p").textContent = trans.subheading;
+
+        const h2Elements = content.querySelectorAll("h2");
+        h2Elements[0].textContent = trans.features;
+        h2Elements[1].textContent = trans.models;
+        h2Elements[2].textContent = trans.usage;
+        h2Elements[3].textContent = trans.howToUse;
+        h2Elements[4].textContent = trans.troubleshooting;
+        h2Elements[5].textContent = trans.contact;
+
+        // Update features list
+        const featureItems = content
+          .querySelectorAll("ul")[0]
+          .querySelectorAll("li");
+        trans.featuresList.forEach((feature, index) => {
+          if (featureItems[index]) {
+            featureItems[index].textContent = feature;
+          }
+        });
+
+        // Update contact text
+        const contactP =
+          content.querySelectorAll("p")[
+            content.querySelectorAll("p").length - 1
+          ];
+        contactP.innerHTML = `${trans.contactText} <a href="mailto:minecraftgamer97529@gmail.com">minecraftgamer97529@gmail.com</a>.`;
+
+        // Update text direction for Arabic
+        if (lang === "ar") {
+          document.body.setAttribute("dir", "rtl");
+          document.documentElement.setAttribute("dir", "rtl");
+        } else {
+          document.body.setAttribute("dir", "ltr");
+          document.documentElement.setAttribute("dir", "ltr");
+        }
+      }
+      // Dropdown functionality
+      const selectBtn = document.getElementById("selectLanguageBtn");
+      const dropdown = document.getElementById("languageDropdown");
+      const dropdownItems = document.querySelectorAll(".dropdown-item");
+
+      // Load saved language
+      const savedLanguage = localStorage.getItem("preferredLanguage");
+      if (savedLanguage && languageMap[savedLanguage]) {
+        currentLanguage = languageMap[savedLanguage];
+        selectBtn.querySelector(".btn-label").textContent = savedLanguage;
+        updatePageContent(currentLanguage);
+      }
+
+      selectBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdown.style.display =
+          dropdown.style.display === "flex" ? "none" : "flex";
+
+        // Position dropdown
+        const rect = selectBtn.getBoundingClientRect();
+        dropdown.style.position = "fixed";
+        dropdown.style.top = rect.bottom + 5 + "px";
+        dropdown.style.right = window.innerWidth - rect.right + "px";
+      });
+
+      dropdownItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          const selectedLang = item.textContent;
+          const langCode = languageMap[selectedLang];
+
+          selectBtn.querySelector(".btn-label").textContent = selectedLang;
+          currentLanguage = langCode;
+          updatePageContent(langCode);
+          localStorage.setItem("preferredLanguage", selectedLang);
+          dropdown.style.display = "none";
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target) && e.target !== selectBtn) {
+          dropdown.style.display = "none";
+        }
+      });
+
+      document
+        .getElementById("signInBtn")
+        .addEventListener("click", function () {
+          showToast("Munetios Accounts/Auth is Coming Soon. Stay tuned!");
+        });
+      function showToast(message, duration = 3000) {
+        const toast = document.createElement("div");
+        toast.textContent = message;
+        toast.classList.add("liquid-glass");
+        toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: white;
+                padding: 12px 24px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                animation: fadeIn 0.3s ease;
+            `;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.animation = "fadeOut 0.3s ease";
+          setTimeout(() => toast.remove(), 300);
+        }, duration);
+      }
+
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+      document.head.appendChild(style);
+      // Hamburger menu functionality
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      hamburgerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        mobileMenu.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!mobileMenu.contains(e.target) && e.target !== hamburgerBtn) {
+          mobileMenu.classList.remove("active");
+        }
+      });
+
+      // Close mobile menu when clicking a link
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+        });
+      });
+
+      // Generate random attribute name
+      const randomAttr =
+        "__ng-content-" + Math.random().toString(36).substring(2, 15);
+      document.getElementById("munetios-app").setAttribute(randomAttr, "");
+      document
+        .getElementById("munetios-app")
+        .removeAttribute("__ng-content-random");
+    </script>
+  </body>
+</html>
