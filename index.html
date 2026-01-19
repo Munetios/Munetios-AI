@@ -1,113 +1,842 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        * {
-            font-family: Lexend, Poppins, Arial, sans-serif;
-        }
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #280153 0%, #4e09ce 100%);
-            color: #fff;
-            height: 100vh;
-            min-height: 100vh;
-                
-        }
-        .btn {
-            background: rgba(255, 255, 255, 0.18);
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-            color: #fff;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 62px;
-            backdrop-filter: blur(2px) saturate(180%);
-            box-shadow: 0 8px 32px 0 rgba(46, 16, 101, 0.25);
-            transition: background 0.3s, box-shadow 0.3s, border 0.3s;
-        }
-        .btn:hover {
-            background: rgba(94, 9, 206, 0.28);
-            box-shadow: 0 12px 48px 0 rgba(94, 9, 206, 0.25);
-            border: 1.5px solid rgba(94, 9, 206, 0.35);
-        }
-        .btn-primary {
-            background: rgba(78, 9, 206, 0.32);
-            color: #fff;
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-        }
-        .btn-primary:hover {
-            background: rgba(55, 6, 163, 0.38);
-        }
-        .btn-secondary {
-            background: rgba(87, 42, 250, 0.28);
-            color: #fff;
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-        }
-        .btn-secondary:hover {
-            background: rgba(58, 27, 214, 0.36);
-        }
-        .container {
-            max-width: 5600px;
-            margin: 100px auto;
-            padding: 20px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-    </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Munetios AI - Coming Soon</title>
-    <link rel="icon" href="logo.png" type="image/x-icon">
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
-    <!-- Favicon 32x32 -->
-    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
-    <!-- Favicon 16x16 -->
-    <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
-    <!-- Manifest (optional, if you have one) -->
-    <!-- <link rel="manifest" href="site.webmanifest"> -->
-    <!-- Safari Pinned Tab -->
-    <link rel="mask-icon" href="logo.png" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="Munetios Team">
-    <meta name="brand" content="Munetios is a brand owned by Munetios Technologies">
-    <meta name="publisher" content="Munetios Technologies">
-    <meta name="copyright" content="&copy; 2025 Munetios Technologies. All rights reserved.">
-    <meta name="owner" content="Munetios Technologies">
-    <meta name="application-name" content="Munetios AI">
-    <meta name="description" content="Munetios AI is launching soon. Discover next-generation artificial intelligence solutions for businesses, developers, and innovators. Stay updated for news, features, and early access opportunities.">
-    <meta name="keywords" content="Munetios, AI, Artificial Intelligence, Machine Learning, Technology, SaaS, Innovation, Automation, Business Solutions, Developer Tools, 2025">
-    <meta name="robots" content="index, follow">
-    <meta name="trademark" content="Munetios™ is an unregistered trademark but note that I trademark and have some protection of Munetios Technologies">
-    <link rel="stylesheet" href="https://api.munetios.com/beautiful-css/beautiful.css">
-</head>
-<body>
-    <div class="container liquid-glass">
-        <h1>Munetios AI is Coming Soon</h1>
-        <p>Discover our next-generation of Munetios AI that is powerful and is great at solving complex problems.</p>
-        <p>It uses Liquid Glass Modern and beautiful design</p>
-        <p>Features:</p>
-        <ul>
-            <li>Advanced AI models: GYT 1.5, GYT 1.5 Mini, and more</li>
-            <li>Enhanced coding assistance and developer tools</li>
-            <li>Agent mode with intelligent browser automation</li>
-            <li>Real-time web browsing and smart search</li>
-            <li>Continuous updates and new features coming soon</li>
+    <!-- for Liquid-glass class, text-glow, .pulse, .cursor-pointer, .hidden, .frosted-glass -->
+    <link
+      rel="stylesheet"
+      href="https://api.munetios.com/beautiful-css/beautiful.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'nonce-ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg'; style-src 'self' https://fonts.googleapis.com https://api.munetios.com 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com  data:; connect-src 'self';"
+    />
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="shortcut icon" type="image/png" href="logo.png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght,ROND@6..144,1..1000,80&display=swap");
+      /* Firefox */
+      * {
+        scrollbar-width: thin;
+      }
+      icon {
+        font-family: "Material Symbols Rounded" !important;
+      }
+      * {
+        font-family: "Google Sans Flex", sans-serif;
+        font-variation-settings:
+          "opsz" 14,
+          "wght" 400,
+          "ROND" 80;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        color: white;
+        background: linear-gradient(135deg, rgb(14, 0, 51), #09031a);
+      }
+      /* Scrollbar width */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      /* Transparent track */
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      /* Thumb (the draggable part) */
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 999px;
+        backdrop-filter: blur(5px);
+      }
+
+      /* Hover effect */
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+      .logo-text {
+        font-size: 24px;
+        font-weight: 700;
+        font-feature-settings:
+          "liga" 0,
+          "ss01" 1;
+      }
+      .ai__header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 7px 10px;
+        gap: 4px;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        height: 60px;
+        left: 0;
+        z-index: 1000;
+      }
+      .logo__container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 2px 8px;
+      }
+      .logo-img {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+      .liquid-glass {
+        /* Rendered by beautiful.css */
+      }
+      .top_right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+      }
+      .btn-label {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .select-btn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        backdrop-filter: none;
+        color: white;
+        border-radius: 999px;
+        transition: background 0.3s ease;
+      }
+      .select-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .dropdown-wrapper {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px;
+        border-radius: 20px;
+        z-index: 1001;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+      .dropdown-wrapper[style*="display: flex"] {
+        animation: dropdownOpen 0.3s ease forwards;
+      }
+      @keyframes dropdownOpen {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .dropdown-item {
+        padding: 8px 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        opacity: 0;
+        animation: dropdownItemFadeIn 0.3s ease forwards;
+      }
+      .dropdown-item:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .dropdown-item:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .dropdown-item:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .dropdown-item:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .dropdown-item:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .dropdown-item:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .dropdown-item:nth-child(7) {
+        animation-delay: 0.35s;
+      }
+      .dropdown-item:nth-child(8) {
+        animation-delay: 0.4s;
+      }
+      .dropdown-item:nth-child(9) {
+        animation-delay: 0.45s;
+      }
+      .dropdown-item:nth-child(10) {
+        animation-delay: 0.5s;
+      }
+      .dropdown-item:nth-child(11) {
+        animation-delay: 0.55s;
+      }
+      @keyframes dropdownItemFadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .all_link a {
+        margin-right: 10px;
+      }
+      content {
+        display: block;
+        padding: 20px;
+        border-radius: 20px;
+        max-width: 800px;
+        margin: 0px auto;
+        position: relative;
+        top: 80px;
+        text-align: center;
+      }
+      .subtitle {
+        font-size: 18px;
+        font-weight: 400;
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+      .features {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .features li {
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+      .note {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+      .status {
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      @media (max-width: 900px) {
+        .ai__header-container {
+          padding: 7px 4px;
+        }
+      }
+      @media (max-width: 768px) {
+        .all_link {
+          display: none;
+        }
+      }
+      @media (max-width: 400px) {
+        .logo-text {
+          display: none;
+        }
+      }
+      @media (max-width: 768px) {
+        content {
+          padding: 15px;
+          top: 70px;
+          max-width: 90%;
+        }
+        content h1 {
+          font-size: 24px;
+        }
+        .subtitle {
+          font-size: 16px;
+        }
+        .features li {
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        content {
+          padding: 12px;
+          top: 70px;
+          max-width: 95%;
+        }
+        content h1 {
+          font-size: 20px;
+        }
+        .subtitle {
+          font-size: 14px;
+        }
+        .features li {
+          font-size: 13px;
+          margin-bottom: 8px;
+        }
+        .note {
+          font-size: 12px;
+        }
+        .status {
+          font-size: 14px;
+        }
+      }
+      .munetios-footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 20px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        top: 80px;
+        position: relative;
+      }
+      .munetios-footer p {
+        margin: 0;
+      }
+      .munetios-footer a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .munetios-footer a:hover {
+        color: rgba(255, 255, 255, 1);
+      }
+    </style>
+  </head>
+  <body>
+    <munetios-app id="app" class="app-container" __ng-content-random>
+      <munetios-ai-header class="ai__header-container" __ng-content-random>
+        <div class="logo__container liquid-glass">
+          <img src="logo.png" alt="Munetios AI Logo" class="logo-img" />
+          <span class="logo-text text-glow">Munetios AI</span>
+        </div>
+        <div class="top_right liquid-glass">
+          <nav class="all_link">
+            <a href="how-it-works.html">How it works</a>
+            <a href="models.html">Models</a>
+            <a href="documentation.html">Documentation</a>
+          </nav>
+          <button class="select-btn cursor-pointer" id="selectLanguageBtn">
+            <div class="btn-label">English</div>
+            <icon class="material-symbols-rounded">expand_more</icon>
+          </button>
+        </div>
+      </munetios-ai-header>
+      <content class="liquid-glass" __ng-content-random>
+        <h1>Munetios AI is coming soon!</h1>
+
+        <p class="subtitle">
+          A privacy-first AI designed for learning, productivity, and everyday
+          help.
+        </p>
+
+        <ul class="features">
+          <li>🧠 Local-first memory (no profiling)</li>
+          <li>🔐 Optional end-to-end encrypted sync</li>
+          <li>🎓 School Mode with strict safety limits</li>
+          <li>🚫 No ads, no tracking, no data selling</li>
+          <li>🧊 Clean Liquid-Glass interface</li>
         </ul>
-        <p>Stay tuned for our launch date and be the first to experience the future of AI with Munetios!</p>
-        <a href="https://munetios.com" class="btn btn-primary">Visit Munetios.com</a>
-        <a href="https://mail.google.com/mail/?view=cm&to=minecraftgamer97529@gmail.com" target="_self" rel="noopener" class="btn btn-secondary">Contact Us (Gmail)</a>
-    </div>
-</body>
+
+        <p class="note">
+          School Mode disables memory and advanced features to protect students
+          and shared devices.
+        </p>
+
+        <span class="status">Coming Soon</span>
+      </content>
+      <footer class="munetios-footer" __ng-content-random>
+        <p>2026 Munetios. Open Source.</p>
+        <a href="https://www.munetios.com/about">About</a>
+        <a href="https://www.munetios.com/policies/#/terms">Terms</a>
+        <a href="https://www.munetios.com/policies/#/privacy">Privacy</a>
+        <a href="documentation.html">Documentation</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="models.html">Models</a>
+      </footer>
+    </munetios-app>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper"
+      id="languageDropdown"
+    >
+      <div class="dropdown-item">English</div>
+      <div class="dropdown-item">Spanish</div>
+      <div class="dropdown-item">French</div>
+      <div class="dropdown-item">German</div>
+      <div class="dropdown-item">Italian</div>
+      <div class="dropdown-item">Portuguese</div>
+      <div class="dropdown-item">Chinese</div>
+      <div class="dropdown-item">Japanese</div>
+      <div class="dropdown-item">Korean</div>
+      <div class="dropdown-item">Russian</div>
+      <div class="dropdown-item">Arabic</div>
+    </munetios-dropdown>
+    <script nonce="ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg">
+      // Translations object
+      const translations = {
+        en: {
+          title: "Munetios AI is coming soon!",
+          subtitle:
+            "A privacy-first AI designed for learning, productivity, and everyday help.",
+          features: [
+            "🧠 Local-first memory (no profiling)",
+            "🔐 Optional end-to-end encrypted sync",
+            "🎓 School Mode with strict safety limits",
+            "🚫 No ads, no tracking, no data selling",
+            "🧊 Clean Liquid-Glass interface",
+          ],
+          note: "School Mode disables memory and advanced features to protect students and shared devices.",
+          status: "Coming Soon",
+          navLinks: {
+            howItWorks: "How it works",
+            models: "Models",
+            documentation: "Documentation",
+          },
+          footer: {
+            copyright: "2026 Munetios. Open Source.",
+            about: "About",
+            terms: "Terms",
+            privacy: "Privacy",
+            documentation: "Documentation",
+            howItWorks: "How it works",
+            aiPrivacy: "AI Privacy",
+            models: "Models",
+          },
+        },
+        es: {
+          title: "¡Munetios AI llegará pronto!",
+          subtitle:
+            "Una IA que prioriza la privacidad, diseñada para el aprendizaje, la productividad y la ayuda diaria.",
+          features: [
+            "🧠 Memoria local primero (sin perfiles)",
+            "🔐 Sincronización cifrada de extremo a extremo opcional",
+            "🎓 Modo Escolar con límites de seguridad estrictos",
+            "🚫 Sin anuncios, sin seguimiento, sin venta de datos",
+            "🧊 Interfaz limpia de vidrio líquido",
+          ],
+          note: "El Modo Escolar deshabilita la memoria y las funciones avanzadas para proteger a los estudiantes y los dispositivos compartidos.",
+          status: "Próximamente",
+          navLinks: {
+            howItWorks: "Cómo funciona",
+            models: "Modelos",
+            documentation: "Documentación",
+          },
+          footer: {
+            copyright: "2026 Munetios. Código abierto.",
+            about: "Acerca de",
+            terms: "Términos",
+            privacy: "Privacidad",
+            documentation: "Documentación",
+            howItWorks: "Cómo funciona",
+            aiPrivacy: "Privacidad de IA",
+            models: "Modelos",
+          },
+        },
+        fr: {
+          title: "Munetios AI arrive bientôt !",
+          subtitle:
+            "Une IA axée sur la confidentialité conçue pour l'apprentissage, la productivité et l'aide quotidienne.",
+          features: [
+            "🧠 Mémoire locale d'abord (pas de profilage)",
+            "🔐 Synchronisation chiffrée de bout en bout optionnelle",
+            "🎓 Mode Scolaire avec limites de sécurité strictes",
+            "🚫 Pas de publicités, pas de suivi, pas de vente de données",
+            "🧊 Interface verre liquide propre",
+          ],
+          note: "Le Mode Scolaire désactive la mémoire et les fonctionnalités avancées pour protéger les élèves et les appareils partagés.",
+          status: "Bientôt disponible",
+          navLinks: {
+            howItWorks: "Comment ça marche",
+            models: "Modèles",
+            documentation: "Documentation",
+          },
+          footer: {
+            copyright: "2026 Munetios. Open Source.",
+            about: "À propos",
+            terms: "Conditions",
+            privacy: "Confidentialité",
+            documentation: "Documentation",
+            howItWorks: "Comment ça marche",
+            aiPrivacy: "Confidentialité IA",
+            models: "Modèles",
+          },
+        },
+        de: {
+          title: "Munetios AI kommt bald!",
+          subtitle:
+            "Eine datenschutzorientierte KI für Lernen, Produktivität und alltägliche Hilfe.",
+          features: [
+            "🧠 Lokaler Speicher zuerst (kein Profiling)",
+            "🔐 Optionale Ende-zu-Ende-verschlüsselte Synchronisierung",
+            "🎓 Schulmodus mit strengen Sicherheitsgrenzen",
+            "🚫 Keine Werbung, kein Tracking, kein Datenverkauf",
+            "🧊 Saubere Flüssigglas-Oberfläche",
+          ],
+          note: "Der Schulmodus deaktiviert Speicher und erweiterte Funktionen zum Schutz von Schülern und gemeinsam genutzten Geräten.",
+          status: "Demnächst verfügbar",
+          navLinks: {
+            howItWorks: "Wie es funktioniert",
+            models: "Modelle",
+            documentation: "Dokumentation",
+          },
+          footer: {
+            copyright: "2026 Munetios. Open Source.",
+            about: "Über",
+            terms: "Bedingungen",
+            privacy: "Datenschutz",
+            documentation: "Dokumentation",
+            howItWorks: "Wie es funktioniert",
+            aiPrivacy: "KI-Datenschutz",
+            models: "Modelle",
+          },
+        },
+        it: {
+          title: "Munetios AI arriva presto!",
+          subtitle:
+            "Un'IA incentrata sulla privacy progettata per l'apprendimento, la produttività e l'aiuto quotidiano.",
+          features: [
+            "🧠 Memoria locale prima (nessun profiling)",
+            "🔐 Sincronizzazione crittografata end-to-end opzionale",
+            "🎓 Modalità Scuola con limiti di sicurezza rigorosi",
+            "🚫 Nessuna pubblicità, nessun tracciamento, nessuna vendita di dati",
+            "🧊 Interfaccia vetro liquido pulita",
+          ],
+          note: "La Modalità Scuola disabilita la memoria e le funzionalità avanzate per proteggere studenti e dispositivi condivisi.",
+          status: "Prossimamente",
+          navLinks: {
+            howItWorks: "Come funziona",
+            models: "Modelli",
+            documentation: "Documentazione",
+          },
+          footer: {
+            copyright: "2026 Munetios. Open Source.",
+            about: "Chi siamo",
+            terms: "Termini",
+            privacy: "Privacy",
+            documentation: "Documentazione",
+            howItWorks: "Come funziona",
+            aiPrivacy: "Privacy IA",
+            models: "Modelli",
+          },
+        },
+        pt: {
+          title: "Munetios AI em breve!",
+          subtitle:
+            "Uma IA que prioriza a privacidade, projetada para aprendizado, produtividade e ajuda diária.",
+          features: [
+            "🧠 Memória local primeiro (sem criação de perfis)",
+            "🔐 Sincronização criptografada de ponta a ponta opcional",
+            "🎓 Modo Escola com limites de segurança rigorosos",
+            "🚫 Sem anúncios, sem rastreamento, sem venda de dados",
+            "🧊 Interface de vidro líquido limpa",
+          ],
+          note: "O Modo Escola desabilita a memória e recursos avançados para proteger estudantes e dispositivos compartilhados.",
+          status: "Em breve",
+          navLinks: {
+            howItWorks: "Como funciona",
+            models: "Modelos",
+            documentation: "Documentação",
+          },
+          footer: {
+            copyright: "2026 Munetios. Código aberto.",
+            about: "Sobre",
+            terms: "Termos",
+            privacy: "Privacidade",
+            documentation: "Documentação",
+            howItWorks: "Como funciona",
+            aiPrivacy: "Privacidade IA",
+            models: "Modelos",
+          },
+        },
+        zh: {
+          title: "Munetios AI 即将推出！",
+          subtitle: "专为学习、生产力和日常帮助而设计的隐私优先AI。",
+          features: [
+            "🧠 本地优先内存（无分析）",
+            "🔐 可选的端到端加密同步",
+            "🎓 具有严格安全限制的学校模式",
+            "🚫 无广告、无跟踪、不出售数据",
+            "🧊 简洁的液态玻璃界面",
+          ],
+          note: "学校模式禁用内存和高级功能，以保护学生和共享设备。",
+          status: "即将推出",
+          navLinks: {
+            howItWorks: "工作原理",
+            models: "模型",
+            documentation: "文档",
+          },
+          footer: {
+            copyright: "2026 Munetios. 开源。",
+            about: "关于",
+            terms: "条款",
+            privacy: "隐私",
+            documentation: "文档",
+            howItWorks: "工作原理",
+            aiPrivacy: "AI隐私",
+            models: "模型",
+          },
+        },
+        ja: {
+          title: "Munetios AI まもなく登場！",
+          subtitle:
+            "学習、生産性、日常的な支援のために設計されたプライバシー優先のAI。",
+          features: [
+            "🧠 ローカルファーストメモリ（プロファイリングなし）",
+            "🔐 オプションのエンドツーエンド暗号化同期",
+            "🎓 厳格な安全制限を持つスクールモード",
+            "🚫 広告なし、追跡なし、データ販売なし",
+            "🧊 クリーンなリキッドグラスインターフェース",
+          ],
+          note: "スクールモードは、学生と共有デバイスを保護するためにメモリと高度な機能を無効にします。",
+          status: "近日公開",
+          navLinks: {
+            howItWorks: "仕組み",
+            models: "モデル",
+            documentation: "ドキュメント",
+          },
+          footer: {
+            copyright: "2026 Munetios. オープンソース。",
+            about: "について",
+            terms: "利用規約",
+            privacy: "プライバシー",
+            documentation: "ドキュメント",
+            howItWorks: "仕組み",
+            aiPrivacy: "AIプライバシー",
+            models: "モデル",
+          },
+        },
+        ko: {
+          title: "Munetios AI 곧 출시됩니다!",
+          subtitle:
+            "학습, 생산성 및 일상적인 도움을 위해 설계된 개인정보 보호 우선 AI.",
+          features: [
+            "🧠 로컬 우선 메모리 (프로파일링 없음)",
+            "🔐 선택적 종단간 암호화 동기화",
+            "🎓 엄격한 안전 제한이 있는 학교 모드",
+            "🚫 광고 없음, 추적 없음, 데이터 판매 없음",
+            "🧊 깨끗한 리퀴드 글래스 인터페이스",
+          ],
+          note: "학교 모드는 학생과 공유 기기를 보호하기 위해 메모리와 고급 기능을 비활성화합니다.",
+          status: "곧 출시",
+          navLinks: {
+            howItWorks: "작동 방식",
+            models: "모델",
+            documentation: "문서",
+          },
+          footer: {
+            copyright: "2026 Munetios. 오픈 소스.",
+            about: "소개",
+            terms: "약관",
+            privacy: "개인정보 보호",
+            documentation: "문서",
+            howItWorks: "작동 방식",
+            aiPrivacy: "AI 개인정보 보호",
+            models: "모델",
+          },
+        },
+        ru: {
+          title: "Munetios AI скоро появится!",
+          subtitle:
+            "ИИ, ориентированный на конфиденциальность, созданный для обучения, продуктивности и повседневной помощи.",
+          features: [
+            "🧠 Локальная память в приоритете (без профилирования)",
+            "🔐 Опциональная сквозная зашифрованная синхронизация",
+            "🎓 Школьный режим со строгими ограничениями безопасности",
+            "🚫 Без рекламы, без отслеживания, без продажи данных",
+            "🧊 Чистый интерфейс из жидкого стекла",
+          ],
+          note: "Школьный режим отключает память и расширенные функции для защиты учащихся и общих устройств.",
+          status: "Скоро",
+          navLinks: {
+            howItWorks: "Как это работает",
+            models: "Модели",
+            documentation: "Документация",
+          },
+          footer: {
+            copyright: "2026 Munetios. С открытым исходным кодом.",
+            about: "О нас",
+            terms: "Условия",
+            privacy: "Конфиденциальность",
+            documentation: "Документация",
+            howItWorks: "Как это работает",
+            aiPrivacy: "Конфиденциальность ИИ",
+            models: "Модели",
+          },
+        },
+        ar: {
+          title: "Munetios AI قريبًا!",
+          subtitle:
+            "ذكاء اصطناعي يعطي الأولوية للخصوصية مصمم للتعلم والإنتاجية والمساعدة اليومية.",
+          features: [
+            "🧠 الذاكرة المحلية أولاً (بدون تحليل)",
+            "🔐 مزامنة مشفرة من طرف إلى طرف اختيارية",
+            "🎓 وضع المدرسة بحدود أمان صارمة",
+            "🚫 بدون إعلانات، بدون تتبع، بدون بيع بيانات",
+            "🧊 واجهة زجاج سائل نظيفة",
+          ],
+          note: "يعطل وضع المدرسة الذاكرة والميزات المتقدمة لحماية الطلاب والأجهزة المشتركة.",
+          status: "قريباً",
+          navLinks: {
+            howItWorks: "كيف يعمل",
+            models: "النماذج",
+            documentation: "التوثيق",
+          },
+          footer: {
+            copyright: "2026 Munetios. مفتوح المصدر.",
+            about: "حول",
+            terms: "الشروط",
+            privacy: "الخصوصية",
+            documentation: "التوثيق",
+            howItWorks: "كيف يعمل",
+            aiPrivacy: "خصوصية الذكاء الاصطناعي",
+            models: "النماذج",
+          },
+        },
+      };
+
+      const languageMap = {
+        English: "en",
+        Spanish: "es",
+        French: "fr",
+        German: "de",
+        Italian: "it",
+        Portuguese: "pt",
+        Chinese: "zh",
+        Japanese: "ja",
+        Korean: "ko",
+        Russian: "ru",
+        Arabic: "ar",
+      };
+
+      let currentLanguage = "en";
+
+      // Update page content
+      function updatePageContent(lang) {
+        const t = translations[lang];
+
+        document.querySelector("content h1").textContent = t.title;
+        document.querySelector(".subtitle").textContent = t.subtitle;
+
+        const featuresList = document.querySelector(".features");
+        featuresList.innerHTML = t.features
+          .map((f) => `<li>${f}</li>`)
+          .join("");
+
+        document.querySelector(".note").textContent = t.note;
+        document.querySelector(".status").textContent = t.status;
+
+        // Update nav links
+        const navLinks = document.querySelectorAll(".all_link a");
+        navLinks[0].textContent = t.navLinks.howItWorks;
+        navLinks[1].textContent = t.navLinks.models;
+        navLinks[2].textContent = t.navLinks.documentation;
+
+        // Update footer
+        const footer = document.querySelector(".munetios-footer");
+        const footerLinks = footer.querySelectorAll("a");
+        footer.querySelector("p").textContent = t.footer.copyright;
+        footerLinks[0].textContent = t.footer.about;
+        footerLinks[1].textContent = t.footer.terms;
+        footerLinks[2].textContent = t.footer.privacy;
+        footerLinks[3].textContent = t.footer.documentation;
+        footerLinks[4].textContent = t.footer.howItWorks;
+        footerLinks[5].textContent = t.footer.aiPrivacy;
+        footerLinks[6].textContent = t.footer.models;
+      }
+
+      // Dropdown functionality
+      const selectBtn = document.getElementById("selectLanguageBtn");
+      const dropdown = document.getElementById("languageDropdown");
+      const dropdownItems = document.querySelectorAll(".dropdown-item");
+
+      selectBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdown.style.display =
+          dropdown.style.display === "flex" ? "none" : "flex";
+
+        // Position dropdown
+        const rect = selectBtn.getBoundingClientRect();
+        dropdown.style.position = "fixed";
+        dropdown.style.top = rect.bottom + 5 + "px";
+        dropdown.style.right = window.innerWidth - rect.right + "px";
+      });
+
+      dropdownItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          const selectedLang = item.textContent;
+          const langCode = languageMap[selectedLang];
+
+          selectBtn.querySelector(".btn-label").textContent = selectedLang;
+          currentLanguage = langCode;
+          updatePageContent(langCode);
+          localStorage.setItem("preferredLanguage", selectedLang);
+          dropdown.style.display = "none";
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target) && e.target !== selectBtn) {
+          dropdown.style.display = "none";
+        }
+      });
+
+      // Handle RTL for Arabic
+      if (currentLanguage === "ar") {
+        document.documentElement.setAttribute("dir", "rtl");
+      } else {
+        document.documentElement.setAttribute("dir", "ltr");
+      }
+
+      // Load saved language from localStorage
+      const savedLanguage = localStorage.getItem("preferredLanguage");
+      if (savedLanguage && languageMap[savedLanguage]) {
+        currentLanguage = languageMap[savedLanguage];
+        selectBtn.querySelector(".btn-label").textContent = savedLanguage;
+        updatePageContent(currentLanguage);
+        if (currentLanguage === "ar") {
+          document.documentElement.setAttribute("dir", "rtl");
+        }
+      }
+      // Generate random attribute name
+      const randomAttr =
+        "__ng-content-" + Math.random().toString(36).substring(2, 15);
+      document.getElementById("app").setAttribute(randomAttr, "");
+      document.getElementById("app").removeAttribute("__ng-content-random");
+    </script>
+  </body>
 </html>
