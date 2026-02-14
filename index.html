@@ -11,7 +11,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded&display=swap"
     />
     <meta
       http-equiv="Content-Security-Policy"
@@ -68,66 +68,16 @@
       ::-webkit-scrollbar-thumb:hover {
         background: rgba(255, 255, 255, 0.4);
       }
-      .logo-text {
-        font-size: 24px;
-        font-weight: 700;
-        font-feature-settings:
-          "liga" 0,
-          "ss01" 1;
-      }
-      .ai__header-container {
+
+      munetios-app {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 7px 10px;
-        gap: 4px;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        height: 60px;
-        left: 0;
-        z-index: 1000;
+        height: 100vh;
       }
-      .logo__container {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 2px 8px;
-      }
-      .logo-img {
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-      }
+
       .liquid-glass {
         /* Rendered by beautiful.css */
       }
-      .top_right {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 10px;
-      }
-      .btn-label {
-        font-size: 14px;
-        font-weight: 500;
-      }
-      .select-btn {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        padding: 4px 8px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        backdrop-filter: none;
-        color: white;
-        border-radius: 999px;
-        transition: background 0.3s ease;
-      }
-      .select-btn:hover {
-        background: rgba(255, 255, 255, 0.1);
-      }
+
       .dropdown-wrapper {
         position: absolute;
         top: 100%;
@@ -137,7 +87,7 @@
         gap: 4px;
         padding: 10px;
         border-radius: 20px;
-        z-index: 1001;
+        z-index: 3001;
         opacity: 0;
         transform: translateY(-10px);
         transition:
@@ -222,173 +172,765 @@
       .all_link a {
         margin-right: 10px;
       }
-      content {
-        display: block;
+      .logo-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      munetios-ai-sidenav {
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+        margin-top: 10px;
+        box-sizing: border-box;
+        width: calc(100% - 280px);
+        overflow-y: auto;
+        transition: width 0.3s ease, margin-left 0.3s ease;
+      }
+      munetios-ai-sidenav.sidebar-collapsed {
+        width: calc(100% - 60px);
+      }
+      .menu-btn {
+        padding: 16px 16px;
+        width: 55px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        height: 55px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        height: 60px;
+        width: 100%;
+      }
+      .topbar-right {
+        margin-left: auto;
+        margin-right: 10px;
+        display: flex;
+        padding: 16px 16px;
+        height: 55px;
+        align-items: center;
+        gap: 10px;
+      }
+      .topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+           .btn {
+        border-radius: 999px;
+        padding: 8px 13px;
+        background: rgba(71, 17, 197, 0.685);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+      .btn:hover {
+        background: rgba(71, 17, 197, 0.85);
+      }
+      .menu-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      munetios-ai-sidebar {
+        width: 280px;
+        height: calc(100vh - 60px);
+        transition: width 0.3s ease;
+      }
+      munetios-ai-sidebar.collapsed {
+        width: 60px;
+      }
+      .sidebar {
+        width: 280px;
+        border-radius: 20px;
+        height: 100vh;
+        position: fixed;
+        overflow-y: auto;
+        scrollbar-width: none;
+        left: 0;
+        transition: width 0.3s ease, left 0.3s ease;
+      }
+      .sidebar.collapsed {
+        width: 60px;
+      }
+      .sidebar.collapsed .menu-text,
+      .sidebar.collapsed .logo-text,
+      .sidebar.collapsed .sidebar-content h3,
+      .sidebar.collapsed .sidebar-content h4,
+      .sidebar.collapsed .sidebar-content p {
+        display: none;
+      }
+      .sidebar.collapsed .sidebar-item {
+        justify-content: center;
+      }
+      .sidebar.collapsed .sidebar-header-left {
+        justify-content: center;
+      }
+      .sidebar.collapsed .logo-img {
+        margin-left: -7px;
+      }
+      .sidebar__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        background: transparent;
+      }
+      .sidebar-header-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .sidebar-header-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .sidebar-header-right icon {
+        font-size: 28px;
+        color: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .sidebar-header-right icon:hover {
+        color: #fff;
+      }
+      .sidebar-items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+        padding: 10px 16px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 19px;
+        transition: background-color 0.2s;
+      }
+      .sidebar-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      .sidebar-bottom {
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background: transparent;
+        position: relative;
+        bottom: 0;
+      }
+      .sidebar-content {
+        overflow-y: auto;
+        height: calc(100vh - 490px);
+        scrollbar-width: thin;
+        scrollbar-color: #cccccc4b transparent;
+        padding: 10px 16px;
+        min-height: 100px;
+      }
+      .content {
+        width: calc(100%);
+        box-sizing: border-box;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
         padding: 20px;
         border-radius: 20px;
         max-width: 800px;
-        margin: 0px auto;
-        position: relative;
-        top: 80px;
         text-align: center;
-      }
-      .subtitle {
-        font-size: 18px;
-        font-weight: 400;
-        margin-top: 10px;
-        margin-bottom: 20px;
-      }
-      .features {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      .features li {
-        margin-bottom: 10px;
-        font-size: 16px;
+        width: 100%;
       }
       .note {
+        margin-top: 20px;
         font-size: 14px;
         color: rgba(255, 255, 255, 0.7);
-        margin-top: 10px;
-        margin-bottom: 20px;
       }
-      .status {
-        font-size: 16px;
+      
+      /* Settings Modal Styles */
+      .settings-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.116);
+        backdrop-filter: blur(2px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .settings-modal.show {
+        display: flex;
+        animation: fadeIn 0.3s ease forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .settings-content {
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        border-radius: 24px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+        transition: all 0.3s ease;
+      }
+      .settings-modal.show .settings-content {
+        animation: modalSlideIn 0.3s ease forwards;
+      }
+      @keyframes modalSlideIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      .settings-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 28px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .settings-modal-header h2 {
+        margin: 0;
+        font-size: 24px;
         font-weight: 500;
+      }
+      .settings-modal-close {
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease;
+      }
+      .settings-modal-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .settings-modal-close icon {
+        font-size: 28px;
         color: rgba(255, 255, 255, 0.8);
       }
-      @media (max-width: 900px) {
-        .ai__header-container {
-          padding: 7px 4px;
+      .settings-modal-container {
+        overflow-y: auto;
+        padding: 20px 28px;
+        flex: 1;
+      }
+      .settings-modal-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .settings-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.05);
+        transition: background 0.2s ease;
+      }
+      .settings-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .settings-label {
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      #languageBtn {
+        position: relative;
+      }
+      
+      /* Coming Soon Tooltip */
+      .coming-soon-tooltip {
+        position: fixed;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        color: white;
+        z-index: 3000;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        max-width: 250px;
+      }
+      .coming-soon-tooltip.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .coming-soon-tooltip .tooltip-title {
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .coming-soon-tooltip .tooltip-note {
+        font-size: 12px;
+        opacity: 0.8;
+      }
+      
+      .noscript-banner {
+        background: #ff4c4c;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+      }
+      /* Light Theme */
+      body[data-theme="light"] {
+        background: linear-gradient(135deg, #f5f7fa, #e8eef5);
+        color: #1a1a1a;
+      }
+      body[data-theme="light"] .sidebar,
+      body[data-theme="light"] .liquid-glass,
+      body[data-theme="light"] .settings-content,
+      body[data-theme="light"] .coming-soon-tooltip {
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(2px);
+        color: #1a1a1a;
+      }
+      body[data-theme="light"] a,
+      body[data-theme="light"] .settings-label,
+      body[data-theme="light"] .menu-text,
+      body[data-theme="light"] icon,
+      body[data-theme="light"] .logo-text,
+      body[data-theme="light"] h1, 
+      body[data-theme="light"] h2, 
+      body[data-theme="light"] h3, 
+      body[data-theme="light"] h4, 
+      body[data-theme="light"] p,
+      body[data-theme="light"] li,
+      body[data-theme="light"] .dropdown-item {
+        color: #1a1a1a !important;
+      }
+      body[data-theme="light"] .note {
+        color: #4b4b4b;
+      }
+      body[data-theme="light"] .sidebar__header,
+      body[data-theme="light"] .sidebar-bottom {
+        border-color: rgba(0, 0, 0, 0.1);
+      }
+      body[data-theme="light"] .sidebar-item:hover,
+      body[data-theme="light"] .dropdown-item:hover,
+      body[data-theme="light"] .settings-item:hover {
+        background: rgba(0, 0, 0, 0.08);
+      }
+      body[data-theme="light"] .settings-item {
+        background: rgba(0, 0, 0, 0.03);
+      }
+      body[data-theme="light"] .settings-modal {
+        background: rgba(0, 0, 0, 0.3);
+      }
+      
+      /* RTL Support for Arabic */
+      [dir="rtl"] .sidebar {
+        left: auto;
+        right: 0;
+      }
+      [dir="rtl"] .sidebar.mobile-open {
+        right: 0;
+        left: auto;
+      }
+      [dir="rtl"] .sidebar.collapsed .logo-img {
+        margin-left: 0;
+        margin-right: -7px;
+      }
+      [dir="rtl"] munetios-ai-sidenav {
+        margin-left: 0;
+        margin-right: 15px;
+      }
+      [dir="rtl"] .topbar-right {
+        margin-left: 0;
+        margin-right: auto;
+        margin-left: 10px;
+      }
+      [dir="rtl"] .sidebar-item {
+        flex-direction: row-reverse;
+      }
+      [dir="rtl"] .coming-soon-tooltip {
+        transform: translateX(10px);
+      }
+      [dir="rtl"] .coming-soon-tooltip.show {
+        transform: translateX(0);
+      }
+      [dir="rtl"] .tooltip-title,
+      [dir="rtl"] .tooltip-note {
+        text-align: right;
+      }
+      
+      /* Dark Theme (default) */
+      body[data-theme="dark"] {
+        background: linear-gradient(135deg, rgb(14, 0, 51), #09031a);
+        color: white;
+      }
+      
+      /* System Theme */
+      @media (prefers-color-scheme: light) {
+        body[data-theme="system"] {
+          background: linear-gradient(135deg, #f5f7fa, #e8eef5);
+          color: #1a1a1a;
+        }
+        body[data-theme="system"] .sidebar,
+        body[data-theme="system"] .liquid-glass,
+        body[data-theme="system"] .settings-content,
+        body[data-theme="system"] .coming-soon-tooltip {
+          background: rgba(255, 255, 255, 0.1) !important;
+          backdrop-filter: blur(2px);
+          color: #1a1a1a;
+        }
+        body[data-theme="system"] a,
+        body[data-theme="system"] .settings-label,
+        body[data-theme="system"] .menu-text,
+        body[data-theme="system"] icon,
+        body[data-theme="system"] .logo-text,
+        body[data-theme="system"] h1, 
+        body[data-theme="system"] h2, 
+        body[data-theme="system"] h3, 
+        body[data-theme="system"] h4, 
+        body[data-theme="system"] p,
+        body[data-theme="system"] li,
+        body[data-theme="system"] .dropdown-item {
+          color: #1a1a1a !important;
+        }
+        body[data-theme="system"] .note {
+          color: #4b4b4b;
+        }
+        body[data-theme="system"] .sidebar__header,
+        body[data-theme="system"] .sidebar-bottom {
+          border-color: rgba(0, 0, 0, 0.1);
+        }
+        body[data-theme="system"] .sidebar-item:hover,
+        body[data-theme="system"] .dropdown-item:hover,
+        body[data-theme="system"] .settings-item:hover {
+          background: rgba(0, 0, 0, 0.08);
+        }
+        body[data-theme="system"] .settings-item {
+          background: rgba(0, 0, 0, 0.03);
+        }
+        body[data-theme="system"] .settings-modal {
+          background: rgba(0, 0, 0, 0.3);
+        }
+      }
+      @media (max-width: 1100px) {
+        .menu-btn {
+          display: flex;
+        }
+        /* Collapse sidebar to icons only by default */
+        munetios-ai-sidebar, .sidebar {
+          width: 60px;
+        }
+        munetios-ai-sidenav {
+          width: calc(100% - 60px);
+        }
+        .sidebar .menu-text,
+        .sidebar .logo-text,
+        .sidebar .sidebar-content h3,
+        .sidebar .sidebar-content h4,
+        .sidebar .sidebar-content p {
+          display: none;
+        }
+        .sidebar .sidebar-item {
+          justify-content: center;
+        }
+        .sidebar .sidebar-header-left {
+          justify-content: center;
+        }
+        .sidebar .logo-img {
+          margin-left: -7px;
+        }
+        .sidebar-header-right {
+          display: none;
+        }
+        /* Overlay mode when menu button clicked */
+        .sidebar.overlay-open {
+          width: 280px;
+          position: fixed;
+          z-index: 2500;
+          left: 0;
+          box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
+        }
+        .sidebar.overlay-open .menu-text,
+        .sidebar.overlay-open .logo-text,
+        .sidebar.overlay-open .sidebar-content h3,
+        .sidebar.overlay-open .sidebar-content h4,
+        .sidebar.overlay-open .sidebar-content p {
+          display: block;
+        }
+        .sidebar.overlay-open .sidebar-item {
+          justify-content: flex-start;
+        }
+        .sidebar.overlay-open .sidebar-header-left {
+          justify-content: flex-start;
+        }
+        .sidebar.overlay-open .logo-img {
+          margin-left: 0;
+        }
+        /* Overlay backdrop for tablet */
+        .sidebar-overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 2400;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        .sidebar-overlay.show {
+          display: block;
+          opacity: 1;
+        }
+        /* RTL support */
+        [dir="rtl"] .sidebar.overlay-open {
+          left: auto;
+          right: 0;
+          box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3);
+        }
+        [dir="rtl"] .sidebar .logo-img {
+          margin-left: 0;
+          margin-right: -7px;
+        }
+        [dir="rtl"] .sidebar.overlay-open .logo-img {
+          margin-right: 0;
         }
       }
       @media (max-width: 768px) {
-        .all_link {
+        .container h1 {
+          font-size: 28px;
+        }
+        .container h2 {
+          font-size: 24px;
+        }
+        .container p {
+          font-size: 16px;
+        }
+        .container li {
+          font-size: 16px;
+        }
+      }
+      @media (max-width: 550px) {
+        .sidebar {
+          left: -400px;
+          z-index: 2500;
+          width: 60px;
+        }
+        .sidebar.mobile-open {
+          left: 0;
+          width: 280px;
+        }
+        /* Show menu text and content when mobile sidebar is open */
+        .sidebar.mobile-open .menu-text,
+        .sidebar.mobile-open .logo-text,
+        .sidebar.mobile-open .sidebar-content h3,
+        .sidebar.mobile-open .sidebar-content h4,
+        .sidebar.mobile-open .sidebar-content p {
+          display: block !important;
+        }
+        .sidebar.mobile-open .sidebar-item {
+          justify-content: flex-start;
+        }
+        .sidebar.mobile-open .sidebar-header-left {
+          justify-content: flex-start;
+        }
+        .sidebar.mobile-open .logo-img {
+          margin-left: 0;
+        }
+        munetios-ai-sidebar {
+          width: 0;
+        }
+        munetios-ai-sidenav {
+          width: 100%;
+        }
+        .content {
+          padding: 10px;
+        }
+        munetios-ai-header {
+          margin-left: 0;
+        }
+        /* Mobile overlay backdrop */
+        .sidebar-overlay {
           display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 2400;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        .sidebar-overlay.show {
+          display: block;
+          opacity: 1;
+        }
+        /* RTL mobile sidebar */
+        [dir="rtl"] .sidebar {
+          left: auto;
+          right: -400px;
+        }
+        [dir="rtl"] .sidebar.mobile-open {
+          right: 0;
+        }
+        [dir="rtl"] .sidebar.mobile-open .logo-img {
+          margin-left: 0;
+          margin-right: 0;
         }
       }
       @media (max-width: 400px) {
-        .logo-text {
+        .topbar-right a {
           display: none;
         }
-      }
-      @media (max-width: 768px) {
-        content {
-          padding: 15px;
-          top: 70px;
-          max-width: 90%;
-        }
-        content h1 {
-          font-size: 24px;
-        }
-        .subtitle {
-          font-size: 16px;
-        }
-        .features li {
-          font-size: 14px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        content {
-          padding: 12px;
-          top: 70px;
-          max-width: 95%;
-        }
-        content h1 {
-          font-size: 20px;
-        }
-        .subtitle {
-          font-size: 14px;
-        }
-        .features li {
-          font-size: 13px;
-          margin-bottom: 8px;
-        }
-        .note {
-          font-size: 12px;
-        }
-        .status {
-          font-size: 14px;
-        }
-      }
-      .munetios-footer {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-        padding: 20px;
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.7);
-        top: 80px;
-        position: relative;
-      }
-      .munetios-footer p {
-        margin: 0;
-      }
-      .munetios-footer a {
-        color: rgba(255, 255, 255, 0.7);
-        text-decoration: none;
-        transition: color 0.3s ease;
-      }
-      .munetios-footer a:hover {
-        color: rgba(255, 255, 255, 1);
       }
     </style>
   </head>
   <body>
+    <noscript>
+      <div class="noscript-banner">
+        Munetios AI Requires Javascript to use this application
+      </div>
+    </noscript>
     <munetios-app id="app" class="app-container" __ng-content-random>
-      <munetios-ai-header class="ai__header-container" __ng-content-random>
-        <div class="logo__container liquid-glass">
-          <img src="logo.png" alt="Munetios AI Logo" class="logo-img" />
-          <span class="logo-text text-glow">Munetios AI</span>
+      <munetios-ai-sidebar __ng-content-random id="sidebarContainer">
+        <div class="sidebar liquid-glass" __ng-content-random>
+          <div class="sidebar__header" id="sidebar-header" __ng-content-random>
+            <div class="sidebar-header-left">
+              <img src="logo.png" alt="Munetios AI Logo" class="logo-img" />
+              <span class="logo-text text-glow">Munetios AI</span>
+            </div>
+            <div class="sidebar-header-right">
+              <icon id="toggleSidebar" class="material-symbols-rounded"
+                >left_panel_close</icon
+              >
+            </div>
+          </div>
+          <div class="sidebar-header-navbar" __ng-content-random>
+            <div class="sidebar-items">
+              <div class="sidebar-item" id="newChatBtn">
+                <icon class="material-symbols-rounded">edit_square</icon>
+                <div class="menu-text">New Chat</div>
+              </div>
+              <div class="sidebar-item" id="imagesBtn">
+                <icon class="material-symbols-rounded">photo_library</icon>
+                <div class="menu-text">Images</div>
+              </div>
+              <div class="sidebar-item" id="agentModeBtn">
+                <icon class="material-symbols-rounded"
+                  >highlight_mouse_cursor</icon
+                >
+                <div class="menu-text">Agent Mode</div>
+              </div>
+              <div class="sidebar-item" id="codeTabBtn">
+                <icon class="material-symbols-rounded">code</icon>
+                <div class="menu-text">Code</div>
+              </div>
+              <div class="sidebar-item" id="myBotsBtn">
+                <icon class="material-symbols-rounded">smart_toy</icon>
+                <div class="menu-text">My Bots</div>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-content">
+            <h3>Chats</h2>
+            <h4>Munetios AI is Coming Soon</h4>
+            <p>Stay tuned!</p>
+          </div>
+          <div class="sidebar-bottom">
+            <div class="sidebar-items">
+              <div class="sidebar-item" id="connectorsBtn">
+                <icon class="material-symbols-rounded">extension</icon>
+                <div class="menu-text">Connectors</div>
+              </div>
+              <div class="sidebar-item" id="settingsBtn">
+                <icon class="material-symbols-rounded">settings</icon>
+                <div class="menu-text">Settings</div>
+              </div>
+              <div class="sidebar-item" id="helpBtn">
+                <icon class="material-symbols-rounded">help</icon>
+                <div class="menu-text">Help</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="top_right liquid-glass">
-          <nav class="all_link">
-            <a href="how-it-works.html">How it works</a>
-            <a href="models.html">Models</a>
+      </munetios-ai-sidebar>
+      <munetios-ai-sidenav
+        class="content-container__idElement"
+        __ng-content-random
+      >
+        <munetios-ai-header class="topbar">
+          <div class="topbar-left">
+            <div class="menu-btn liquid-glass">
+              <icon class="material-symbols-rounded">menu</icon>
+            </div>
+          </div>
+          <div class="topbar-right liquid-glass">
             <a href="documentation.html">Documentation</a>
-          </nav>
-          <button class="select-btn cursor-pointer" id="selectLanguageBtn">
-            <div class="btn-label">English</div>
-            <icon class="material-symbols-rounded">expand_more</icon>
-          </button>
+            <button id="signinBtn" class="btn">Sign In</button>
+          </div>
+        </munetios-ai-header>
+        <div class="content">
+          <div class="container liquid-glass">
+            <h1>Munetios AI is Coming Soon</h1>
+            <p>Stay tuned for a best Munetios AI with end to end encryption chats, advanced models and more.</p>
+            <h3>Features</h3>
+            <ul>
+              <li>End to end encryption chats</li>
+              <li>Code Tab for making full stack applications</li>
+              <li>Agent mode for tasks and doing work when using browsers</li>
+              <li>Powerful Image/Video generation capabilities</li>
+              <li>Add Connectors like (Munetios OmniWrite, Google Drive, Gmail, GitHub, GitLab, etc) </li>
+              <li>And more with Munetios AI</li>
+            </ul>
+            <div class="note">
+              <p>All LMs are powered by Munetios AI.</p>
+              <p>Note: Connectors will not load scripts in Munetios AI for privacy reasons.</p>
+            </div>
+          </div>
         </div>
-      </munetios-ai-header>
-      <content class="liquid-glass" __ng-content-random>
-        <h1>Munetios AI is coming soon!</h1>
-
-        <p class="subtitle">
-          A privacy-first AI designed for learning, productivity, and everyday
-          help.
-        </p>
-
-        <ul class="features">
-          <li>🧠 Local-first memory (no profiling)</li>
-          <li>🔐 Optional end-to-end encrypted sync</li>
-          <li>🎓 School Mode with strict safety limits</li>
-          <li>🚫 No ads, no tracking, no data selling</li>
-          <li>🧊 Clean Liquid-Glass interface</li>
-        </ul>
-
-        <p class="note">
-          School Mode disables memory and advanced features to protect students
-          and shared devices.
-        </p>
-
-        <span class="status">Coming Soon</span>
-      </content>
-      <footer class="munetios-footer" __ng-content-random>
-        <p>2026 Munetios. Open Source.</p>
-        <a href="https://www.munetios.com/about">About</a>
-        <a href="https://www.munetios.com/policies/#/terms">Terms</a>
-        <a href="https://www.munetios.com/policies/#/privacy">Privacy</a>
-        <a href="documentation.html">Documentation</a>
-        <a href="how-it-works.html">How it works</a>
-        <a href="models.html">Models</a>
-      </footer>
+      </munetios-ai-sidenav>
     </munetios-app>
+    <munetios-dropdown class="liquid-glass dropdown-wrapper" id="themeDropdown">
+      <div class="dropdown-item">System</div>
+      <div class="dropdown-item">Dark</div>
+      <div class="dropdown-item">Light</div>
+    </munetios-dropdown>
     <munetios-dropdown
       class="liquid-glass dropdown-wrapper"
       id="languageDropdown"
@@ -405,423 +947,850 @@
       <div class="dropdown-item">Russian</div>
       <div class="dropdown-item">Arabic</div>
     </munetios-dropdown>
+    <div class="settings-modal" id="settingsModal">
+      <div class="settings-content liquid-glass">
+      <div class="settings-modal-header">
+        <h2>Settings</h2>
+        <div class="settings-modal-close">
+          <icon class="material-symbols-rounded">close</icon>
+        </div>
+      </div>
+      <div class="settings-modal-container">
+        <div class="settings-modal-content">
+          <div class="settings-item">
+            <label class="settings-label">Language</label>
+            <button id="languageBtn" class="btn">English</button>
+          </div>
+          <div class="settings-item">
+            <label class="settings-label">Theme</label>
+            <button id="themeBtn" class="btn">System</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
     <script nonce="ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg">
-      // Translations object
+      // Translations
       const translations = {
-        en: {
-          title: "Munetios AI is coming soon!",
-          subtitle:
-            "A privacy-first AI designed for learning, productivity, and everyday help.",
-          features: [
-            "🧠 Local-first memory (no profiling)",
-            "🔐 Optional end-to-end encrypted sync",
-            "🎓 School Mode with strict safety limits",
-            "🚫 No ads, no tracking, no data selling",
-            "🧊 Clean Liquid-Glass interface",
-          ],
-          note: "School Mode disables memory and advanced features to protect students and shared devices.",
-          status: "Coming Soon",
-          navLinks: {
-            howItWorks: "How it works",
-            models: "Models",
-            documentation: "Documentation",
-          },
-          footer: {
-            copyright: "2026 Munetios. Open Source.",
-            about: "About",
-            terms: "Terms",
-            privacy: "Privacy",
-            documentation: "Documentation",
-            howItWorks: "How it works",
-            models: "Models",
-          },
+        "English": {
+          newChat: "New Chat",
+          images: "Images",
+          agentMode: "Agent Mode",
+          code: "Code",
+          myBots: "My Bots",
+          chats: "Chats",
+          comingSoonTitle: "Munetios AI is Coming Soon",
+          stayTuned: "Stay tuned!",
+          connectors: "Connectors",
+          settings: "Settings",
+          help: "Help",
+          documentation: "Documentation",
+          signIn: "Sign In",
+          mainHeading: "Munetios AI is Coming Soon",
+          mainDesc: "Stay tuned for a best Munetios AI with end to end encryption chats, advanced models and more.",
+          features: "Features",
+          feature1: "End to end encryption chats",
+          feature2: "Code Tab for making full stack applications",
+          feature3: "Agent mode for tasks and doing work when using browsers",
+          feature4: "Powerful Image/Video generation capabilities",
+          feature5: "Add Connectors like (Munetios OmniWrite, Google Drive, Gmail, GitHub, GitLab, etc)",
+          feature6: "And more with Munetios AI",
+          note1: "All LMs are powered by Munetios AI.",
+          note2: "Note: Connectors will not load scripts in Munetios AI for privacy reasons.",
+          language: "Language",
+          theme: "Theme",
+          helpToast: "Munetios AI Help Center is coming soon",
+          accountsToast: "Munetios Accounts are coming soon!",
+          languageChanged: "Language changed to",
+          themeChanged: "Theme changed to",
+          featureComingSoon: "This Feature is coming soon",
+          newChatNote: "New Chat will be available soon",
+          imagesNote: "Image generation will be available soon",
+          agentNote: "Agent mode will be available soon",
+          codeNote: "Code tab will be available soon",
+          botsNote: "My Bots will be available soon"
         },
-        es: {
-          title: "¡Munetios AI llegará pronto!",
-          subtitle:
-            "Una IA que prioriza la privacidad, diseñada para el aprendizaje, la productividad y la ayuda diaria.",
-          features: [
-            "🧠 Memoria local primero (sin perfiles)",
-            "🔐 Sincronización cifrada de extremo a extremo opcional",
-            "🎓 Modo Escolar con límites de seguridad estrictos",
-            "🚫 Sin anuncios, sin seguimiento, sin venta de datos",
-            "🧊 Interfaz limpia de vidrio líquido",
-          ],
-          note: "El Modo Escolar deshabilita la memoria y las funciones avanzadas para proteger a los estudiantes y los dispositivos compartidos.",
-          status: "Próximamente",
-          navLinks: {
-            howItWorks: "Cómo funciona",
-            models: "Modelos",
-            documentation: "Documentación",
-          },
-          footer: {
-            copyright: "2026 Munetios. Código abierto.",
-            about: "Acerca de",
-            terms: "Términos",
-            privacy: "Privacidad",
-            documentation: "Documentación",
-            howItWorks: "Cómo funciona",
-            models: "Modelos",
-          },
+        "Spanish": {
+          newChat: "Nueva Conversación",
+          images: "Imágenes",
+          agentMode: "Modo Agente",
+          code: "Código",
+          myBots: "Mis Bots",
+          chats: "Conversaciones",
+          comingSoonTitle: "Munetios AI Próximamente",
+          stayTuned: "¡Mantente atento!",
+          connectors: "Conectores",
+          settings: "Configuración",
+          help: "Ayuda",
+          documentation: "Documentación",
+          signIn: "Iniciar Sesión",
+          mainHeading: "Munetios AI Próximamente",
+          mainDesc: "Mantente atento a la mejor IA de Munetios con chats cifrados de extremo a extremo, modelos avanzados y más.",
+          features: "Características",
+          feature1: "Chats con cifrado de extremo a extremo",
+          feature2: "Pestaña de código para crear aplicaciones full stack",
+          feature3: "Modo agente para tareas y trabajo al usar navegadores",
+          feature4: "Potentes capacidades de generación de imágenes/videos",
+          feature5: "Agregar conectores como (Munetios OmniWrite, Google Drive, Gmail, GitHub, GitLab, etc)",
+          feature6: "Y más con Munetios AI",
+          note1: "Todos los modelos de lenguaje están impulsados por Munetios AI.",
+          note2: "Nota: Los conectores no cargarán scripts en Munetios AI por razones de privacidad.",
+          language: "Idioma",
+          theme: "Tema",
+          helpToast: "El Centro de Ayuda de Munetios AI estará disponible pronto",
+          accountsToast: "¡Las cuentas de Munetios estarán disponibles pronto!",
+          languageChanged: "Idioma cambiado a",
+          themeChanged: "Tema cambiado a",
+          featureComingSoon: "Esta función estará disponible pronto",
+          newChatNote: "Nueva conversación estará disponible pronto",
+          imagesNote: "Generación de imágenes estará disponible pronto",
+          agentNote: "Modo agente estará disponible pronto",
+          codeNote: "Pestaña de código estará disponible pronto",
+          botsNote: "Mis Bots estará disponible pronto"
         },
-        fr: {
-          title: "Munetios AI arrive bientôt !",
-          subtitle:
-            "Une IA axée sur la confidentialité conçue pour l'apprentissage, la productivité et l'aide quotidienne.",
-          features: [
-            "🧠 Mémoire locale d'abord (pas de profilage)",
-            "🔐 Synchronisation chiffrée de bout en bout optionnelle",
-            "🎓 Mode Scolaire avec limites de sécurité strictes",
-            "🚫 Pas de publicités, pas de suivi, pas de vente de données",
-            "🧊 Interface verre liquide propre",
-          ],
-          note: "Le Mode Scolaire désactive la mémoire et les fonctionnalités avancées pour protéger les élèves et les appareils partagés.",
-          status: "Bientôt disponible",
-          navLinks: {
-            howItWorks: "Comment ça marche",
-            models: "Modèles",
-            documentation: "Documentation",
-          },
-          footer: {
-            copyright: "2026 Munetios. Open Source.",
-            about: "À propos",
-            terms: "Conditions",
-            privacy: "Confidentialité",
-            documentation: "Documentation",
-            howItWorks: "Comment ça marche",
-            models: "Modèles",
-          },
+        "French": {
+          newChat: "Nouvelle Discussion",
+          images: "Images",
+          agentMode: "Mode Agent",
+          code: "Code",
+          myBots: "Mes Bots",
+          chats: "Discussions",
+          comingSoonTitle: "Munetios AI Bientôt Disponible",
+          stayTuned: "Restez à l'écoute!",
+          connectors: "Connecteurs",
+          settings: "Paramètres",
+          help: "Aide",
+          documentation: "Documentation",
+          signIn: "Se Connecter",
+          mainHeading: "Munetios AI Bientôt Disponible",
+          mainDesc: "Restez à l'écoute pour la meilleure IA Munetios avec des chats chiffrés de bout en bout, des modèles avancés et plus encore.",
+          features: "Fonctionnalités",
+          feature1: "Chats chiffrés de bout en bout",
+          feature2: "Onglet de code pour créer des applications full stack",
+          feature3: "Mode agent pour les tâches et le travail lors de l'utilisation des navigateurs",
+          feature4: "Puissantes capacités de génération d'images/vidéos",
+          feature5: "Ajouter des connecteurs comme (Munetios OmniWrite, Google Drive, Gmail, GitHub, GitLab, etc)",
+          feature6: "Et plus encore avec Munetios AI",
+          note1: "Tous les modèles de langage sont alimentés par Munetios AI.",
+          note2: "Note: Les connecteurs ne chargeront pas de scripts dans Munetios AI pour des raisons de confidentialité.",
+          language: "Langue",
+          theme: "Thème",
+          helpToast: "Le Centre d'Aide Munetios AI sera bientôt disponible",
+          accountsToast: "Les comptes Munetios seront bientôt disponibles!",
+          languageChanged: "Langue changée en",
+          themeChanged: "Thème changé en",
+          featureComingSoon: "Cette fonctionnalité sera bientôt disponible",
+          newChatNote: "Nouvelle discussion sera bientôt disponible",
+          imagesNote: "Génération d'images sera bientôt disponible",
+          agentNote: "Mode agent sera bientôt disponible",
+          codeNote: "Onglet de code sera bientôt disponible",
+          botsNote: "Mes Bots sera bientôt disponible"
         },
-        de: {
-          title: "Munetios AI kommt bald!",
-          subtitle:
-            "Eine datenschutzorientierte KI für Lernen, Produktivität und alltägliche Hilfe.",
-          features: [
-            "🧠 Lokaler Speicher zuerst (kein Profiling)",
-            "🔐 Optionale Ende-zu-Ende-verschlüsselte Synchronisierung",
-            "🎓 Schulmodus mit strengen Sicherheitsgrenzen",
-            "🚫 Keine Werbung, kein Tracking, kein Datenverkauf",
-            "🧊 Saubere Flüssigglas-Oberfläche",
-          ],
-          note: "Der Schulmodus deaktiviert Speicher und erweiterte Funktionen zum Schutz von Schülern und gemeinsam genutzten Geräten.",
-          status: "Demnächst verfügbar",
-          navLinks: {
-            howItWorks: "Wie es funktioniert",
-            models: "Modelle",
-            documentation: "Dokumentation",
-          },
-          footer: {
-            copyright: "2026 Munetios. Open Source.",
-            about: "Über",
-            terms: "Bedingungen",
-            privacy: "Datenschutz",
-            documentation: "Dokumentation",
-            howItWorks: "Wie es funktioniert",
-            models: "Modelle",
-          },
+        "German": {
+          newChat: "Neuer Chat",
+          images: "Bilder",
+          agentMode: "Agent-Modus",
+          code: "Code",
+          myBots: "Meine Bots",
+          chats: "Chats",
+          comingSoonTitle: "Munetios AI Kommt Bald",
+          stayTuned: "Bleiben Sie dran!",
+          connectors: "Konnektoren",
+          settings: "Einstellungen",
+          help: "Hilfe",
+          documentation: "Dokumentation",
+          signIn: "Anmelden",
+          mainHeading: "Munetios AI Kommt Bald",
+          mainDesc: "Bleiben Sie dran für die beste Munetios KI mit End-to-End-verschlüsselten Chats, fortschrittlichen Modellen und mehr.",
+          features: "Funktionen",
+          feature1: "End-to-End-verschlüsselte Chats",
+          feature2: "Code-Tab zum Erstellen von Full-Stack-Anwendungen",
+          feature3: "Agent-Modus für Aufgaben und Arbeiten bei der Verwendung von Browsern",
+          feature4: "Leistungsstarke Bild-/Video-Generierungsfähigkeiten",
+          feature5: "Konnektoren hinzufügen wie (Munetios OmniWrite, Google Drive, Gmail, GitHub, GitLab, etc)",
+          feature6: "Und mehr mit Munetios AI",
+          note1: "Alle Sprachmodelle werden von Munetios AI betrieben.",
+          note2: "Hinweis: Konnektoren laden keine Skripte in Munetios AI aus Datenschutzgründen.",
+          language: "Sprache",
+          theme: "Design",
+          helpToast: "Munetios AI Hilfezentrum kommt bald",
+          accountsToast: "Munetios-Konten kommen bald!",
+          languageChanged: "Sprache geändert zu",
+          themeChanged: "Design geändert zu",
+          featureComingSoon: "Diese Funktion kommt bald",
+          newChatNote: "Neuer Chat wird bald verfügbar sein",
+          imagesNote: "Bildgenerierung wird bald verfügbar sein",
+          agentNote: "Agent-Modus wird bald verfügbar sein",
+          codeNote: "Code-Tab wird bald verfügbar sein",
+          botsNote: "Meine Bots werden bald verfügbar sein"
         },
-        it: {
-          title: "Munetios AI arriva presto!",
-          subtitle:
-            "Un'IA incentrata sulla privacy progettata per l'apprendimento, la produttività e l'aiuto quotidiano.",
-          features: [
-            "🧠 Memoria locale prima (nessun profiling)",
-            "🔐 Sincronizzazione crittografata end-to-end opzionale",
-            "🎓 Modalità Scuola con limiti di sicurezza rigorosi",
-            "🚫 Nessuna pubblicità, nessun tracciamento, nessuna vendita di dati",
-            "🧊 Interfaccia vetro liquido pulita",
-          ],
-          note: "La Modalità Scuola disabilita la memoria e le funzionalità avanzate per proteggere studenti e dispositivi condivisi.",
-          status: "Prossimamente",
-          navLinks: {
-            howItWorks: "Come funziona",
-            models: "Modelli",
-            documentation: "Documentazione",
-          },
-          footer: {
-            copyright: "2026 Munetios. Open Source.",
-            about: "Chi siamo",
-            terms: "Termini",
-            privacy: "Privacy",
-            documentation: "Documentazione",
-            howItWorks: "Come funziona",
-            models: "Modelli",
-          },
+        "Italian": {
+          newChat: "Nuova Chat",
+          images: "Immagini",
+          agentMode: "Modalità Agente",
+          code: "Codice",
+          myBots: "I Miei Bot",
+          chats: "Chat",
+          comingSoonTitle: "Munetios AI in Arrivo",
+          stayTuned: "Resta sintonizzato!",
+          connectors: "Connettori",
+          settings: "Impostazioni",
+          help: "Aiuto",
+          documentation: "Documentazione",
+          signIn: "Accedi",
+          mainHeading: "Munetios AI in Arrivo",
+          mainDesc: "Resta sintonizzato per la migliore IA Munetios con chat crittografate end-to-end, modelli avanzati e altro ancora.",
+          features: "Funzionalità",
+          feature1: "Chat crittografate end-to-end",
+          feature2: "Tab del codice per creare applicazioni full stack",
+          feature3: "Modalità agente per attività e lavoro quando si utilizzano browser",
+          feature4: "Potenti capacità di generazione di immagini/video",
+          feature5: "Aggiungi connettori come (Munetios OmniWrite, Google Drive, Gmail, GitHub, GitLab, ecc)",
+          feature6: "E altro ancora con Munetios AI",
+          note1: "Tutti i modelli linguistici sono alimentati da Munetios AI.",
+          note2: "Nota: I connettori non caricheranno script in Munetios AI per motivi di privacy.",
+          language: "Lingua",
+          theme: "Tema",
+          helpToast: "Il Centro Assistenza di Munetios AI sarà disponibile presto",
+          accountsToast: "Gli account Munetios saranno disponibili presto!",
+          languageChanged: "Lingua cambiata in",
+          themeChanged: "Tema cambiato in",
+          featureComingSoon: "Questa funzionalità sarà disponibile presto",
+          newChatNote: "Nuova chat sarà disponibile presto",
+          imagesNote: "Generazione di immagini sarà disponibile presto",
+          agentNote: "Modalità agente sarà disponibile presto",
+          codeNote: "Tab del codice sarà disponibile pronto",
+          botsNote: "I miei Bot saranno disponibili presto"
         },
-        pt: {
-          title: "Munetios AI em breve!",
-          subtitle:
-            "Uma IA que prioriza a privacidade, projetada para aprendizado, produtividade e ajuda diária.",
-          features: [
-            "🧠 Memória local primeiro (sem criação de perfis)",
-            "🔐 Sincronização criptografada de ponta a ponta opcional",
-            "🎓 Modo Escola com limites de segurança rigorosos",
-            "🚫 Sem anúncios, sem rastreamento, sem venda de dados",
-            "🧊 Interface de vidro líquido limpa",
-          ],
-          note: "O Modo Escola desabilita a memória e recursos avançados para proteger estudantes e dispositivos compartilhados.",
-          status: "Em breve",
-          navLinks: {
-            howItWorks: "Como funciona",
-            models: "Modelos",
-            documentation: "Documentação",
-          },
-          footer: {
-            copyright: "2026 Munetios. Código aberto.",
-            about: "Sobre",
-            terms: "Termos",
-            privacy: "Privacidade",
-            documentation: "Documentação",
-            howItWorks: "Como funciona",
-            models: "Modelos",
-          },
+        "Portuguese": {
+          newChat: "Nova Conversa",
+          images: "Imagens",
+          agentMode: "Modo Agente",
+          code: "Código",
+          myBots: "Meus Bots",
+          chats: "Conversas",
+          comingSoonTitle: "Munetios AI Em Breve",
+          stayTuned: "Fique atento!",
+          connectors: "Conectores",
+          settings: "Configurações",
+          help: "Ajuda",
+          documentation: "Documentação",
+          signIn: "Entrar",
+          mainHeading: "Munetios AI Em Breve",
+          mainDesc: "Fique atento para a melhor IA Munetios com chats criptografados de ponta a ponta, modelos avançados e muito mais.",
+          features: "Recursos",
+          feature1: "Chats criptografados de ponta a ponta",
+          feature2: "Aba de código para criar aplicações full stack",
+          feature3: "Modo agente para tarefas e trabalho ao usar navegadores",
+          feature4: "Poderosas capacidades de geração de imagens/vídeos",
+          feature5: "Adicionar conectores como (Munetios OmniWrite, Google Drive, Gmail, GitHub, GitLab, etc)",
+          feature6: "E muito mais com Munetios AI",
+          note1: "Todos os modelos de linguagem são alimentados por Munetios AI.",
+          note2: "Nota: Os conectores não carregarão scripts no Munetios AI por motivos de privacidade.",
+          language: "Idioma",
+          theme: "Tema",
+          helpToast: "A Central de Ajuda da Munetios AI estará disponível em breve",
+          accountsToast: "As contas Munetios estarão disponíveis em breve!",
+          languageChanged: "Idioma alterado para",
+          themeChanged: "Tema alterado para",
+          featureComingSoon: "Este recurso estará disponível em breve",
+          newChatNote: "Nova conversa estará disponível em breve",
+          imagesNote: "Geração de imagens estará disponível em breve",
+          agentNote: "Modo agente estará disponível em breve",
+          codeNote: "Aba de código estará disponível em breve",
+          botsNote: "Meus Bots estarão disponíveis em breve"
         },
-        zh: {
-          title: "Munetios AI 即将推出！",
-          subtitle: "专为学习、生产力和日常帮助而设计的隐私优先AI。",
-          features: [
-            "🧠 本地优先内存（无分析）",
-            "🔐 可选的端到端加密同步",
-            "🎓 具有严格安全限制的学校模式",
-            "🚫 无广告、无跟踪、不出售数据",
-            "🧊 简洁的液态玻璃界面",
-          ],
-          note: "学校模式禁用内存和高级功能，以保护学生和共享设备。",
-          status: "即将推出",
-          navLinks: {
-            howItWorks: "工作原理",
-            models: "模型",
-            documentation: "文档",
-          },
-          footer: {
-            copyright: "2026 Munetios. 开源。",
-            about: "关于",
-            terms: "条款",
-            privacy: "隐私",
-            documentation: "文档",
-            howItWorks: "工作原理",
-            models: "模型",
-          },
+        "Chinese": {
+          newChat: "新对话",
+          images: "图片",
+          agentMode: "代理模式",
+          code: "代码",
+          myBots: "我的机器人",
+          chats: "对话",
+          comingSoonTitle: "Munetios AI 即将推出",
+          stayTuned: "敬请期待！",
+          connectors: "连接器",
+          settings: "设置",
+          help: "帮助",
+          documentation: "文档",
+          signIn: "登录",
+          mainHeading: "Munetios AI 即将推出",
+          mainDesc: "敬请期待最好的 Munetios AI，具有端到端加密聊天、高级模型等功能。",
+          features: "功能",
+          feature1: "端到端加密聊天",
+          feature2: "用于制作全栈应用程序的代码选项卡",
+          feature3: "使用浏览器时用于任务和工作的代理模式",
+          feature4: "强大的图像/视频生成功能",
+          feature5: "添加连接器，如（Munetios OmniWrite、Google Drive、Gmail、GitHub、GitLab 等）",
+          feature6: "以及 Munetios AI 的更多功能",
+          note1: "所有语言模型均由 Munetios AI 提供支持。",
+          note2: "注意：出于隐私原因，连接器不会在 Munetios AI 中加载脚本。",
+          language: "语言",
+          theme: "主题",
+          helpToast: "Munetios AI 帮助中心即将推出",
+          accountsToast: "Munetios 账户即将推出！",
+          languageChanged: "语言已更改为",
+          themeChanged: "主题已更改为",
+          featureComingSoon: "此功能即将推出",
+          newChatNote: "新对话即将推出",
+          imagesNote: "图像生成即将推出",
+          agentNote: "代理模式即将推出",
+          codeNote: "代码选项卡即将推出",
+          botsNote: "我的机器人即将推出"
         },
-        ja: {
-          title: "Munetios AI まもなく登場！",
-          subtitle:
-            "学習、生産性、日常的な支援のために設計されたプライバシー優先のAI。",
-          features: [
-            "🧠 ローカルファーストメモリ（プロファイリングなし）",
-            "🔐 オプションのエンドツーエンド暗号化同期",
-            "🎓 厳格な安全制限を持つスクールモード",
-            "🚫 広告なし、追跡なし、データ販売なし",
-            "🧊 クリーンなリキッドグラスインターフェース",
-          ],
-          note: "スクールモードは、学生と共有デバイスを保護するためにメモリと高度な機能を無効にします。",
-          status: "近日公開",
-          navLinks: {
-            howItWorks: "仕組み",
-            models: "モデル",
-            documentation: "ドキュメント",
-          },
-          footer: {
-            copyright: "2026 Munetios. オープンソース。",
-            about: "について",
-            terms: "利用規約",
-            privacy: "プライバシー",
-            documentation: "ドキュメント",
-            howItWorks: "仕組み",
-            models: "モデル",
-          },
+        "Japanese": {
+          newChat: "新しいチャット",
+          images: "画像",
+          agentMode: "エージェントモード",
+          code: "コード",
+          myBots: "マイボット",
+          chats: "チャット",
+          comingSoonTitle: "Munetios AI 近日公開",
+          stayTuned: "お楽しみに！",
+          connectors: "コネクター",
+          settings: "設定",
+          help: "ヘルプ",
+          documentation: "ドキュメント",
+          signIn: "サインイン",
+          mainHeading: "Munetios AI 近日公開",
+          mainDesc: "エンドツーエンド暗号化チャット、高度なモデルなどを備えた最高の Munetios AI をお楽しみに。",
+          features: "機能",
+          feature1: "エンドツーエンド暗号化チャット",
+          feature2: "フルスタックアプリケーションを作成するためのコードタブ",
+          feature3: "ブラウザ使用時のタスクと作業のためのエージェントモード",
+          feature4: "強力な画像/動画生成機能",
+          feature5: "コネクターを追加（Munetios OmniWrite、Google Drive、Gmail、GitHub、GitLab など）",
+          feature6: "そして Munetios AI でさらに多くの機能",
+          note1: "すべての言語モデルは Munetios AI によって提供されています。",
+          note2: "注：プライバシー上の理由から、コネクターは Munetios AI にスクリプトを読み込みません。",
+          language: "言語",
+          theme: "テーマ",
+          helpToast: "Munetios AI ヘルプセンターは近日公開予定です",
+          accountsToast: "Munetios アカウントは近日公開予定です！",
+          languageChanged: "言語を変更しました：",
+          themeChanged: "テーマを変更しました：",
+          featureComingSoon: "この機能は近日公開予定です",
+          newChatNote: "新しいチャットは近日公開予定です",
+          imagesNote: "画像生成は近日公開予定です",
+          agentNote: "エージェントモードは近日公開予定です",
+          codeNote: "コードタブは近日公開予定です",
+          botsNote: "マイボットは近日公開予定です"
         },
-        ko: {
-          title: "Munetios AI 곧 출시됩니다!",
-          subtitle:
-            "학습, 생산성 및 일상적인 도움을 위해 설계된 개인정보 보호 우선 AI.",
-          features: [
-            "🧠 로컬 우선 메모리 (프로파일링 없음)",
-            "🔐 선택적 종단간 암호화 동기화",
-            "🎓 엄격한 안전 제한이 있는 학교 모드",
-            "🚫 광고 없음, 추적 없음, 데이터 판매 없음",
-            "🧊 깨끗한 리퀴드 글래스 인터페이스",
-          ],
-          note: "학교 모드는 학생과 공유 기기를 보호하기 위해 메모리와 고급 기능을 비활성화합니다.",
-          status: "곧 출시",
-          navLinks: {
-            howItWorks: "작동 방식",
-            models: "모델",
-            documentation: "문서",
-          },
-          footer: {
-            copyright: "2026 Munetios. 오픈 소스.",
-            about: "소개",
-            terms: "약관",
-            privacy: "개인정보 보호",
-            documentation: "문서",
-            howItWorks: "작동 방식",
-            models: "모델",
-          },
+        "Korean": {
+          newChat: "새 채팅",
+          images: "이미지",
+          agentMode: "에이전트 모드",
+          code: "코드",
+          myBots: "내 봇",
+          chats: "채팅",
+          comingSoonTitle: "Munetios AI 출시 예정",
+          stayTuned: "기대해 주세요!",
+          connectors: "커넥터",
+          settings: "설정",
+          help: "도움말",
+          documentation: "문서",
+          signIn: "로그인",
+          mainHeading: "Munetios AI 출시 예정",
+          mainDesc: "엔드투엔드 암호화 채팅, 고급 모델 등을 갖춘 최고의 Munetios AI를 기대해 주세요.",
+          features: "기능",
+          feature1: "엔드투엔드 암호화 채팅",
+          feature2: "풀스택 애플리케이션 제작을 위한 코드 탭",
+          feature3: "브라우저 사용 시 작업 및 업무를 위한 에이전트 모드",
+          feature4: "강력한 이미지/비디오 생성 기능",
+          feature5: "커넥터 추가 (Munetios OmniWrite, Google Drive, Gmail, GitHub, GitLab 등)",
+          feature6: "그리고 Munetios AI로 더 많은 기능",
+          note1: "모든 언어 모델은 Munetios AI로 구동됩니다.",
+          note2: "참고: 개인 정보 보호를 위해 커넥터는 Munetios AI에서 스크립트를 로드하지 않습니다.",
+          language: "언어",
+          theme: "테마",
+          helpToast: "Munetios AI 도움말 센터가 곧 출시됩니다",
+          accountsToast: "Munetios 계정이 곧 출시됩니다!",
+          languageChanged: "언어 변경됨:",
+          themeChanged: "테마 변경됨:",
+          featureComingSoon: "이 기능은 곧 출시됩니다",
+          newChatNote: "새 채팅이 곧 제공됩니다",
+          imagesNote: "이미지 생성이 곧 제공됩니다",
+          agentNote: "에이전트 모드가 곧 제공됩니다",
+          codeNote: "코드 탭이 곧 제공됩니다",
+          botsNote: "내 봇이 곧 제공됩니다"
         },
-        ru: {
-          title: "Munetios AI скоро появится!",
-          subtitle:
-            "ИИ, ориентированный на конфиденциальность, созданный для обучения, продуктивности и повседневной помощи.",
-          features: [
-            "🧠 Локальная память в приоритете (без профилирования)",
-            "🔐 Опциональная сквозная зашифрованная синхронизация",
-            "🎓 Школьный режим со строгими ограничениями безопасности",
-            "🚫 Без рекламы, без отслеживания, без продажи данных",
-            "🧊 Чистый интерфейс из жидкого стекла",
-          ],
-          note: "Школьный режим отключает память и расширенные функции для защиты учащихся и общих устройств.",
-          status: "Скоро",
-          navLinks: {
-            howItWorks: "Как это работает",
-            models: "Модели",
-            documentation: "Документация",
-          },
-          footer: {
-            copyright: "2026 Munetios. С открытым исходным кодом.",
-            about: "О нас",
-            terms: "Условия",
-            privacy: "Конфиденциальность",
-            documentation: "Документация",
-            howItWorks: "Как это работает",
-
-            models: "Модели",
-          },
+        "Russian": {
+          newChat: "Новый Чат",
+          images: "Изображения",
+          agentMode: "Режим Агента",
+          code: "Код",
+          myBots: "Мои Боты",
+          chats: "Чаты",
+          comingSoonTitle: "Munetios AI Скоро",
+          stayTuned: "Следите за обновлениями!",
+          connectors: "Коннекторы",
+          settings: "Настройки",
+          help: "Помощь",
+          documentation: "Документация",
+          signIn: "Войти",
+          mainHeading: "Munetios AI Скоро",
+          mainDesc: "Следите за обновлениями лучшего Munetios AI с end-to-end шифрованием чатов, продвинутыми моделями и многим другим.",
+          features: "Возможности",
+          feature1: "Чаты с end-to-end шифрованием",
+          feature2: "Вкладка кода для создания full stack приложений",
+          feature3: "Режим агента для задач и работы при использовании браузеров",
+          feature4: "Мощные возможности генерации изображений/видео",
+          feature5: "Добавить коннекторы, такие как (Munetios OmniWrite, Google Drive, Gmail, GitHub, GitLab и т.д.)",
+          feature6: "И многое другое с Munetios AI",
+          note1: "Все языковые модели работают на Munetios AI.",
+          note2: "Примечание: Коннекторы не будут загружать скрипты в Munetios AI по соображениям конфиденциальности.",
+          language: "Язык",
+          theme: "Тема",
+          helpToast: "Центр помощи Munetios AI скоро появится",
+          accountsToast: "Аккаунты Munetios скоро появятся!",
+          languageChanged: "Язык изменен на",
+          themeChanged: "Тема изменена на",
+          featureComingSoon: "Эта функция скоро появится",
+          newChatNote: "Новый чат скоро будет доступен",
+          imagesNote: "Генерация изображений скоро будет доступна",
+          agentNote: "Режим агента скоро будет доступен",
+          codeNote: "Вкладка кода скоро будет доступна",
+          botsNote: "Мои боты скоро будут доступны"
         },
-        ar: {
-          title: "Munetios AI قريبًا!",
-          subtitle:
-            "ذكاء اصطناعي يعطي الأولوية للخصوصية مصمم للتعلم والإنتاجية والمساعدة اليومية.",
-          features: [
-            "🧠 الذاكرة المحلية أولاً (بدون تحليل)",
-            "🔐 مزامنة مشفرة من طرف إلى طرف اختيارية",
-            "🎓 وضع المدرسة بحدود أمان صارمة",
-            "🚫 بدون إعلانات، بدون تتبع، بدون بيع بيانات",
-            "🧊 واجهة زجاج سائل نظيفة",
-          ],
-          note: "يعطل وضع المدرسة الذاكرة والميزات المتقدمة لحماية الطلاب والأجهزة المشتركة.",
-          status: "قريباً",
-          navLinks: {
-            howItWorks: "كيف يعمل",
-            models: "النماذج",
-            documentation: "التوثيق",
-          },
-          footer: {
-            copyright: "2026 Munetios. مفتوح المصدر.",
-            about: "حول",
-            terms: "الشروط",
-            privacy: "الخصوصية",
-            documentation: "التوثيق",
-            howItWorks: "كيف يعمل",
-            aiPrivacy: "خصوصية الذكاء الاصطناعي",
-            models: "النماذج",
-          },
-        },
-      };
-
-      const languageMap = {
-        English: "en",
-        Spanish: "es",
-        French: "fr",
-        German: "de",
-        Italian: "it",
-        Portuguese: "pt",
-        Chinese: "zh",
-        Japanese: "ja",
-        Korean: "ko",
-        Russian: "ru",
-        Arabic: "ar",
-      };
-
-      let currentLanguage = "en";
-
-      // Update page content
-      function updatePageContent(lang) {
-        const t = translations[lang];
-
-        document.querySelector("content h1").textContent = t.title;
-        document.querySelector(".subtitle").textContent = t.subtitle;
-
-        const featuresList = document.querySelector(".features");
-        featuresList.innerHTML = t.features
-          .map((f) => `<li>${f}</li>`)
-          .join("");
-
-        document.querySelector(".note").textContent = t.note;
-        document.querySelector(".status").textContent = t.status;
-
-        // Update nav links
-        const navLinks = document.querySelectorAll(".all_link a");
-        navLinks[0].textContent = t.navLinks.howItWorks;
-        navLinks[1].textContent = t.navLinks.models;
-        navLinks[2].textContent = t.navLinks.documentation;
-
-        // Update footer
-        const footer = document.querySelector(".munetios-footer");
-        const footerLinks = footer.querySelectorAll("a");
-        footer.querySelector("p").textContent = t.footer.copyright;
-        footerLinks[0].textContent = t.footer.about;
-        footerLinks[1].textContent = t.footer.terms;
-        footerLinks[2].textContent = t.footer.privacy;
-        footerLinks[3].textContent = t.footer.documentation;
-        footerLinks[4].textContent = t.footer.howItWorks;
-        footerLinks[5].textContent = t.footer.models;
-      }
-
-      // Dropdown functionality
-      const selectBtn = document.getElementById("selectLanguageBtn");
-      const dropdown = document.getElementById("languageDropdown");
-      const dropdownItems = document.querySelectorAll(".dropdown-item");
-
-      selectBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        dropdown.style.display =
-          dropdown.style.display === "flex" ? "none" : "flex";
-
-        // Position dropdown
-        const rect = selectBtn.getBoundingClientRect();
-        dropdown.style.position = "fixed";
-        dropdown.style.top = rect.bottom + 5 + "px";
-        dropdown.style.right = window.innerWidth - rect.right + "px";
-      });
-
-      dropdownItems.forEach((item) => {
-        item.addEventListener("click", () => {
-          const selectedLang = item.textContent;
-          const langCode = languageMap[selectedLang];
-
-          selectBtn.querySelector(".btn-label").textContent = selectedLang;
-          currentLanguage = langCode;
-          updatePageContent(langCode);
-          localStorage.setItem("preferredLanguage", selectedLang);
-          dropdown.style.display = "none";
-        });
-      });
-
-      // Close dropdown when clicking outside
-      document.addEventListener("click", (e) => {
-        if (!dropdown.contains(e.target) && e.target !== selectBtn) {
-          dropdown.style.display = "none";
+        "Arabic": {
+          newChat: "محادثة جديدة",
+          images: "الصور",
+          agentMode: "وضع الوكيل",
+          code: "الكود",
+          myBots: "روبوتاتي",
+          chats: "المحادثات",
+          comingSoonTitle: "Munetios AI قريباً",
+          stayTuned: "ترقبوا!",
+          connectors: "الموصلات",
+          settings: "الإعدادات",
+          help: "المساعدة",
+          documentation: "التوثيق",
+          signIn: "تسجيل الدخول",
+          mainHeading: "Munetios AI قريباً",
+          mainDesc: "ترقبوا أفضل Munetios AI مع محادثات مشفرة من طرف إلى طرف ونماذج متقدمة والمزيد.",
+          features: "الميزات",
+          feature1: "محادثات مشفرة من طرف إلى طرف",
+          feature2: "علامة تبويب الكود لإنشاء تطبيقات متكاملة",
+          feature3: "وضع الوكيل للمهام والعمل عند استخدام المتصفحات",
+          feature4: "قدرات قوية لتوليد الصور/الفيديو",
+          feature5: "إضافة موصلات مثل (Munetios OmniWrite، Google Drive، Gmail، GitHub، GitLab، إلخ)",
+          feature6: "والمزيد مع Munetios AI",
+          note1: "جميع النماذج اللغوية مدعومة بواسطة Munetios AI.",
+          note2: "ملاحظة: لن تقوم الموصلات بتحميل البرامج النصية في Munetios AI لأسباب تتعلق بالخصوصية.",
+          language: "اللغة",
+          theme: "المظهر",
+          helpToast: "مركز مساعدة Munetios AI قريباً",
+          accountsToast: "حسابات Munetios قريباً!",
+          languageChanged: "تم تغيير اللغة إلى",
+          themeChanged: "تم تغيير المظهر إلى",
+          featureComingSoon: "هذه الميزة قريباً",
+          newChatNote: "المحادثة الجديدة ستكون متاحة قريباً",
+          imagesNote: "توليد الصور سيكون متاحاً قريباً",
+          agentNote: "وضع الوكيل سيكون متاحاً قريباً",
+          codeNote: "علامة تبويب الكود ستكون متاحة قريباً",
+          botsNote: "روبوتاتي ستكون متاحة قريباً"
         }
-      });
-
-      // Handle RTL for Arabic
-      if (currentLanguage === "ar") {
+      };
+      
+      // Function to apply translations
+      function applyTranslations(lang) {
+        const t = translations[lang] || translations["English"];
+        
+        // Sidebar items
+        document.querySelector("#newChatBtn .menu-text").textContent = t.newChat;
+        document.querySelector("#imagesBtn .menu-text").textContent = t.images;
+        document.querySelector("#agentModeBtn .menu-text").textContent = t.agentMode;
+        document.querySelector("#codeTabBtn .menu-text").textContent = t.code;
+        document.querySelector("#myBotsBtn .menu-text").textContent = t.myBots;
+        document.querySelector("#connectorsBtn .menu-text").textContent = t.connectors;
+        document.querySelector("#settingsBtn .menu-text").textContent = t.settings;
+        document.querySelector("#helpBtn .menu-text").textContent = t.help;
+        
+        // Sidebar content
+        document.querySelector(".sidebar-content h3").textContent = t.chats;
+        document.querySelector(".sidebar-content h4").textContent = t.comingSoonTitle;
+        document.querySelector(".sidebar-content p").textContent = t.stayTuned;
+        
+        // Top bar
+        document.querySelector(".topbar-right a").textContent = t.documentation;
+        document.querySelector("#signinBtn").textContent = t.signIn;
+        
+        // Main content
+        document.querySelector(".container h1").textContent = t.mainHeading;
+        document.querySelector(".container > p").textContent = t.mainDesc;
+        document.querySelector(".container h3").textContent = t.features;
+        
+        const features = document.querySelectorAll(".container ul li");
+        features[0].textContent = t.feature1;
+        features[1].textContent = t.feature2;
+        features[2].textContent = t.feature3;
+        features[3].textContent = t.feature4;
+        features[4].textContent = t.feature5;
+        features[5].textContent = t.feature6;
+        
+        const notes = document.querySelectorAll(".note p");
+        notes[0].textContent = t.note1;
+        notes[1].textContent = t.note2;
+        
+        // Settings modal
+        document.querySelectorAll(".settings-label")[0].textContent = t.language;
+        document.querySelectorAll(".settings-label")[1].textContent = t.theme;
+        
+        // Store current language translations for toast messages
+        window.currentTranslations = t;
+      }
+      
+      // Load saved preferences
+      const savedTheme = localStorage.getItem("munetios-theme") || "system";
+      const savedLanguage = localStorage.getItem("munetios-language") || "English";
+      
+      // Apply saved theme on page load
+      document.body.setAttribute("data-theme", savedTheme);
+      
+      // Apply saved language on page load
+      applyTranslations(savedLanguage);
+      
+      // Set initial lang and dir attributes
+      const langCodes = {
+        "English": "en", "Spanish": "es", "French": "fr", "German": "de",
+        "Italian": "it", "Portuguese": "pt", "Chinese": "zh", "Japanese": "ja",
+        "Korean": "ko", "Russian": "ru", "Arabic": "ar"
+      };
+      document.documentElement.setAttribute("lang", langCodes[savedLanguage] || "en");
+      if (savedLanguage === "Arabic") {
         document.documentElement.setAttribute("dir", "rtl");
       } else {
         document.documentElement.setAttribute("dir", "ltr");
       }
-
-      // Load saved language from localStorage
-      const savedLanguage = localStorage.getItem("preferredLanguage");
-      if (savedLanguage && languageMap[savedLanguage]) {
-        currentLanguage = languageMap[savedLanguage];
-        selectBtn.querySelector(".btn-label").textContent = savedLanguage;
-        updatePageContent(currentLanguage);
-        if (currentLanguage === "ar") {
-          document.documentElement.setAttribute("dir", "rtl");
+      
+      // Settings Modal Functions
+      const settingsModal = document.getElementById("settingsModal");
+      const settingsBtn = document.getElementById("settingsBtn");
+      const settingsCloseBtn = document.querySelector(".settings-modal-close");
+      
+      // Open settings modal
+      settingsBtn.addEventListener("click", function() {
+        settingsModal.classList.add("show");
+      });
+      
+      // Close settings modal
+      settingsCloseBtn.addEventListener("click", function() {
+        settingsModal.classList.remove("show");
+      });
+      
+      // Close modal when clicking outside
+      settingsModal.addEventListener("click", function(e) {
+        if (e.target === settingsModal) {
+          settingsModal.classList.remove("show");
         }
+      });
+      
+      // Language dropdown
+      const languageBtn = document.getElementById("languageBtn");
+      const languageDropdown = document.getElementById("languageDropdown");
+      
+      languageBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        const isVisible = languageDropdown.style.display === "flex";
+        
+        if (isVisible) {
+          languageDropdown.style.display = "none";
+        } else {
+          const rect = languageBtn.getBoundingClientRect();
+          languageDropdown.style.display = "flex";
+          languageDropdown.style.top = rect.bottom + 8 + "px";
+          languageDropdown.style.left = rect.left + "px";
+          languageDropdown.style.right = "auto";
+        }
+      });
+      
+      // Set initial language button text
+      languageBtn.textContent = savedLanguage;
+      
+      // Handle language selection
+      const dropdownItems = languageDropdown.querySelectorAll(".dropdown-item");
+      dropdownItems.forEach(item => {
+        item.addEventListener("click", function() {
+          const selectedLanguage = this.textContent;
+          languageBtn.textContent = selectedLanguage;
+          languageDropdown.style.display = "none";
+          localStorage.setItem("munetios-language", selectedLanguage);
+          
+          // Apply translations
+          applyTranslations(selectedLanguage);
+          
+          // Update coming soon features with new language
+          if (window.currentTranslations) {
+            comingSoonFeatures[0].title = window.currentTranslations.featureComingSoon;
+            comingSoonFeatures[0].note = window.currentTranslations.newChatNote;
+            comingSoonFeatures[1].title = window.currentTranslations.featureComingSoon;
+            comingSoonFeatures[1].note = window.currentTranslations.imagesNote;
+            comingSoonFeatures[2].title = window.currentTranslations.featureComingSoon;
+            comingSoonFeatures[2].note = window.currentTranslations.agentNote;
+            comingSoonFeatures[3].title = window.currentTranslations.featureComingSoon;
+            comingSoonFeatures[3].note = window.currentTranslations.codeNote;
+            comingSoonFeatures[4].title = window.currentTranslations.featureComingSoon;
+            comingSoonFeatures[4].note = window.currentTranslations.botsNote;
+            comingSoonFeatures[5].title = window.currentTranslations.featureComingSoon;
+            comingSoonFeatures[5].note = window.currentTranslations.featureComingSoon;
+          }
+          
+          // Update HTML lang attribute
+          const langCodes = {
+            "English": "en", "Spanish": "es", "French": "fr", "German": "de",
+            "Italian": "it", "Portuguese": "pt", "Chinese": "zh", "Japanese": "ja",
+            "Korean": "ko", "Russian": "ru", "Arabic": "ar"
+          };
+          document.documentElement.setAttribute("lang", langCodes[selectedLanguage] || "en");
+          
+          // Set RTL for Arabic
+          if (selectedLanguage === "Arabic") {
+            document.documentElement.setAttribute("dir", "rtl");
+          } else {
+            document.documentElement.setAttribute("dir", "ltr");
+          }
+          
+          showToast(window.currentTranslations.languageChanged + " " + selectedLanguage);
+        });
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function(e) {
+        if (!languageBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+          languageDropdown.style.display = "none";
+        }
+        if (!themeBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
+          themeDropdown.style.display = "none";
+        }
+      });
+      
+      // Theme dropdown
+      const themeBtn = document.getElementById("themeBtn");
+      const themeDropdown = document.getElementById("themeDropdown");
+      
+      themeBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        const isVisible = themeDropdown.style.display === "flex";
+        
+        if (isVisible) {
+          themeDropdown.style.display = "none";
+        } else {
+          const rect = themeBtn.getBoundingClientRect();
+          themeDropdown.style.display = "flex";
+          themeDropdown.style.top = rect.bottom + 8 + "px";
+          themeDropdown.style.left = rect.left + "px";
+          themeDropdown.style.right = "auto";
+        }
+      });
+      
+      // Set initial theme button text
+      themeBtn.textContent = savedTheme.charAt(0).toUpperCase() + savedTheme.slice(1);
+      
+      // Handle theme selection
+      const themeDropdownItems = themeDropdown.querySelectorAll(".dropdown-item");
+      themeDropdownItems.forEach(item => {
+        item.addEventListener("click", function() {
+          const selectedTheme = this.textContent.toLowerCase();
+          themeBtn.textContent = this.textContent;
+          themeDropdown.style.display = "none";
+          
+          // Apply theme to body
+          document.body.setAttribute("data-theme", selectedTheme);
+          localStorage.setItem("munetios-theme", selectedTheme);
+          
+          showToast(window.currentTranslations.themeChanged + " " + this.textContent);
+        });
+      });
+      
+      // Help button
+      const helpBtn = document.getElementById("helpBtn");
+      helpBtn.addEventListener("click", function() {
+        showToast(window.currentTranslations.helpToast);
+      });
+      
+      // Coming Soon Tooltips for sidebar items
+      const comingSoonFeatures = [
+        { id: "newChatBtn", title: "This Feature is coming soon", note: "New Chat will be available soon" },
+        { id: "imagesBtn", title: "This Feature is coming soon", note: "Images Library will be available soon" },
+        { id: "agentModeBtn", title: "This Feature is coming soon", note: "Agent mode will be available soon" },
+        { id: "codeTabBtn", title: "This Feature is coming soon", note: "Code tab will be available soon" },
+        { id: "myBotsBtn", title: "This Feature is coming soon", note: "My Bots will be available soon" },
+        { id: "connectorsBtn", title: "This Feature is coming soon", note: "Connectors will be available soon" }
+      ];
+      
+      // Update comingSoonFeatures with saved language translations
+      if (window.currentTranslations) {
+        comingSoonFeatures[0].title = window.currentTranslations.featureComingSoon;
+        comingSoonFeatures[0].note = window.currentTranslations.newChatNote;
+        comingSoonFeatures[1].title = window.currentTranslations.featureComingSoon;
+        comingSoonFeatures[1].note = window.currentTranslations.imagesNote;
+        comingSoonFeatures[2].title = window.currentTranslations.featureComingSoon;
+        comingSoonFeatures[2].note = window.currentTranslations.agentNote;
+        comingSoonFeatures[3].title = window.currentTranslations.featureComingSoon;
+        comingSoonFeatures[3].note = window.currentTranslations.codeNote;
+        comingSoonFeatures[4].title = window.currentTranslations.featureComingSoon;
+        comingSoonFeatures[4].note = window.currentTranslations.botsNote;
+        comingSoonFeatures[5].title = window.currentTranslations.featureComingSoon;
+        comingSoonFeatures[5].note = window.currentTranslations.featureComingSoon;
       }
+      
+      // Create tooltip element
+      const tooltip = document.createElement("div");
+      tooltip.className = "coming-soon-tooltip liquid-glass";
+      tooltip.innerHTML = '<div class="tooltip-title"></div><div class="tooltip-note"></div>';
+      document.body.appendChild(tooltip);
+      
+      const tooltipTitle = tooltip.querySelector(".tooltip-title");
+      const tooltipNote = tooltip.querySelector(".tooltip-note");
+      
+      comingSoonFeatures.forEach(feature => {
+        const element = document.getElementById(feature.id);
+        
+        element.addEventListener("click", function(e) {
+          const rect = element.getBoundingClientRect();
+          tooltipTitle.textContent = feature.title;
+          tooltipNote.textContent = feature.note;
+          
+          tooltip.style.left = rect.right + 10 + "px";
+          tooltip.style.top = rect.top + "px";
+          tooltip.classList.add("show");
+          
+          setTimeout(() => {
+            tooltip.classList.remove("show");
+          }, 2500);
+        });
+      });
+      
+      // Sign In button function
+      document.getElementById("signinBtn").addEventListener("click", function() {
+        showToast(window.currentTranslations.accountsToast);
+      });
+      function showToast() {
+        // Create toast container if not exists
+        let toastContainer = document.getElementById("munetios-toast-container");
+        if (!toastContainer) {
+          toastContainer = document.createElement("div");
+          toastContainer.id = "munetios-toast-container";
+          toastContainer.style.position = "fixed";
+          toastContainer.style.left = "50%";
+          toastContainer.style.bottom = "40px";
+          toastContainer.style.transform = "translateX(-50%)";
+          toastContainer.style.zIndex = "9999";
+          toastContainer.style.display = "flex";
+          toastContainer.style.flexDirection = "column-reverse";
+          toastContainer.style.alignItems = "center";
+          toastContainer.style.gap = "10px";
+          document.body.appendChild(toastContainer);
+        }
+        // Create a new toast
+        let toast = document.createElement("div");
+        toast.className = "liquid-glass";
+        toast.style.color = "#fff";
+        toast.style.padding = "14px 28px";
+        toast.style.borderRadius = "999px";
+        toast.style.fontSize = "16px";
+        toast.style.opacity = "0";
+        toast.style.pointerEvents = "none";
+        toast.style.transition = "opacity 0.3s";
+        toast.textContent = arguments[0] || "";
+        toastContainer.appendChild(toast);
+        // Animate in
+        setTimeout(() => {
+          toast.style.opacity = "1";
+        }, 10);
+        // Animate out and remove
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          setTimeout(() => {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+            // Remove container if empty
+            if (toastContainer.childElementCount === 0 && toastContainer.parentNode) {
+              toastContainer.parentNode.removeChild(toastContainer);
+            }
+          }, 300);
+        }, 2200);
+      }
+      // Sidebar toggle for desktop
+      const toggleSidebarBtn = document.getElementById("toggleSidebar");
+      const sidebar = document.querySelector(".sidebar");
+      const sidebarContainer = document.getElementById("sidebarContainer");
+      const sidenav = document.querySelector("munetios-ai-sidenav");
+      
+      toggleSidebarBtn.addEventListener("click", function() {
+        const isCollapsed = sidebar.classList.contains("collapsed");
+        
+        if (isCollapsed) {
+          // Expand sidebar
+          sidebar.classList.remove("collapsed");
+          sidebarContainer.classList.remove("collapsed");
+          sidenav.classList.remove("sidebar-collapsed");
+          toggleSidebarBtn.textContent = "left_panel_close";
+        } else {
+          // Collapse sidebar
+          sidebar.classList.add("collapsed");
+          sidebarContainer.classList.add("collapsed");
+          sidenav.classList.add("sidebar-collapsed");
+          toggleSidebarBtn.textContent = "left_panel_open";
+        }
+      });
+      
+      // Menu button for mobile and tablet
+      const menuBtn = document.querySelector(".menu-btn");
+      
+      // Create overlay backdrop
+      const overlay = document.createElement("div");
+      overlay.className = "sidebar-overlay";
+      document.body.appendChild(overlay);
+      
+      menuBtn.addEventListener("click", function() {
+        const screenWidth = window.innerWidth;
+        
+        // Different behavior for different screen sizes
+        if (screenWidth <= 550) {
+          // Mobile: slide in from off-screen
+          const isMobileOpen = sidebar.classList.contains("mobile-open");
+          if (isMobileOpen) {
+            sidebar.classList.remove("mobile-open");
+            overlay.classList.remove("show");
+          } else {
+            sidebar.classList.add("mobile-open");
+            overlay.classList.add("show");
+          }
+        } else if (screenWidth <= 1100) {
+          // Tablet: expand collapsed sidebar to overlay
+          const isOverlayOpen = sidebar.classList.contains("overlay-open");
+          if (isOverlayOpen) {
+            sidebar.classList.remove("overlay-open");
+            overlay.classList.remove("show");
+          } else {
+            sidebar.classList.add("overlay-open");
+            overlay.classList.add("show");
+          }
+        }
+      });
+      
+      // Close sidebar when clicking overlay
+      overlay.addEventListener("click", function() {
+        sidebar.classList.remove("mobile-open");
+        sidebar.classList.remove("overlay-open");
+        overlay.classList.remove("show");
+      });
+      
+      // Close sidebar overlay when clicking on any sidebar item (for better UX)
+      const sidebarItems = document.querySelectorAll(".sidebar-item");
+      sidebarItems.forEach(item => {
+        item.addEventListener("click", function() {
+          const screenWidth = window.innerWidth;
+          if (screenWidth <= 550 && sidebar.classList.contains("mobile-open")) {
+            sidebar.classList.remove("mobile-open");
+            overlay.classList.remove("show");
+          } else if (screenWidth <= 1100 && sidebar.classList.contains("overlay-open")) {
+            sidebar.classList.remove("overlay-open");
+            overlay.classList.remove("show");
+          }
+        });
+      });
+      
       // Generate random attribute name
       const randomAttr =
         "__ng-content-" + Math.random().toString(36).substring(2, 15);
