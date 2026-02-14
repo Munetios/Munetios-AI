@@ -1,0 +1,1610 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Munetios AI - Compare</title>
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="shortcut icon" type="image/png" href="logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://api.munetios.com/beautiful-css/beautiful.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght,ROND@6..144,1..1000,80&display=swap"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'nonce-ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg'; style-src 'self' https://fonts.googleapis.com https://api.munetios.com 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com  data:; connect-src 'self';"
+    />
+    <style>
+      * {
+        font-family: "Google Sans Flex", sans-serif;
+        font-variation-settings:
+          "opsz" 14,
+          "wght" 400,
+          "ROND" 80;
+        box-sizing: border-box;
+        font-feature-settings:
+          "liga" 0,
+          "ss01" 1;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        color: white;
+        background: #222;
+        font-family: "Google Sans Flex", sans-serif;
+        font-variation-settings:
+          "opsz" 14,
+          "wght" 400,
+          "ROND" 80;
+        transition:
+          background 0.3s ease,
+          color 0.3s ease;
+      }
+      .topbar-header {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        backdrop-filter: blur(2px) saturate(190%) brightness(105%)
+          contrast(100%);
+        background-color: rgba(51, 51, 51, 0.01);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+      .logo-text {
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+      .topbar-container {
+        max-width: 1500px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 16px;
+        margin: 0 auto;
+      }
+      .top-left {
+        display: flex;
+        align-items: center;
+      }
+      .topbar-middle {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex: 1;
+      }
+      .topbar-middle a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .top-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+      }
+      .btn-label {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .select-btn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        backdrop-filter: none;
+        color: inherit;
+        border-radius: 999px;
+        transition: background 0.3s ease;
+      }
+      .select-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .btn {
+        border-radius: 999px;
+        padding: 8px 13px;
+        background: rgba(71, 17, 197, 0.685);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+      .btn:hover {
+        background: rgba(71, 17, 197, 0.85);
+      }
+      .dropdown-wrapper {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px;
+        border-radius: 20px;
+        z-index: 1001;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+      .dropdown-wrapper[style*="display: flex"] {
+        animation: dropdownOpen 0.3s ease forwards;
+      }
+      @keyframes dropdownOpen {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .dropdown-item {
+        padding: 8px 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        opacity: 0;
+        animation: dropdownItemFadeIn 0.3s ease forwards;
+      }
+      .dropdown-item:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .dropdown-item:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .dropdown-item:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .dropdown-item:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .dropdown-item:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .dropdown-item:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .dropdown-item:nth-child(7) {
+        animation-delay: 0.35s;
+      }
+      .dropdown-item:nth-child(8) {
+        animation-delay: 0.4s;
+      }
+      .dropdown-item:nth-child(9) {
+        animation-delay: 0.45s;
+      }
+      .dropdown-item:nth-child(10) {
+        animation-delay: 0.5s;
+      }
+      .dropdown-item:nth-child(11) {
+        animation-delay: 0.55s;
+      }
+      @keyframes dropdownItemFadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      content {
+        display: block;
+        padding: 20px;
+        max-width: 1500px;
+        margin: 10px auto;
+        position: relative;
+        top: 50px;
+      }
+      .hamburger-menu {
+        display: none;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+      .hamburger-menu:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(34, 34, 34, 0.01);
+        backdrop-filter: blur(2px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        z-index: 999;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .mobile-menu.active {
+        display: flex;
+      }
+      .mobile-menu a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 12px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+      .mobile-menu a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      /* Comparison Table Styles */
+      .comparison-table-wrapper {
+        overflow-x: auto;
+        margin: 30px 0;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+      }
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 800px;
+      }
+      .comparison-table th {
+        padding: 16px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        background: rgba(71, 17, 197, 0.3);
+      }
+      .comparison-table th:first-child {
+        border-top-left-radius: 12px;
+      }
+      .comparison-table th:last-child {
+        border-top-right-radius: 12px;
+      }
+      .comparison-table td {
+        padding: 14px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        vertical-align: middle;
+      }
+      .comparison-table tr:last-child td {
+        border-bottom: none;
+      }
+      .comparison-table tr:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .comparison-table td:first-child {
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      .feature-name {
+        font-weight: 600;
+        min-width: 200px;
+      }
+      .check-icon {
+        color: #4caf50;
+        font-size: 1.3rem;
+      }
+      .cross-icon {
+        color: #f44336;
+        font-size: 1.3rem;
+      }
+      .partial-icon {
+        color: #ff9800;
+        font-size: 1.3rem;
+      }
+      .highlight-column {
+        background: rgba(71, 17, 197, 0.1);
+      }
+      @media (max-width: 768px) {
+        .topbar-container {
+          padding: 0;
+        }
+        .topbar-header {
+          padding: 0 4px;
+        }
+        .comparison-table-wrapper {
+          padding: 10px;
+        }
+        .comparison-table th,
+        .comparison-table td {
+          padding: 10px 8px;
+          font-size: 0.9rem;
+        }
+      }
+      @media (max-width: 1060px) {
+        .topbar-middle {
+          display: none;
+        }
+        .hamburger-menu {
+          display: block;
+        }
+      }
+      @media (max-width: 800px) {
+        .logo-text {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <munetios-app id="munetios-app" class="app-container" __ng-content-random>
+      <ai-header-documentation class="topbar-header" __ng-content-random>
+        <div class="topbar-container">
+          <div class="top-left">
+            <icon
+              class="material-symbols-rounded hamburger-menu"
+              id="hamburgerBtn"
+              >menu</icon
+            >
+            <div class="logo-text text-glow">Munetios AI Compare</div>
+          </div>
+          <div class="topbar-middle">
+            <a href="index.html">Home</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="how-it-works.html">How it Works</a>
+            <a href="models.html">Models</a>
+            <a href="compare.html">Compare</a>
+          </div>
+          <div class="top-right">
+            <button class="select-btn cursor-pointer" id="selectLanguageBtn">
+              <div class="btn-label">English</div>
+              <icon class="material-symbols-rounded">expand_more</icon>
+            </button>
+            <icon
+              class="material-symbols-rounded cursor-pointer"
+              id="themeToggleBtn"
+              >light_mode</icon
+            >
+            <button class="btn cursor-pointer" id="signInBtn">Sign In</button>
+          </div>
+        </div>
+      </ai-header-documentation>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="documentation.html">Documentation</a>
+        <a href="how-it-works.html">How it Works</a>
+        <a href="models.html">Models</a>
+        <a href="compare.html">Compare</a>
+      </div>
+      <content>
+        <h1>Compare AI Assistants</h1>
+        <p>
+          A comprehensive comparison of Munetios AI with other leading AI
+          platforms. See how Munetios AI stands out with privacy-focused
+          features, advanced capabilities, and user-centric design.
+        </p>
+
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th class="feature-name">Feature</th>
+                <th class="highlight-column">Munetios AI</th>
+                <th>ChatGPT</th>
+                <th>Gemini</th>
+                <th>Claude</th>
+                <th>GitHub Copilot</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="feature-name">No Ads</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">No Trackers</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Open Source</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Partially
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Advanced AI Models</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Code Generation</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Advanced Coding Mode</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Limited
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Limited
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Limited
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Image Creation</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Video Creation</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Limited
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Web Search Integration</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Limited
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Agent Mode</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Limited
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Collaboration Features</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Limited
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Via GitHub
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Custom Bots</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                  GPTs
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Limited
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Project Management</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Projects
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Via GitHub
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Customizable UI</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Multi-language Support</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Limited
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Temporary Chat</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Third-party Connectors</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Apps
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Extensions
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Privacy Focused</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                  Strong
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Moderate
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Moderate
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                  Strong
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Moderate
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">End-to-End Encryption</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Data Retention Policy</td>
+                <td class="highlight-column">User Controlled</td>
+                <td>30 days default</td>
+                <td>18 months</td>
+                <td>User controlled</td>
+                <td>Microsoft Policy</td>
+              </tr>
+              <tr>
+                <td class="feature-name">Free Tier Available</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Starting Price</td>
+                <td class="highlight-column">No Tiers</td>
+                <td>Free / $20/mo</td>
+                <td>Free / $19.99/mo</td>
+                <td>Free / $20/mo</td>
+                <td>Free / $10/mo Individual</td>
+              </tr>
+              <tr>
+                <td class="feature-name">API Access</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Via IDE
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Mobile App</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Coming Soon
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="feature-name">Desktop App</td>
+                <td class="highlight-column">
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  Coming Soon
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded cross-icon"
+                    >cancel</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded check-icon"
+                    >check_circle</icon
+                  >
+                </td>
+                <td>
+                  <icon class="material-symbols-rounded partial-icon"
+                    >remove_circle</icon
+                  >
+                  IDE Extension
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Why Choose Munetios AI?</h2>
+        <ul>
+          <li>
+            <strong>Privacy First:</strong> No ads, no trackers, and end-to-end
+            encryption to protect your data.
+          </li>
+          <li>
+            <strong>Transparent & Open:</strong> Partially open source with a
+            commitment to transparency.
+          </li>
+          <li>
+            <strong>Advanced Features:</strong> Unique capabilities like Agent
+            Mode, custom bots, and advanced coding tools.
+          </li>
+          <li>
+            <strong>Complete Creative Suite:</strong> Generate code, images, and
+            videos all in one platform.
+          </li>
+          <li>
+            <strong>Collaboration Tools:</strong> Invite team members to work
+            together seamlessly.
+          </li>
+          <li>
+            <strong>Fully Customizable:</strong> Tailor the interface to match
+            your workflow and preferences.
+          </li>
+          <li>
+            <strong>User-Controlled Data:</strong> You decide how long your data
+            is retained.
+          </li>
+        </ul>
+
+        <h2>Coming Soon</h2>
+        <p>
+          Munetios AI is currently in development. Stay tuned for the official
+          launch where you'll experience the next generation of AI assistants
+          with unmatched privacy, power, and flexibility.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          For more information or early access inquiries, please contact us at
+          <a href="mailto:minecraftgamer97529@gmail.com"
+            >minecraftgamer97529@gmail.com</a
+          >.
+        </p>
+      </content>
+    </munetios-app>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper"
+      id="languageDropdown"
+    >
+      <div class="dropdown-item">English</div>
+      <div class="dropdown-item">Spanish</div>
+      <div class="dropdown-item">French</div>
+      <div class="dropdown-item">German</div>
+      <div class="dropdown-item">Italian</div>
+      <div class="dropdown-item">Portuguese</div>
+      <div class="dropdown-item">Chinese</div>
+      <div class="dropdown-item">Japanese</div>
+      <div class="dropdown-item">Korean</div>
+      <div class="dropdown-item">Russian</div>
+      <div class="dropdown-item">Arabic</div>
+    </munetios-dropdown>
+    <script nonce="ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg">
+      // Theme toggle functionality
+      const themeToggleBtn = document.getElementById("themeToggleBtn");
+      let isDarkMode = localStorage.getItem("theme") === "light" ? false : true;
+
+      // Apply saved theme on load
+      if (!isDarkMode) {
+        document.body.style.background = "#f5f5f5";
+        document.body.style.color = "#222";
+        themeToggleBtn.textContent = "dark_mode";
+      } else {
+        document.body.style.background = "#222";
+        document.body.style.color = "white";
+        themeToggleBtn.textContent = "light_mode";
+      }
+
+      themeToggleBtn.addEventListener("click", () => {
+        isDarkMode = !isDarkMode;
+
+        if (isDarkMode) {
+          document.body.style.background = "#222";
+          document.body.style.color = "white";
+          themeToggleBtn.textContent = "light_mode";
+          localStorage.setItem("theme", "dark");
+        } else {
+          document.body.style.background = "#f5f5f5";
+          document.body.style.color = "#222";
+          themeToggleBtn.textContent = "dark_mode";
+          localStorage.setItem("theme", "light");
+        }
+      });
+
+      // Language translations
+      const translations = {
+        en: {
+          title: "Munetios AI - Compare",
+          home: "Home",
+          documentation: "Documentation",
+          howItWorks: "How it Works",
+          models: "Models",
+          compare: "Compare",
+          signIn: "Sign In",
+          heading: "Compare AI Assistants",
+          subheading:
+            "A comprehensive comparison of Munetios AI with other leading AI platforms. See how Munetios AI stands out with privacy-focused features, advanced capabilities, and user-centric design.",
+          whyChoose: "Why Choose Munetios AI?",
+          comingSoon: "Coming Soon",
+          contact: "Contact",
+          comingSoonText:
+            "Munetios AI is currently in development. Stay tuned for the official launch where you'll experience the next generation of AI assistants with unmatched privacy, power, and flexibility.",
+          contactText:
+            "For more information or early access inquiries, please contact us at",
+        },
+        es: {
+          title: "Munetios AI - Comparar",
+          home: "Inicio",
+          documentation: "Documentación",
+          howItWorks: "Cómo Funciona",
+          models: "Modelos",
+          compare: "Comparar",
+          signIn: "Iniciar Sesión",
+          heading: "Comparar Asistentes de IA",
+          subheading:
+            "Una comparación completa de Munetios AI con otras plataformas de IA líderes. Vea cómo Munetios AI se destaca con funciones centradas en la privacidad, capacidades avanzadas y diseño centrado en el usuario.",
+          whyChoose: "¿Por Qué Elegir Munetios AI?",
+          comingSoon: "Próximamente",
+          contact: "Contacto",
+          comingSoonText:
+            "Munetios AI está actualmente en desarrollo. ¡Manténgase atento al lanzamiento oficial donde experimentará la próxima generación de asistentes de IA con privacidad, poder y flexibilidad inigualables.",
+          contactText:
+            "Para más información o consultas de acceso anticipado, contáctenos en",
+        },
+        fr: {
+          title: "Munetios AI - Comparer",
+          home: "Accueil",
+          documentation: "Documentation",
+          howItWorks: "Comment ça Marche",
+          models: "Modèles",
+          compare: "Comparer",
+          signIn: "Se Connecter",
+          heading: "Comparer les Assistants IA",
+          subheading:
+            "Une comparaison complète de Munetios AI avec d'autres plateformes d'IA de premier plan. Voyez comment Munetios AI se distingue par des fonctionnalités axées sur la confidentialité, des capacités avancées et une conception centrée sur l'utilisateur.",
+          whyChoose: "Pourquoi Choisir Munetios AI?",
+          comingSoon: "Bientôt Disponible",
+          contact: "Contact",
+          comingSoonText:
+            "Munetios AI est actuellement en développement. Restez à l'écoute pour le lancement officiel où vous découvrirez la prochaine génération d'assistants IA avec une confidentialité, une puissance et une flexibilité inégalées.",
+          contactText:
+            "Pour plus d'informations ou des demandes d'accès anticipé, contactez-nous à",
+        },
+        de: {
+          title: "Munetios AI - Vergleichen",
+          home: "Startseite",
+          documentation: "Dokumentation",
+          howItWorks: "Wie es Funktioniert",
+          models: "Modelle",
+          compare: "Vergleichen",
+          signIn: "Anmelden",
+          heading: "KI-Assistenten Vergleichen",
+          subheading:
+            "Ein umfassender Vergleich von Munetios AI mit anderen führenden KI-Plattformen. Sehen Sie, wie sich Munetios AI mit datenschutzorientierten Funktionen, erweiterten Fähigkeiten und benutzerorientiertem Design auszeichnet.",
+          whyChoose: "Warum Munetios AI Wählen?",
+          comingSoon: "Demnächst",
+          contact: "Kontakt",
+          comingSoonText:
+            "Munetios AI befindet sich derzeit in der Entwicklung. Bleiben Sie dran für die offizielle Einführung, bei der Sie die nächste Generation von KI-Assistenten mit unerreichter Privatsphäre, Leistung und Flexibilität erleben werden.",
+          contactText:
+            "Für weitere Informationen oder Anfragen zum Frühen Zugang kontaktieren Sie uns unter",
+        },
+        ar: {
+          title: "Munetios AI - مقارنة",
+          home: "الرئيسية",
+          documentation: "التوثيق",
+          howItWorks: "كيف يعمل",
+          models: "النماذج",
+          compare: "مقارنة",
+          signIn: "تسجيل الدخول",
+          heading: "مقارنة مساعدي الذكاء الاصطناعي",
+          subheading:
+            "مقارنة شاملة بين Munetios AI ومنصات الذكاء الاصطناعي الرائدة الأخرى. شاهد كيف يتميز Munetios AI بميزات تركز على الخصوصية وقدرات متقدمة وتصميم يركز على المستخدم.",
+          whyChoose: "لماذا تختار Munetios AI؟",
+          comingSoon: "قريباً",
+          contact: "اتصل بنا",
+          comingSoonText:
+            "Munetios AI قيد التطوير حالياً. ترقبوا الإطلاق الرسمي حيث ستختبر الجيل التالي من مساعدي الذكاء الاصطناعي بخصوصية وقوة ومرونة لا مثيل لها.",
+          contactText:
+            "لمزيد من المعلومات أو استفسارات الوصول المبكر، يرجى الاتصال بنا على",
+        },
+        zh: {
+          title: "Munetios AI - 比较",
+          home: "首页",
+          documentation: "文档",
+          howItWorks: "工作原理",
+          models: "模型",
+          compare: "比较",
+          signIn: "登录",
+          heading: "比较AI助手",
+          subheading:
+            "Munetios AI与其他领先AI平台的全面比较。了解Munetios AI如何通过注重隐私的功能、先进的能力和以用户为中心的设计脱颖而出。",
+          whyChoose: "为什么选择Munetios AI？",
+          comingSoon: "即将推出",
+          contact: "联系我们",
+          comingSoonText:
+            "Munetios AI目前正在开发中。请关注官方发布，您将体验下一代具有无与伦比的隐私、功能和灵活性的AI助手。",
+          contactText: "如需更多信息或早期访问查询，请通过以下方式联系我们",
+        },
+        ja: {
+          title: "Munetios AI - 比較",
+          home: "ホーム",
+          documentation: "ドキュメント",
+          howItWorks: "仕組み",
+          models: "モデル",
+          compare: "比較",
+          signIn: "サインイン",
+          heading: "AIアシスタントを比較",
+          subheading:
+            "Munetios AIと他の主要なAIプラットフォームの包括的な比較。プライバシー重視の機能、高度な機能、ユーザー中心の設計でMunetios AIがどのように際立っているかをご覧ください。",
+          whyChoose: "なぜMunetios AIを選ぶのか？",
+          comingSoon: "近日公開",
+          contact: "お問い合わせ",
+          comingSoonText:
+            "Munetios AIは現在開発中です。比類のないプライバシー、パワー、柔軟性を備えた次世代AIアシスタントを体験できる正式リリースにご期待ください。",
+          contactText:
+            "詳細情報または早期アクセスのお問い合わせは、こちらまでご連絡ください",
+        },
+        ko: {
+          title: "Munetios AI - 비교",
+          home: "홈",
+          documentation: "문서",
+          howItWorks: "작동 방식",
+          models: "모델",
+          compare: "비교",
+          signIn: "로그인",
+          heading: "AI 어시스턴트 비교",
+          subheading:
+            "Munetios AI와 다른 주요 AI 플랫폼의 포괄적인 비교. 개인정보 보호 중심 기능, 고급 기능 및 사용자 중심 디자인으로 Munetios AI가 어떻게 돋보이는지 확인하세요.",
+          whyChoose: "왜 Munetios AI를 선택해야 할까요?",
+          comingSoon: "곧 출시",
+          contact: "연락처",
+          comingSoonText:
+            "Munetios AI는 현재 개발 중입니다. 비할 데 없는 개인정보 보호, 성능 및 유연성을 갖춘 차세대 AI 어시스턴트를 경험할 수 있는 공식 출시를 기대해 주세요.",
+          contactText:
+            "자세한 정보나 조기 액세스 문의는 다음으로 연락해 주세요",
+        },
+        ru: {
+          title: "Munetios AI - Сравнить",
+          home: "Главная",
+          documentation: "Документация",
+          howItWorks: "Как это Работает",
+          models: "Модели",
+          compare: "Сравнить",
+          signIn: "Войти",
+          heading: "Сравнить AI Ассистентов",
+          subheading:
+            "Всестороннее сравнение Munetios AI с другими ведущими платформами AI. Узнайте, как Munetios AI выделяется функциями, ориентированными на конфиденциальность, расширенными возможностями и дизайном, ориентированным на пользователя.",
+          whyChoose: "Почему Стоит Выбрать Munetios AI?",
+          comingSoon: "Скоро",
+          contact: "Контакт",
+          comingSoonText:
+            "Munetios AI в настоящее время находится в разработке. Следите за официальным запуском, где вы испытаете следующее поколение AI ассистентов с непревзойденной конфиденциальностью, мощностью и гибкостью.",
+          contactText:
+            "Для получения дополнительной информации или запросов на ранний доступ свяжитесь с нами по адресу",
+        },
+        it: {
+          title: "Munetios AI - Confronta",
+          home: "Home",
+          documentation: "Documentazione",
+          howItWorks: "Come Funziona",
+          models: "Modelli",
+          compare: "Confronta",
+          signIn: "Accedi",
+          heading: "Confronta Assistenti AI",
+          subheading:
+            "Un confronto completo di Munetios AI con altre piattaforme AI leader. Scopri come Munetios AI si distingue con funzionalità incentrate sulla privacy, capacità avanzate e design incentrato sull'utente.",
+          whyChoose: "Perché Scegliere Munetios AI?",
+          comingSoon: "Prossimamente",
+          contact: "Contatto",
+          comingSoonText:
+            "Munetios AI è attualmente in sviluppo. Resta sintonizzato per il lancio ufficiale dove sperimenterai la prossima generazione di assistenti AI con privacy, potenza e flessibilità senza pari.",
+          contactText:
+            "Per ulteriori informazioni o richieste di accesso anticipato, contattaci all'indirizzo",
+        },
+        pt: {
+          title: "Munetios AI - Comparar",
+          home: "Início",
+          documentation: "Documentação",
+          howItWorks: "Como Funciona",
+          models: "Modelos",
+          compare: "Comparar",
+          signIn: "Entrar",
+          heading: "Comparar Assistentes de IA",
+          subheading:
+            "Uma comparação abrangente do Munetios AI com outras plataformas de IA líderes. Veja como o Munetios AI se destaca com recursos focados na privacidade, recursos avançados e design centrado no usuário.",
+          whyChoose: "Por Que Escolher Munetios AI?",
+          comingSoon: "Em Breve",
+          contact: "Contato",
+          comingSoonText:
+            "Munetios AI está atualmente em desenvolvimento. Fique atento ao lançamento oficial, onde você experimentará a próxima geração de assistentes de IA com privacidade, poder e flexibilidade incomparáveis.",
+          contactText:
+            "Para mais informações ou consultas de acesso antecipado, entre em contato conosco em",
+        },
+      };
+
+      const languageMap = {
+        English: "en",
+        Spanish: "es",
+        French: "fr",
+        German: "de",
+        Italian: "it",
+        Portuguese: "pt",
+        Chinese: "zh",
+        Japanese: "ja",
+        Korean: "ko",
+        Russian: "ru",
+        Arabic: "ar",
+      };
+
+      let currentLanguage = "en";
+
+      function updatePageContent(lang) {
+        const trans = translations[lang] || translations.en;
+
+        // Update document title
+        document.title = trans.title;
+
+        // Update header
+        document.querySelector(".logo-text").textContent =
+          "Munetios AI Compare";
+        const topbarLinks = document.querySelectorAll(".topbar-middle a");
+        topbarLinks[0].textContent = trans.home;
+        topbarLinks[1].textContent = trans.documentation;
+        topbarLinks[2].textContent = trans.howItWorks;
+        topbarLinks[3].textContent = trans.models;
+        topbarLinks[4].textContent = trans.compare;
+        document.getElementById("signInBtn").textContent = trans.signIn;
+
+        // Update mobile menu
+        const mobileLinks = document.querySelectorAll(".mobile-menu a");
+        mobileLinks[0].textContent = trans.home;
+        mobileLinks[1].textContent = trans.documentation;
+        mobileLinks[2].textContent = trans.howItWorks;
+        mobileLinks[3].textContent = trans.models;
+        mobileLinks[4].textContent = trans.compare;
+
+        // Update content
+        const content = document.querySelector("content");
+        content.querySelector("h1").textContent = trans.heading;
+        content.querySelectorAll("p")[0].textContent = trans.subheading;
+
+        const h2Elements = content.querySelectorAll("h2");
+        h2Elements[0].textContent = trans.whyChoose;
+        h2Elements[1].textContent = trans.comingSoon;
+        h2Elements[2].textContent = trans.contact;
+
+        // Update coming soon text
+        content.querySelectorAll("p")[1].textContent = trans.comingSoonText;
+
+        // Update contact text
+        const contactP = content.querySelectorAll("p")[2];
+        contactP.innerHTML = `${trans.contactText} <a href="mailto:minecraftgamer97529@gmail.com">minecraftgamer97529@gmail.com</a>.`;
+
+        // Update text direction for Arabic
+        if (lang === "ar") {
+          document.body.setAttribute("dir", "rtl");
+          document.documentElement.setAttribute("dir", "rtl");
+        } else {
+          document.body.setAttribute("dir", "ltr");
+          document.documentElement.setAttribute("dir", "ltr");
+        }
+      }
+
+      // Language dropdown functionality
+      const selectLanguageBtn = document.getElementById("selectLanguageBtn");
+      const languageDropdown = document.getElementById("languageDropdown");
+      const btnLabel = selectLanguageBtn.querySelector(".btn-label");
+      const dropdownItems = document.querySelectorAll(".dropdown-item");
+
+      // Load saved language
+      const savedLanguage = localStorage.getItem("preferredLanguage");
+      if (savedLanguage && languageMap[savedLanguage]) {
+        currentLanguage = languageMap[savedLanguage];
+        btnLabel.textContent = savedLanguage;
+        updatePageContent(currentLanguage);
+      }
+
+      selectLanguageBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        languageDropdown.style.display =
+          languageDropdown.style.display === "flex" ? "none" : "flex";
+
+        // Position dropdown
+        const rect = selectLanguageBtn.getBoundingClientRect();
+        languageDropdown.style.position = "fixed";
+        languageDropdown.style.top = rect.bottom + 5 + "px";
+        languageDropdown.style.right = window.innerWidth - rect.right + "px";
+      });
+
+      dropdownItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          const selectedLang = item.textContent;
+          const langCode = languageMap[selectedLang];
+
+          btnLabel.textContent = selectedLang;
+          currentLanguage = langCode;
+          updatePageContent(langCode);
+          localStorage.setItem("preferredLanguage", selectedLang);
+          languageDropdown.style.display = "none";
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !languageDropdown.contains(e.target) &&
+          e.target !== selectLanguageBtn
+        ) {
+          languageDropdown.style.display = "none";
+        }
+      });
+
+      // Toast notification function
+      function showToast(message, duration = 3000) {
+        const toast = document.createElement("div");
+        toast.textContent = message;
+        toast.classList.add("liquid-glass");
+        toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: white;
+                padding: 12px 24px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                animation: fadeIn 0.3s ease;
+            `;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.animation = "fadeOut 0.3s ease";
+          setTimeout(() => toast.remove(), 300);
+        }, duration);
+      }
+
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+      document.head.appendChild(style);
+
+      // Hamburger menu functionality
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      hamburgerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        mobileMenu.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!mobileMenu.contains(e.target) && e.target !== hamburgerBtn) {
+          mobileMenu.classList.remove("active");
+        }
+      });
+
+      // Close mobile menu when clicking a link
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+        });
+      });
+
+      // Sign In button with toast
+      document
+        .getElementById("signInBtn")
+        .addEventListener("click", function () {
+          showToast("Munetios Accounts/Auth is Coming Soon. Stay tuned!");
+        });
+
+      // Generate random attribute name
+      const randomAttr =
+        "__ng-content-" + Math.random().toString(36).substring(2, 15);
+      document.getElementById("munetios-app").setAttribute(randomAttr, "");
+      document
+        .getElementById("munetios-app")
+        .removeAttribute("__ng-content-random");
+    </script>
+  </body>
+</html>
