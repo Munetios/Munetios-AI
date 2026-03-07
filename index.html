@@ -3136,11 +3136,7 @@
 
       // Sign In button function
       function handleSignIn() {
-        showToast(
-          (window.currentTranslations &&
-            window.currentTranslations.accountsToast) ||
-            "Munetios Accounts are coming soon!",
-        );
+        window.location.href = "https://accounts.munetios.com";
       }
       document
         .getElementById("signinBtn")
