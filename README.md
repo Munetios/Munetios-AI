@@ -1,157 +1,84 @@
-# 🤖 Munetios AI
+# Munetios AI
+Explaining the features and usage of Munetios AI. Note: Munetios AI is Coming Soon
 
-> **Next-generation intelligence designed by Munetios Technologies™**
+# Features
+Code Apps With AI
+Agent Mode
+Image Creation
+Video Creation
+Invite Collaborators to Chat
+Use Projects
+Customizable UI
+Use My Bots for making your own AI
+Multi-language Support
+Temporary Chat
+Web Search
+Use Connectors to Integrate with Other Services
+# Models
+Munet 1.5
+Initial model of Munet AI with basic capabilities in future.
 
----
-Note: This is outdated readme
-## 📘 Table of Contents
-1. [ℹ️ Info](#️-info)
-2. [💠 Branding](#-branding)
-3. [🔗 Links](#-links)
-4. [💼 Trademark](#-trademark)
-5. [🧱 Technology Stack](#-technology-stack)
-6. [📅 Timeline](#-timeline)
-7. [🌈 Features (Preview)](#-features-preview)
-8. [🌐 Munetios Ecosystem](#-munetios-ecosystem)
-9. [📄 License](#-license)
-10. [📧 Contact](#-contact)
-11. [⚖️ Trademark Notice](#️-trademark-notice)
+Munet 2.0
+Great at natural language understanding and generation.
 
----
+Munet 2.0 Thinking
+Enhanced reasoning capabilities for complex problem solving.
 
-## ℹ️ Info
+Munet 2.0 Pro
+Professional version with advanced features for developers and businesses.
 
-**Munetios AI** is a powerful, modern, and adaptive artificial intelligence platform built by **Munetios Technologies™**.
+Munet 2.0 Instant
+Optimized for quick responses and real-time applications.
 
-It delivers smart, connected experiences across the Munetios ecosystem — with a **Liquid Glass** inspired interface and **Beautiful CSS** integration.
+Munet 2.9 Advanced Coding
+Super Great at advanced coding tasks and problem-solving.
 
-### Overview
-- 🧠 **Name:** Munetios AI  
-- 🏢 **Developer:** Munetios Technologies™  
-- 🚀 **Status:** Coming Soon (Development in Progress)  
-- 🌐 **Website:** [www.munetios.com](https://www.munetios.com)  
-- 🧩 **Integration:** Munetios Search, Docs, Tasks, Calendar, and YouVidPlay  
+Munet-Code 1.5
+Initial model of Munet-Code with basic coding capabilities.
 
----
+Munet-Code 2.0
+Great at generating and understanding code in multiple programming languages.
 
-## 💠 Branding
+Munet-Code 2.1
+Great at advanced coding tasks and problem-solving.
 
-| Attribute | Value |
-|------------|--------|
-| **Brand Owner** | Munetios Technologies™ |
-| **Primary Color** | `#4E09CE` |
-| **Accent Color** | `#280153` |
-| **UI Theme** | Liquid Glass + Beautiful CSS |
-| **Fonts Used** | Lexend, Poppins |
-| **Logo** | ![Munetios AI Logo](logo.png) |
-| **Tagline** | “Intelligence That Feels Human.” |
+Munet-Code 2.1 Pro
+Professional version with advanced coding features for developers and businesses.
 
-> Munetios AI follows the **Munetios Design Language**, focused on smooth blur layers, vivid gradients, and responsive experiences.
+Munet-Code 2.1 Instant
+Optimized for quick coding responses and real-time applications.
 
----
+Munet-Code 2.1 Pro Higher
+The Greatest Coding Model that they can do everything functional and better UI/UX.
 
-## 🔗 Links
+# Usage
+To use Munetios AI, select the desired model from the Models dropdown menu, choose your preferred language, and interact with the AI through the provided interface. You can create code, images, videos, and more using the AI's capabilities. Note that Munetios AI is coming soon, so some features may not be fully available yet.
 
-| Resource | Link |
-|-----------|------|
-| 🌍 **Homepage** | [https://www.munetios.com](https://www.munetios.com) |
-| 🔎 **Search** | [https://www.munetios.com/search](https://www.munetios.com/search) |
-| 🧠 **AI Page** | [https://ai.munetios.com](https://ai.munetios.com) *(Coming soon)* |
-| 💬 **Contact (Gmail)** | [Send Email](https://mail.google.com/mail/?view=cm&to=minecraftgamer97529@gmail.com) |
-| 🧱 **GitHub Repository** | [Munetios-AI](https://github.com/GAMERYTDeveloper/Munetios-AI) |
+# How To Use
+To use and send a message, type your message in the input field and press the "Send" Icon or hit Enter.
+To create images, click on the "Image" Button under the input field.
+To create videos, click on the "Video" Button under the input field.
+To change the language, click on settings in sidebar bottom then select your preferred language from the dropdown menu.
+To invite collaborators to chat, click on the more icon in the chat window and select "Invite Collaborators".
+To use connectors to integrate with other services, click on the "Connectors" button in the sidebar and follow the instructions to link your accounts.
+To use the web search feature, click on the "Web Search" button under the input field.
+To use the code generation feature, click on the code in sidebar section, then click on the input field to enter your code prompt.
+To preview a app in the Code Section, click on the code document then click the "Preview" button on the top right.
+To create a bot, click on the "My Bots" button in the sidebar then click on the "Create Bot" button and follow the instructions.
+To use agent mode, click on the "Agent Mode" button under the input field.
+To create a project, click on the "Projects" button in the sidebar then click on the "Create Project" button and follow the instructions.
+Troubleshooting FAQ
+Q: I got the screen "Munetios AI needs a break, please give a moment." What should I do?
+A: This message indicates that you may went too fast so you can solve the CAPTCHA to continue using the AI.
 
----
+Q: The AI is not responding or is very slow. What should I do?
+A: This could be due to high server load or network issues. Try refreshing the page or checking your internet connection. If the problem persists, please contact support.
 
-## 💼 Trademark
+Q: The AI is not responding or is very slow. What should I do?
+A: This could be due to high server load or network issues. Try refreshing the page or checking your internet connection. If the problem persists, please contact support.
 
-| Type | Value |
-|------|--------|
-| **Trademark Name** | Munetios™ |
-| **Trademark Holder** | Munetios Technologies™ |
-| **Year Established** | 2025 |
-| **Jurisdiction** | United States |
-| **Status** | 🔮 Future Registered Trademark |
-| **Protection Type** | Proprietary Brand & Active Under Munetios Technologies™ |
-| **Symbol Use** | ™ (Transitioning to ® upon registration) |
-| **Statement** | Munetios™ is a Future Registered Trademark owned by Munetios Technologies. Unauthorized use, copying, or misrepresentation is prohibited. |
+Q: The AI is not returning the expected results. What should I do?
+A: Ensure that your input is clear and specific. If the issue continues, try rephrasing your query or consult the documentation for guidance on how to structure your prompts effectively.
 
-> The Munetios brand is in the process of registration under Munetios Technologies™. It remains fully authorized for branding, software, and corporate usage.
-
----
-
-## 🧱 Technology Stack
-
-| Category | Technology |
-|-----------|-------------|
-| **Frontend** | HTML5, CSS3, JavaScript |
-| **Frameworks** | Beautiful CSS, Liquid Glass UI |
-| **Fonts** | Lexend, Poppins |
-| **Design Principle** | Transparency, Blur, Depth |
-| **Status** | 🛠 In Development |
-
----
-
-## 📅 Timeline
-
-| Phase | Description | Status |
-|--------|--------------|---------|
-| November 2025 | Repository Creation | ✅ Completed |
-| December 2025 | Beta Build (Internal Testing) | 🚧 In Progress |
-| January 2026 | Developer Preview | ⏳ Planned |
-| Q2 2026 | Public Launch | 🔜 Coming Soon |
-
----
-
-## 🌈 Features (Preview)
-
-- Advanced AI models (GYT 1.5, GYT 1.5 Mini)
-- Code understanding and generation
-- Intelligent search with real-time browsing
-- Adaptive agent mode
-- Seamless cross-app integration
-- Liquid Glass + Beautiful CSS interface
-
----
-
-## 🌐 Munetios Ecosystem
-
-Munetios AI integrates deeply with the core Munetios ecosystem:
-
-| App | Description |
-|------|-------------|
-| 🔍 **Munetios Search** | AI-powered, fast, privacy-respecting search engine |
-| 📄 **Munetios Docs** | Rich formatting, import features, and responsive layout |
-| 📆 **Munetios Calendar** | Event management with AI planning |
-| 🧮 **Munetios Calculator** | AI-assisted calculations and history |
-| 🎥 **YouVidPlay** | The next-gen video platform powered by Munetios AI |
-
----
-
-## 📄 License
-
-© 2025 **Munetios Technologies™**.  
-All rights reserved.  
-Unauthorized copying, modification, or redistribution of this content is prohibited.  
-
----
-
-## 📧 Contact
-
-| Type | Details |
-|-------|----------|
-| **Email** | [minecraftgamer97529@gmail.com](mailto:minecraftgamer97529@gmail.com) |
-| **Brand Website** | [https://www.munetios.com](https://www.munetios.com) |
-| **GitHub** | [@GAMERYTDeveloper](https://github.com/GAMERYTDeveloper) |
-| **Location** |  Massachusetts, USA |
-
-> *Designed with ❤️ and Liquid Glass by Munetios Technologies™*
-
----
-
-## ⚖️ Trademark Notice
-
-**Munetios™** is a **Future Registered Trademark** of **Munetios Technologies™**.  
-All brand names, logos, and materials associated with Munetios are under pending registration.  
-The brand remains fully authorized for use by Munetios Technologies™ during and after the registration process.  
-
-© 2025 Munetios Technologies™. All rights reserved.
+Contact
+For support or inquiries, please contact us at minecraftgamer97529@gmail.com.
