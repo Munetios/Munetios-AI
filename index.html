@@ -15,7 +15,7 @@
     />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'nonce-ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg' https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://api.munetios.com 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com  data:; connect-src 'self';"
+      content="default-src 'self' https://*.munetios.com; script-src 'self' 'nonce-ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg' https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://api.munetios.com 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com  data:; connect-src 'self';"
     />
     <link rel="icon" type="image/png" href="logo.png" />
     <link rel="apple-touch-icon" href="logo.png" />
@@ -1274,6 +1274,527 @@
       .sst-modal-close-btn:hover {
         background: rgba(130, 80, 255, 0.9);
       }
+
+      /* ===== ACCOUNT MANAGER DROPDOWN ===== */
+      accountManager.account-dropdown {
+        position: fixed;
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 20px;
+        z-index: 3001;
+        min-width: 180px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+      accountManager.account-dropdown.show {
+        display: flex;
+        animation: dropdownOpen 0.3s ease forwards;
+      }
+      .account-dropdown-avatar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 4px;
+      }
+      .account-dropdown-avatar-img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: rgba(130, 80, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .account-dropdown-avatar-img icon {
+        font-size: 22px;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .account-dropdown-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.95);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .account-dropdown-email {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.5);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .account-dropdown .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+        transition: background 0.2s ease;
+      }
+      .account-dropdown .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .account-dropdown .dropdown-item icon {
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.7);
+        flex-shrink: 0;
+      }
+      .account-dropdown .dropdown-item.danger {
+        color: rgba(255, 100, 100, 0.9);
+      }
+      .account-dropdown .dropdown-item.danger icon {
+        color: rgba(255, 100, 100, 0.7);
+      }
+      .account-dropdown .dropdown-item.danger:hover {
+        background: rgba(255, 80, 80, 0.12);
+      }
+      .account-dropdown-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        margin: 4px 4px;
+        border-radius: 999px;
+      }
+
+      /* ===== ACCOUNT MANAGER MODAL ===== */
+      accountManagerModal.modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(5px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1200;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      accountManagerModal.modal.show {
+        display: flex;
+        animation: fadeIn 0.3s ease forwards;
+      }
+      accountManagerModal .modal-content {
+        width: 90%;
+        max-width: 1070px;
+        height: 100%;
+        max-height: 85vh;
+        border-radius: 24px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background: rgba(20, 10, 60, 0.329);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transform: scale(0.92) translateY(20px);
+        animation: modalSlideIn 0.3s ease forwards;
+      }
+      accountManagerModal .modal-content h1 {
+        margin: 0;
+        padding: 22px 28px;
+        font-size: 22px;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.95);
+      }
+      accountManagerModal .modal-content iframe {
+        flex: 1;
+        border: none;
+        width: 100%;
+        min-height: 480px;
+        background: transparent;
+      }
+
+      /* Light theme overrides */
+      body[data-theme="light"] .account-dropdown .dropdown-item,
+      body[data-theme="light"] .account-dropdown-name {
+        color: rgba(0, 0, 0, 0.85);
+      }
+      body[data-theme="light"] .account-dropdown-email {
+        color: rgba(0, 0, 0, 0.45);
+      }
+      body[data-theme="light"] .account-dropdown .dropdown-item icon {
+        color: rgba(0, 0, 0, 0.55);
+      }
+      body[data-theme="light"] .account-dropdown .dropdown-item:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      body[data-theme="light"] .account-dropdown-divider {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      body[data-theme="light"] accountManagerModal .modal-content {
+        background: rgba(240, 237, 255, 0.72);
+        border-color: rgba(0, 0, 0, 0.08);
+      }
+      body[data-theme="light"] accountManagerModal .modal-content h1 {
+        color: rgba(0, 0, 0, 0.85);
+        border-color: rgba(0, 0, 0, 0.08);
+      }
+
+      /* RTL support */
+      [dir="rtl"] .account-dropdown {
+        left: auto;
+        right: 0;
+      }
+      [dir="rtl"] .account-dropdown .dropdown-item {
+        flex-direction: row-reverse;
+      }
+
+      /* ===== LOADING PROGRESS BAR (top) ===== */
+      loading-progress.loading-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        z-index: 9999;
+        pointer-events: none;
+        overflow: hidden;
+        display: none;
+      }
+      loading-progress.loading-progress.active {
+        display: block;
+      }
+      loading-progress.loading-progress::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -70%;
+        width: 55%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(140, 90, 255, 0.85),
+          rgba(170, 110, 255, 1),
+          rgba(140, 90, 255, 0.85),
+          transparent
+        );
+        border-radius: 999px;
+        animation: topProgressSlide 1s ease-in-out infinite;
+      }
+      @keyframes topProgressSlide {
+        0% {
+          left: -70%;
+        }
+        100% {
+          left: 110%;
+        }
+      }
+
+      /* ===== PAGE SPINNER ===== */
+      .page-spinner-overlay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 20px;
+        width: 100%;
+        max-width: 900px;
+      }
+      .page-spinner {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.1);
+        border-top-color: rgba(140, 90, 255, 0.9);
+        animation: spinnerSpin 0.8s linear infinite;
+      }
+      @keyframes spinnerSpin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ===== SIGN-OUT CONFIRM MODAL ===== */
+      .signout-confirm-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 5000;
+      }
+      .signout-confirm-modal.show {
+        display: flex;
+        animation: fadeIn 0.25s ease forwards;
+      }
+      .signout-confirm-content {
+        border-radius: 24px;
+        padding: 36px 32px 28px;
+        max-width: 380px;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        text-align: center;
+        animation: modalSlideIn 0.25s ease forwards;
+      }
+      .signout-confirm-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 100, 100, 0.85);
+      }
+      .signout-confirm-icon icon {
+        font-size: 48px;
+      }
+      .signout-confirm-content h2 {
+        margin: 4px 0 0;
+        font-size: 22px;
+        font-weight: 600;
+      }
+      .signout-confirm-content p {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.7;
+      }
+      .signout-confirm-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+        width: 100%;
+      }
+      .signout-cancel-btn {
+        flex: 1;
+        padding: 11px 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+        font-size: 15px;
+        font-family: inherit;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .signout-cancel-btn:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+      .signout-confirm-btn {
+        flex: 1;
+        padding: 11px 20px;
+        border-radius: 999px;
+        border: none;
+        background: rgba(65, 11, 165, 0.7);
+        color: white;
+        font-size: 15px;
+        font-family: inherit;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .signout-confirm-btn:hover {
+        background: rgba(145, 50, 200, 0.9);
+      }
+
+      /* ===== ACCOUNT MANAGER MODAL HEADER ===== */
+      .accountmanager-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .accountmanager-modal-header h1 {
+        flex: 1;
+      }
+      .accountmanager-modal-close {
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 14px;
+        margin-top: 14px;
+        align-self: flex-start;
+        transition: background 0.2s ease;
+        flex-shrink: 0;
+      }
+      .accountmanager-modal-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .accountmanager-modal-close icon {
+        font-size: 26px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* ===== LIGHT MODE ENHANCEMENTS ===== */
+      body[data-theme="light"] .images-prompt-input {
+        color: #1a1a1a;
+      }
+      body[data-theme="light"] .images-prompt-input::placeholder {
+        color: rgba(0, 0, 0, 0.4);
+      }
+      body[data-theme="light"] .images-send-btn,
+      body[data-theme="light"] .images-mic-btn,
+      body[data-theme="light"] .images-add-btn,
+      body[data-theme="light"] .icon-btn {
+        color: #1a1a1a;
+      }
+      body[data-theme="light"] .images-send-btn:hover {
+        background: rgba(71, 17, 197, 0.2);
+      }
+      body[data-theme="light"] .images-add-btn:hover,
+      body[data-theme="light"] .icon-btn:hover {
+        background: rgba(0, 0, 0, 0.07);
+      }
+      body[data-theme="light"] .images-mic-btn:hover {
+        background: rgba(0, 0, 0, 0.07);
+      }
+      body[data-theme="light"] .label-action-btn {
+        background: rgba(0, 0, 0, 0.06);
+        border-color: rgba(0, 0, 0, 0.12);
+        color: #1a1a1a;
+      }
+      body[data-theme="light"] .label-action-btn:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      body[data-theme="light"] .label-action-btn icon {
+        color: #1a1a1a;
+      }
+      body[data-theme="light"] .btn {
+        background: rgba(71, 17, 197, 0.8);
+        color: white;
+        border-color: rgba(71, 17, 197, 0.3);
+      }
+      body[data-theme="light"] .btn:hover {
+        background: rgba(71, 17, 197, 0.95);
+      }
+      body[data-theme="light"] .menu-btn {
+        color: #1a1a1a;
+      }
+      body[data-theme="light"] .menu-btn:hover {
+        background: rgba(0, 0, 0, 0.07);
+      }
+      body[data-theme="light"] .sidebar-item.active-page {
+        background-color: rgba(71, 17, 197, 0.12);
+      }
+      body[data-theme="light"] .sidebar-header-right icon {
+        color: rgba(0, 0, 0, 0.6);
+      }
+      body[data-theme="light"] .sidebar-header-right icon:hover {
+        color: rgba(0, 0, 0, 0.9);
+      }
+      body[data-theme="light"] ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+      }
+      body[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.35);
+      }
+      body[data-theme="light"] .images-stop-listening-btn {
+        color: rgba(180, 40, 40, 1);
+        border-color: rgba(180, 40, 40, 0.4);
+        background: rgba(180, 40, 40, 0.08);
+      }
+      body[data-theme="light"] .coming-soon-page icon,
+      body[data-theme="light"] .books-empty icon,
+      body[data-theme="light"] .images-empty icon,
+      body[data-theme="light"] .mybots-signin-card icon {
+        color: rgba(0, 0, 0, 0.25);
+      }
+      body[data-theme="light"] .page-spinner {
+        border-color: rgba(0, 0, 0, 0.08);
+        border-top-color: rgba(90, 40, 200, 0.75);
+      }
+      body[data-theme="light"] .signout-cancel-btn {
+        border-color: rgba(0, 0, 0, 0.12);
+        background: rgba(0, 0, 0, 0.05);
+        color: rgba(0, 0, 0, 0.85);
+      }
+      body[data-theme="light"] .signout-cancel-btn:hover {
+        background: rgba(0, 0, 0, 0.09);
+      }
+      body[data-theme="light"] .signout-confirm-content h2,
+      body[data-theme="light"] .signout-confirm-content p {
+        color: rgba(0, 0, 0, 0.85);
+      }
+      body[data-theme="light"] .signout-confirm-icon {
+        color: rgba(180, 40, 40, 0.85);
+      }
+      body[data-theme="light"] .accountmanager-modal-close icon {
+        color: rgba(0, 0, 0, 0.6);
+      }
+      body[data-theme="light"] .accountmanager-modal-close:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      body[data-theme="light"] .sst-warning {
+        background: rgba(180, 130, 0, 0.08);
+        border-color: rgba(180, 130, 0, 0.25);
+        color: rgba(130, 90, 0, 0.9);
+      }
+
+      /* System theme light mode additions */
+      @media (prefers-color-scheme: light) {
+        body[data-theme="system"] .images-prompt-input {
+          color: #1a1a1a;
+        }
+        body[data-theme="system"] .images-prompt-input::placeholder {
+          color: rgba(0, 0, 0, 0.4);
+        }
+        body[data-theme="system"] .images-send-btn,
+        body[data-theme="system"] .images-mic-btn,
+        body[data-theme="system"] .images-add-btn,
+        body[data-theme="system"] .icon-btn {
+          color: #1a1a1a;
+        }
+        body[data-theme="system"] .label-action-btn {
+          background: rgba(0, 0, 0, 0.06);
+          border-color: rgba(0, 0, 0, 0.12);
+          color: #1a1a1a;
+        }
+        body[data-theme="system"] .label-action-btn:hover {
+          background: rgba(0, 0, 0, 0.1);
+        }
+        body[data-theme="system"] .label-action-btn icon {
+          color: #1a1a1a;
+        }
+        body[data-theme="system"] .btn {
+          background: rgba(71, 17, 197, 0.8);
+          color: white;
+        }
+        body[data-theme="system"] .sidebar-item.active-page {
+          background-color: rgba(71, 17, 197, 0.12);
+        }
+        body[data-theme="system"] .page-spinner {
+          border-color: rgba(0, 0, 0, 0.08);
+          border-top-color: rgba(90, 40, 200, 0.75);
+        }
+        body[data-theme="system"] .signout-cancel-btn {
+          border-color: rgba(0, 0, 0, 0.12);
+          background: rgba(0, 0, 0, 0.05);
+          color: rgba(0, 0, 0, 0.85);
+        }
+        body[data-theme="system"] .signout-confirm-content h2,
+        body[data-theme="system"] .signout-confirm-content p {
+          color: rgba(0, 0, 0, 0.85);
+        }
+        body[data-theme="system"] .coming-soon-page icon,
+        body[data-theme="system"] .books-empty icon,
+        body[data-theme="system"] .images-empty icon,
+        body[data-theme="system"] .mybots-signin-card icon {
+          color: rgba(0, 0, 0, 0.25);
+        }
+        body[data-theme="system"] .menu-btn {
+          color: #1a1a1a;
+        }
+      }
     </style>
     <script src="https://unpkg.com/tone@14/build/Tone.js"></script>
   </head>
@@ -1284,6 +1805,10 @@
       </div>
     </noscript>
     <munetios-app id="app" class="app-container" __ng-content-random>
+      <loading-progress
+        class="loading-progress"
+        id="loadingProgress"
+      ></loading-progress>
       <munetios-ai-sidebar __ng-content-random id="sidebarContainer">
         <div class="sidebar liquid-glass" __ng-content-random>
           <div class="sidebar__header" id="sidebar-header" __ng-content-random>
@@ -1458,7 +1983,14 @@
             >
             <h1 data-i18n="books">Books</h1>
           </div>
-          <div class="books-empty liquid-glass">
+          <div
+            class="page-spinner-overlay"
+            id="booksSpinner"
+            style="display: none"
+          >
+            <div class="page-spinner"></div>
+          </div>
+          <div class="books-empty liquid-glass" id="booksEmpty">
             <icon class="material-symbols-rounded">auto_stories</icon>
             <h3 data-i18n="booksEmptyTitle">No Books Yet</h3>
             <p data-i18n="booksEmptyDesc">
@@ -1509,7 +2041,14 @@
               <icon class="material-symbols-rounded">send</icon>
             </button>
           </div>
-          <div class="images-empty liquid-glass">
+          <div
+            class="page-spinner-overlay"
+            id="imagesSpinner"
+            style="display: none"
+          >
+            <div class="page-spinner"></div>
+          </div>
+          <div class="images-empty liquid-glass" id="imagesEmpty">
             <icon class="material-symbols-rounded">image_not_supported</icon>
             <h3 data-i18n="noImages">No Images</h3>
             <p data-i18n="noImagesDesc">Generated images will appear here.</p>
@@ -1650,6 +2189,50 @@
         </div>
       </div>
     </div>
+    <accountManager class="liquid-glass account-dropdown">
+      <div class="dropdown-item" id="manageAccountBtn">
+        <icon class="material-symbols-rounded">manage_accounts</icon>
+        <span id="manageAccountText">Manage Account</span>
+      </div>
+      <div class="dropdown-item" id="accountProfileBtn">
+        <icon class="material-symbols-rounded">account_circle</icon>
+        <span id="accountProfileText">Profile</span>
+      </div>
+      <div class="dropdown-item danger" id="signOutBtn">
+        <icon class="material-symbols-rounded">logout</icon>
+        <span id="signOutText">Sign Out</span>
+      </div>
+    </accountManager>
+    <accountManagerModal class="modal" id="accountManagerModal">
+      <div class="modal-content">
+        <div class="accountmanager-modal-header">
+          <h1 id="manageAccountTitle">Manage Account</h1>
+          <div class="accountmanager-modal-close" id="accountManagerCloseBtn">
+            <icon class="material-symbols-rounded">close</icon>
+          </div>
+        </div>
+        <iframe src="https://accounts.munetios.com/#/manage"></iframe>
+      </div>
+    </accountManagerModal>
+    <div class="signout-confirm-modal" id="signoutConfirmModal">
+      <div class="signout-confirm-content liquid-glass">
+        <div class="signout-confirm-icon">
+          <icon class="material-symbols-rounded">logout</icon>
+        </div>
+        <h2 id="signoutConfirmTitle">Are you sure?</h2>
+        <p id="signoutConfirmDesc">
+          You will be signed out of your Munetios account.
+        </p>
+        <div class="signout-confirm-actions">
+          <button class="signout-cancel-btn" id="signoutCancelBtn">
+            Cancel
+          </button>
+          <button class="signout-confirm-btn" id="signoutDoBtn">
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
     <script nonce="ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg">
       // Translations
       const translations = {
@@ -1735,6 +2318,16 @@
           micNoDeviceToast: "Please connect to a microphone to use voice input",
           micAbortedToast: "Failed to start voice input",
           micLangToast: "Voice search may not be supported or denied",
+          signOut: "Sign Out",
+          signOutConfirmTitle: "Are you sure?",
+          signOutConfirmDesc:
+            "You will be signed out of your Munetios account.",
+          signOutConfirmBtn: "Sign Out",
+          cancelBtn: "Cancel",
+          manageAccount: "Manage Account",
+          profile: "Profile",
+          signOutToast:
+            "Munetios Accounts are coming soon. Already Signed out.",
         },
         Spanish: {
           newChat: "Nueva Conversación",
@@ -1820,6 +2413,15 @@
           micAbortedToast: "No se pudo iniciar la entrada de voz",
           micLangToast:
             "La búsqueda de voz puede no ser compatible o estar denegada",
+          signOut: "Cerrar Sesión",
+          signOutConfirmTitle: "¿Estás seguro?",
+          signOutConfirmDesc: "Cerrarás sesión en tu cuenta de Munetios.",
+          signOutConfirmBtn: "Cerrar Sesión",
+          cancelBtn: "Cancelar",
+          manageAccount: "Administrar Cuenta",
+          profile: "Perfil",
+          signOutToast:
+            "Las cuentas de Munetios estarán disponibles pronto. Ya está desconectado.",
         },
         French: {
           newChat: "Nouvelle Discussion",
@@ -1906,6 +2508,15 @@
           micAbortedToast: "Impossible de démarrer la saisie vocale",
           micLangToast:
             "La recherche vocale peut ne pas être prise en charge ou refusée",
+          signOut: "Se Déconnecter",
+          signOutConfirmTitle: "Êtes-vous sûr?",
+          signOutConfirmDesc: "Vous serez déconnecté de votre compte Munetios.",
+          signOutConfirmBtn: "Se Déconnecter",
+          cancelBtn: "Annuler",
+          manageAccount: "Gérer le Compte",
+          profile: "Profil",
+          signOutToast:
+            "Les comptes Munetios arrivent bientôt. Déjà déconnecté.",
         },
         German: {
           newChat: "Neuer Chat",
@@ -1992,6 +2603,14 @@
           micAbortedToast: "Spracheingabe konnte nicht gestartet werden",
           micLangToast:
             "Sprachsuche wird möglicherweise nicht unterstützt oder wurde abgelehnt",
+          signOut: "Abmelden",
+          signOutConfirmTitle: "Sind Sie sicher?",
+          signOutConfirmDesc: "Sie werden von Ihrem Munetios-Konto abgemeldet.",
+          signOutConfirmBtn: "Abmelden",
+          cancelBtn: "Abbrechen",
+          manageAccount: "Konto Verwalten",
+          profile: "Profil",
+          signOutToast: "Munetios-Konten kommen bald. Bereits abgemeldet.",
         },
         Italian: {
           newChat: "Nuova Chat",
@@ -2077,6 +2696,14 @@
           micAbortedToast: "Impossibile avviare l\'input vocale",
           micLangToast:
             "La ricerca vocale potrebbe non essere supportata o negata",
+          signOut: "Disconnettiti",
+          signOutConfirmTitle: "Sei sicuro?",
+          signOutConfirmDesc: "Verrai disconnesso dal tuo account Munetios.",
+          signOutConfirmBtn: "Disconnettiti",
+          cancelBtn: "Annulla",
+          manageAccount: "Gestisci Account",
+          profile: "Profilo",
+          signOutToast: "Gli account Munetios sono in arrivo. Già disconnesso.",
         },
         Portuguese: {
           newChat: "Nova Conversa",
@@ -2162,6 +2789,15 @@
           micNoDeviceToast: "Conecte um microfone para usar a entrada de voz",
           micAbortedToast: "Não foi possível iniciar a entrada de voz",
           micLangToast: "A pesquisa por voz pode não ser suportada ou negada",
+          signOut: "Sair",
+          signOutConfirmTitle: "Tem certeza?",
+          signOutConfirmDesc: "Você será desconectado da sua conta Munetios.",
+          signOutConfirmBtn: "Sair",
+          cancelBtn: "Cancelar",
+          manageAccount: "Gerenciar Conta",
+          profile: "Perfil",
+          signOutToast:
+            "As contas Munetios estarão disponíveis em breve. Já desconectado.",
         },
         Chinese: {
           newChat: "新对话",
@@ -2240,6 +2876,14 @@
           micNoDeviceToast: "请连接麦克风以使用语音输入",
           micAbortedToast: "语音输入无法启动",
           micLangToast: "语音搜索可能不支持或被拒绝",
+          signOut: "退出登录",
+          signOutConfirmTitle: "您确定吗？",
+          signOutConfirmDesc: "您将退出您的 Munetios 账户。",
+          signOutConfirmBtn: "退出登录",
+          cancelBtn: "取消",
+          manageAccount: "管理账户",
+          profile: "个人资料",
+          signOutToast: "Munetios 账户即将推出。已退出登录。",
         },
         Japanese: {
           newChat: "新しいチャット",
@@ -2323,6 +2967,15 @@
           micAbortedToast: "音声入力を開始できませんでした",
           micLangToast:
             "音声検索がサポートされていないか、拒否された可能性があります",
+          signOut: "サインアウト",
+          signOutConfirmTitle: "本当によろしいですか？",
+          signOutConfirmDesc: "Munetios アカウントからサインアウトされます。",
+          signOutConfirmBtn: "サインアウト",
+          cancelBtn: "キャンセル",
+          manageAccount: "アカウントの管理",
+          profile: "プロフィール",
+          signOutToast:
+            "Munetios アカウントは近日公開予定です。すでにサインアウトされています。",
         },
         Korean: {
           newChat: "새 채팅",
@@ -2405,6 +3058,15 @@
           micNoDeviceToast: "음성 입력을 사용하려면 마이크를 연결하세요",
           micAbortedToast: "음성 입력을 시작할 수 없습니다",
           micLangToast: "음성 검색이 지원되지 않거나 거부된 수 있습니다",
+          signOut: "로그아웃",
+          signOutConfirmTitle: "확실합니까?",
+          signOutConfirmDesc: "Munetios 계정에서 로그아웃됩니다.",
+          signOutConfirmBtn: "로그아웃",
+          cancelBtn: "취소",
+          manageAccount: "계정 관리",
+          profile: "프로필",
+          signOutToast:
+            "Munetios 계정이 곧 출시됩니다. 이미 로그아웃되었습니다.",
         },
         Russian: {
           newChat: "Новый Чат",
@@ -2491,6 +3153,14 @@
           micAbortedToast: "Не удалось начать голосовой ввод",
           micLangToast:
             "Голосовой поиск может не поддерживаться или быть отклонён",
+          signOut: "Выйти",
+          signOutConfirmTitle: "Вы уверены?",
+          signOutConfirmDesc: "Вы выйдете из своего аккаунта Munetios.",
+          signOutConfirmBtn: "Выйти",
+          cancelBtn: "Отмена",
+          manageAccount: "Управление аккаунтом",
+          profile: "Профиль",
+          signOutToast: "Аккаунты Munetios скоро появятся. Уже выполнен выход.",
         },
         Arabic: {
           newChat: "محادثة جديدة",
@@ -2571,6 +3241,14 @@
           micNoDeviceToast: "يرجى توصيل ميكروفون لاستخدام الإدخال الصوتي",
           micAbortedToast: "تعذّر بدء الإدخال الصوتي",
           micLangToast: "قد لا يدعم البحث بالصوت أو يكون مرفوضاً",
+          signOut: "تسجيل الخروج",
+          signOutConfirmTitle: "هل أنت متأكد؟",
+          signOutConfirmDesc: "ستقوم بتسجيل الخروج من حساب Munetios الخاص بك.",
+          signOutConfirmBtn: "تسجيل الخروج",
+          cancelBtn: "إلغاء",
+          manageAccount: "إدارة الحساب",
+          profile: "الملف الشخصي",
+          signOutToast: "حسابات Munetios قادمة قريباً. تم تسجيل الخروج بالفعل.",
         },
       };
 
@@ -2788,6 +3466,45 @@
           document.getElementById("stopListeningText");
         if (stopListeningTextEl)
           stopListeningTextEl.textContent = t.stopListening || "Stop listening";
+
+        // Sign out confirm modal
+        const signoutConfirmTitleEl = document.getElementById(
+          "signoutConfirmTitle",
+        );
+        if (signoutConfirmTitleEl)
+          signoutConfirmTitleEl.textContent =
+            t.signOutConfirmTitle || "Are you sure?";
+        const signoutConfirmDescEl =
+          document.getElementById("signoutConfirmDesc");
+        if (signoutConfirmDescEl)
+          signoutConfirmDescEl.textContent =
+            t.signOutConfirmDesc ||
+            "You will be signed out of your Munetios account.";
+        const signoutDoBtnEl = document.getElementById("signoutDoBtn");
+        if (signoutDoBtnEl)
+          signoutDoBtnEl.textContent = t.signOutConfirmBtn || "Sign Out";
+        const signoutCancelBtnEl = document.getElementById("signoutCancelBtn");
+        if (signoutCancelBtnEl)
+          signoutCancelBtnEl.textContent = t.cancelBtn || "Cancel";
+
+        // Manage account modal title
+        const manageAccountTitleEl =
+          document.getElementById("manageAccountTitle");
+        if (manageAccountTitleEl)
+          manageAccountTitleEl.textContent =
+            t.manageAccount || "Manage Account";
+
+        // Account dropdown text spans
+        const manageAccountTextEl =
+          document.getElementById("manageAccountText");
+        if (manageAccountTextEl)
+          manageAccountTextEl.textContent = t.manageAccount || "Manage Account";
+        const accountProfileTextEl =
+          document.getElementById("accountProfileText");
+        if (accountProfileTextEl)
+          accountProfileTextEl.textContent = t.profile || "Profile";
+        const signOutTextEl = document.getElementById("signOutText");
+        if (signOutTextEl) signOutTextEl.textContent = t.signOut || "Sign Out";
 
         // Store current language translations for toast messages
         window.currentTranslations = t;
@@ -3011,6 +3728,45 @@
 
       function navigateTo(route) {
         const page = pages[route] || pages["home"];
+
+        // Animate top loading progress bar
+        const loadingBar = document.getElementById("loadingProgress");
+        if (loadingBar) {
+          loadingBar.classList.remove("active");
+          void loadingBar.offsetWidth; // force reflow to restart animation
+          loadingBar.classList.add("active");
+          clearTimeout(window._loadingBarTimer);
+          window._loadingBarTimer = setTimeout(function () {
+            loadingBar.classList.remove("active");
+          }, 1000);
+        }
+
+        // Spinner management for books / images pages
+        const booksSpinner = document.getElementById("booksSpinner");
+        const booksEmpty = document.getElementById("booksEmpty");
+        const imagesSpinner = document.getElementById("imagesSpinner");
+        const imagesEmpty = document.getElementById("imagesEmpty");
+        clearTimeout(window._booksSpinnerTimer);
+        clearTimeout(window._imagesSpinnerTimer);
+        if (booksSpinner) booksSpinner.style.display = "none";
+        if (booksEmpty) booksEmpty.style.display = "";
+        if (imagesSpinner) imagesSpinner.style.display = "none";
+        if (imagesEmpty) imagesEmpty.style.display = "";
+        if (route === "books") {
+          if (booksSpinner) booksSpinner.style.display = "flex";
+          if (booksEmpty) booksEmpty.style.display = "none";
+          window._booksSpinnerTimer = setTimeout(function () {
+            if (booksSpinner) booksSpinner.style.display = "none";
+            if (booksEmpty) booksEmpty.style.display = "";
+          }, 1500);
+        } else if (route === "images") {
+          if (imagesSpinner) imagesSpinner.style.display = "flex";
+          if (imagesEmpty) imagesEmpty.style.display = "none";
+          window._imagesSpinnerTimer = setTimeout(function () {
+            if (imagesSpinner) imagesSpinner.style.display = "none";
+            if (imagesEmpty) imagesEmpty.style.display = "";
+          }, 1200);
+        }
 
         // Hide all pages
         document.querySelectorAll(".page").forEach((p) => {
@@ -3496,11 +4252,12 @@
           }
           imagesPromptInputEl.value = transcript;
         };
-
         recognition.onerror = function (e) {
           if (!ended) {
             ended = true;
+            playToneNote("G4", "8n");
             playToneNote("C4", "8n");
+
             if (
               e.error === "not-allowed" ||
               e.error === "service-not-allowed"
@@ -3545,7 +4302,9 @@
         try {
           recognition.start();
         } catch (e) {
+          playToneNote("G4", "8n");
           playToneNote("C4", "8n");
+
           showToast(
             (window.currentTranslations &&
               window.currentTranslations.micDeniedToast) ||
@@ -3568,6 +4327,7 @@
       imagesMicBtn.addEventListener("click", function () {
         const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SR) {
+          playToneNote("G4", "8n");
           playToneNote("C4", "8n");
           showToast(
             (window.currentTranslations &&
@@ -3583,6 +4343,7 @@
         // Check mic permission state before deciding whether to show modal
         const checkAndProceed = function (state) {
           if (state === "denied") {
+            playToneNote("G4", "8n");
             playToneNote("C4", "8n");
             showToast(
               (window.currentTranslations &&
@@ -3634,6 +4395,79 @@
           playToneNote("G4", "8n");
         }
       });
+
+      // Account manager modal interactions
+      const accountManagerModalEl = document.getElementById(
+        "accountManagerModal",
+      );
+      const accountManagerCloseBtnEl = document.getElementById(
+        "accountManagerCloseBtn",
+      );
+      const manageAccountBtnEl = document.getElementById("manageAccountBtn");
+      const accountProfileBtnEl = document.getElementById("accountProfileBtn");
+
+      if (manageAccountBtnEl) {
+        manageAccountBtnEl.addEventListener("click", function () {
+          if (accountManagerModalEl)
+            accountManagerModalEl.classList.add("show");
+        });
+      }
+      if (accountManagerCloseBtnEl) {
+        accountManagerCloseBtnEl.addEventListener("click", function () {
+          if (accountManagerModalEl)
+            accountManagerModalEl.classList.remove("show");
+        });
+      }
+      if (accountManagerModalEl) {
+        accountManagerModalEl.addEventListener("click", function (e) {
+          if (e.target === accountManagerModalEl)
+            accountManagerModalEl.classList.remove("show");
+        });
+      }
+      if (accountProfileBtnEl) {
+        accountProfileBtnEl.addEventListener("click", function () {
+          showToast(
+            (window.currentTranslations &&
+              window.currentTranslations.accountsToast) ||
+              "Munetios Accounts are coming soon!",
+          );
+        });
+      }
+
+      // Sign-out confirm modal
+      const signoutConfirmModal = document.getElementById(
+        "signoutConfirmModal",
+      );
+      const signOutBtnEl = document.getElementById("signOutBtn");
+      const signoutCancelBtnEl = document.getElementById("signoutCancelBtn");
+      const signoutDoBtnEl = document.getElementById("signoutDoBtn");
+
+      if (signOutBtnEl) {
+        signOutBtnEl.addEventListener("click", function () {
+          if (signoutConfirmModal) signoutConfirmModal.classList.add("show");
+        });
+      }
+      if (signoutCancelBtnEl) {
+        signoutCancelBtnEl.addEventListener("click", function () {
+          if (signoutConfirmModal) signoutConfirmModal.classList.remove("show");
+        });
+      }
+      if (signoutDoBtnEl) {
+        signoutDoBtnEl.addEventListener("click", function () {
+          if (signoutConfirmModal) signoutConfirmModal.classList.remove("show");
+          showToast(
+            (window.currentTranslations &&
+              window.currentTranslations.signOutToast) ||
+              "Munetios Accounts are coming soon. Already Signed out.",
+          );
+        });
+      }
+      if (signoutConfirmModal) {
+        signoutConfirmModal.addEventListener("click", function (e) {
+          if (e.target === signoutConfirmModal)
+            signoutConfirmModal.classList.remove("show");
+        });
+      }
 
       // Generate random attribute name
       const randomAttr =
