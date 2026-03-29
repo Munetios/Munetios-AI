@@ -2688,6 +2688,29 @@
         border-radius: 24px;
         display: block;
       }
+      .preview-modal-content {
+        position: relative;
+        width: auto;
+        max-width: none;
+        padding: 18px;
+      }
+      .preview-modal-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        cursor: pointer;
+      }
+      .preview-modal-close:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
       @keyframes fadeInUp {
         from {
           opacity: 0;
@@ -3362,7 +3385,10 @@
       </div>
     </div>
     <div class="signout-confirm-modal" id="imagePreviewModal">
-      <div class="signout-confirm-content liquid-glass" style="width: auto; max-width: none; padding: 18px;">
+      <div class="signout-confirm-content preview-modal-content liquid-glass">
+        <button class="preview-modal-close" id="imagePreviewModalClose" aria-label="Close image preview">
+          <icon>close</icon>
+        </button>
         <img id="imagePreviewModalImg" class="preview-modal-image" alt="Preview" />
       </div>
     </div>
@@ -5696,9 +5722,7 @@
 
       sstModalOverlay.addEventListener("click", function (e) {
         if (e.target === sstModalOverlay) {
-          sstModalOverlay.classList.remove("show");
-          sstPendingListen = false;
-          playToneNote("G4", "8n");
+          e.stopPropagation();
         }
       });
 
@@ -5770,8 +5794,7 @@
       }
       if (signoutConfirmModal) {
         signoutConfirmModal.addEventListener("click", function (e) {
-          if (e.target === signoutConfirmModal)
-            signoutConfirmModal.classList.remove("show");
+          if (e.target === signoutConfirmModal) e.stopPropagation();
         });
       }
 
@@ -6273,6 +6296,7 @@
           shareModalText: document.getElementById("shareModalText"),
           shareTargets: document.getElementById("shareTargets"),
           imagePreviewModal: document.getElementById("imagePreviewModal"),
+          imagePreviewModalClose: document.getElementById("imagePreviewModalClose"),
           imagePreviewModalImg: document.getElementById("imagePreviewModalImg"),
           voiceChatOverlay: document.getElementById("voiceChatOverlay"),
           voiceChatCloseBtn: document.getElementById("voiceChatCloseBtn"),
@@ -7488,11 +7512,11 @@
         });
         els.voicePickerOverlay.addEventListener("click", (event) => {
           if (event.target === els.voicePickerOverlay) {
-            els.voicePickerOverlay.classList.remove("show");
+            event.stopPropagation();
           }
         });
         els.customConfirmModal.addEventListener("click", (event) => {
-          if (event.target === els.customConfirmModal) closeConfirm();
+          if (event.target === els.customConfirmModal) event.stopPropagation();
         });
         els.refreshArchivedChatsBtn.addEventListener("click", () => {
           renderArchivedChats();
@@ -7503,17 +7527,22 @@
         });
         els.archivedChatsModal.addEventListener("click", (event) => {
           if (event.target === els.archivedChatsModal) {
-            els.archivedChatsModal.classList.remove("show");
+            event.stopPropagation();
           }
         });
         els.shareModalClose.addEventListener("click", closeShareModal);
         els.shareModal.addEventListener("click", (event) => {
           if (event.target === els.shareModal) {
-            closeShareModal();
+            event.stopPropagation();
           }
         });
-        els.imagePreviewModal.addEventListener("click", () => {
+        els.imagePreviewModalClose?.addEventListener("click", () => {
           els.imagePreviewModal.classList.remove("show");
+        });
+        els.imagePreviewModal.addEventListener("click", (event) => {
+          if (event.target === els.imagePreviewModal) {
+            event.stopPropagation();
+          }
         });
         document.querySelectorAll(".settings-nav-item").forEach((button) => {
           button.addEventListener("click", () => {
