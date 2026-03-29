@@ -15,7 +15,7 @@
     />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self' https://*.munetios.com; script-src 'self' 'nonce-ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg' https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://api.munetios.com 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com  data:; connect-src 'self';"
+      content="default-src 'self' https://*.munetios.com; script-src 'self' 'nonce-ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg' https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://api.munetios.com 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com  data:; connect-src 'self' https://api.munetios.com https://*.munetios.com https://api.anthropic.com https://api.openai.com;"
     />
     <link rel="icon" type="image/png" href="logo.png" />
     <link rel="apple-touch-icon" href="logo.png" />
@@ -34,8 +34,8 @@
       }
       * {
         font-family: "Google Sans Flex", sans-serif;
+        font-optical-sizing: auto;
         font-variation-settings:
-          "opsz" 14,
           "wght" 400,
           "ROND" 80;
       }
@@ -537,6 +537,21 @@
         font-size: 13px;
         opacity: 0.8;
       }
+      .unsupported-mic {
+        opacity: 0.42;
+      }
+      .voice-chat-listening-circle.warning {
+        background:
+          radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 45%),
+          linear-gradient(135deg, rgba(110, 110, 120, 0.95), rgba(42, 42, 52, 0.9));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .voice-chat-listening-circle.warning icon {
+        font-size: clamp(46px, 8vw, 78px);
+        color: rgba(255, 222, 110, 0.96);
+      }
       .settings-color {
         width: 46px;
         height: 46px;
@@ -769,11 +784,11 @@
         }
         .sidebar.overlay-open .menu-text,
         .sidebar.overlay-open .logo-text,
-        .sidebar.overlay-open .sidebar-content,
+        .sidebar.overlay-open .sidebar-content h3,
         .sidebar.overlay-open #chatHistoryList,
         .sidebar.overlay-open .sidebar-content h4,
         .sidebar.overlay-open .sidebar-content p {
-          display: block !important;
+          display: block;
         }
         .sidebar.overlay-open .sidebar-item {
           justify-content: flex-start;
@@ -2106,6 +2121,34 @@
         width: 34px;
         height: 34px;
       }
+      .typing-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .typing-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(var(--accent-rgb), 0.95);
+        animation: typingPulse 1s ease-in-out infinite;
+      }
+      .typing-dot:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .typing-dot:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      @keyframes typingPulse {
+        0%, 80%, 100% {
+          transform: scale(0.72);
+          opacity: 0.45;
+        }
+        40% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
       .chat-message {
         width: fit-content;
         max-width: min(78%, 760px);
@@ -2150,6 +2193,52 @@
       }
       .prompt-attachment-list {
         margin-bottom: 10px;
+      }
+      .edit-session-wrapper {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 12px;
+        padding: 14px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .edit-session-wrapper.show {
+        display: flex;
+      }
+      .edit-session-header,
+      .edit-session-version {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .edit-session-title {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .edit-session-title strong {
+        font-size: 15px;
+        font-weight: 560;
+      }
+      .edit-session-title span,
+      .edit-session-response {
+        font-size: 13px;
+        opacity: 0.78;
+        line-height: 1.55;
+      }
+      .edit-session-arrows {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .edit-session-count {
+        min-width: 42px;
+        text-align: center;
+        font-size: 13px;
       }
       .attachment-pill {
         display: inline-flex;
@@ -2336,18 +2425,92 @@
         display: flex;
       }
       .settings-advanced-group {
-        padding: 16px;
-        border-radius: 18px;
+        padding: 20px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
       }
       .settings-advanced-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        margin-bottom: 12px;
+        flex-wrap: wrap;
       }
       .settings-advanced-header h3 {
         margin: 0;
+        font-size: 18px;
+      }
+      .settings-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .settings-note {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.76);
+      }
+      .settings-toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .settings-toggle-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .settings-toggle-copy strong {
+        font-size: 15px;
+        font-weight: 520;
+      }
+      .settings-toggle {
+        position: relative;
+        width: 58px;
+        height: 32px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.08);
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .settings-toggle::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.95);
+        transition: transform 0.2s ease;
+      }
+      .settings-toggle.on {
+        background: rgba(var(--accent-rgb), 0.72);
+      }
+      .settings-toggle.on::after {
+        transform: translateX(26px);
+      }
+      .settings-inline-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .settings-textarea {
+        min-height: 110px;
+        resize: vertical;
+        padding: 12px 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+        color: inherit;
+        font: inherit;
+        outline: none;
       }
       .archived-chats-list {
         display: flex;
@@ -2380,6 +2543,169 @@
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
+      }
+      .help-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(7, 7, 16, 0.5);
+        backdrop-filter: blur(10px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2300;
+      }
+      .help-modal.show {
+        display: flex;
+      }
+      .help-shell {
+        width: min(1180px, 94vw);
+        height: min(760px, 88vh);
+        border-radius: 28px;
+        display: grid;
+        grid-template-columns: 300px minmax(0, 1fr);
+        overflow: hidden;
+      }
+      .help-sidebar {
+        padding: 22px;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .help-sidebar h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 540;
+      }
+      .help-sidebar p {
+        margin: 0 0 8px;
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.76);
+      }
+      .help-link-btn {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        cursor: pointer;
+      }
+      .help-link-btn:hover,
+      .help-link-btn.active {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .help-link-copy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .help-link-copy strong {
+        font-size: 15px;
+        font-weight: 540;
+      }
+      .help-link-copy span {
+        font-size: 12px;
+        opacity: 0.72;
+      }
+      .help-content {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .help-content-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 22px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .help-content-title {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .help-content-title h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 540;
+      }
+      .help-content-title p {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.72;
+      }
+      .help-frame {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: rgba(0, 0, 0, 0.14);
+      }
+      .voice-draft-dock {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%) translateY(18px);
+        width: min(720px, calc(100vw - 24px));
+        border-radius: 24px;
+        padding: 16px;
+        z-index: 2200;
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        opacity: 0;
+        transition:
+          opacity 0.22s ease,
+          transform 0.22s ease;
+      }
+      .voice-draft-dock.show {
+        display: flex;
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .voice-draft-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .voice-draft-heading {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .voice-draft-heading strong {
+        font-size: 15px;
+        font-weight: 540;
+      }
+      .voice-draft-heading span {
+        font-size: 12px;
+        opacity: 0.72;
+      }
+      .voice-draft-text {
+        width: 100%;
+        min-height: 86px;
+        resize: vertical;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+        color: inherit;
+        font: inherit;
+        line-height: 1.55;
+        outline: none;
+      }
+      .voice-draft-text[readonly] {
+        cursor: default;
+      }
+      .voice-draft-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        flex-wrap: wrap;
       }
       .hide-if-started,
       .show-if-started {
@@ -2742,8 +3068,22 @@
           transform: translateX(0) translateY(0);
         }
       }
+      .model-picker-btn {
+        display: flex;
+        padding: 11px 12px;
+        cursor: pointer;
+        align-items: center;
+    transition: background 0.2s ease;
+        
+      }
+      .model-picker-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
     </style>
-    <script src="https://unpkg.com/tone@14/build/Tone.js"></script>
+       <script
+      src="https://unpkg.com/tone@14/build/Tone.js"
+      crossorigin="anonymous"
+    ></script>
 
   </head>
   <body>
@@ -2900,6 +3240,29 @@
             <div class="chat-stream" id="chatMessages"></div>
             <div class="bottom-area">
             <div class="bottom-container">
+              <div class="edit-session-wrapper liquid-glass" id="editSessionWrapper">
+                <div class="edit-session-header">
+                  <div class="edit-session-title">
+                    <strong id="editSessionTitle">Editing message</strong>
+                    <span id="editSessionSubtitle">Update your message, then send it again.</span>
+                  </div>
+                  <button class="btn" id="cancelEditSessionBtn" type="button">Cancel</button>
+                </div>
+                <div class="edit-session-version">
+                  <div class="edit-session-arrows">
+                    <button class="icon-btn" id="editVersionPrevBtn" type="button" title="Previous version">
+                      <icon class="material-symbols-rounded">chevron_left</icon>
+                    </button>
+                    <span class="edit-session-count" id="editSessionCount">1/1</span>
+                    <button class="icon-btn" id="editVersionNextBtn" type="button" title="Next version">
+                      <icon class="material-symbols-rounded">chevron_right</icon>
+                    </button>
+                  </div>
+                  <button class="btn" id="applyEditVersionBtn" type="button">Use Version</button>
+                </div>
+                <div class="prompt-attachment-list" id="editSessionAttachmentList"></div>
+                <div class="edit-session-response liquid-glass" id="editSessionResponse">No linked response yet.</div>
+              </div>
               <div class="prompt-attachment-list" id="promptAttachmentList"></div>
               <input type="file" id="homeFileInput" multiple hidden />
               <div class="prompt-action-menu liquid-glass" id="homeUploadMenu">
@@ -3166,7 +3529,10 @@
             <div class="settings-sidebar-nav">
               <button class="settings-nav-item active" data-settings-panel="general"><icon class="material-symbols-rounded">tune</icon><span data-translate="generalTab">General</span></button>
               <button class="settings-nav-item" data-settings-panel="appearance"><icon class="material-symbols-rounded">palette</icon><span data-translate="appearanceTab">Appearance</span></button>
+              <button class="settings-nav-item" data-settings-panel="privacy"><icon class="material-symbols-rounded">shield</icon><span>Privacy</span></button>
+              <button class="settings-nav-item" data-settings-panel="shortcuts"><icon class="material-symbols-rounded">keyboard_command_key</icon><span>Shortcuts</span></button>
               <button class="settings-nav-item" data-settings-panel="advanced"><icon class="material-symbols-rounded">build</icon><span data-translate="advancedTab">Advanced</span></button>
+              <button class="settings-nav-item" data-settings-panel="about"><icon class="material-symbols-rounded">info</icon><span>About</span></button>
             </div>
             <div class="settings-modal-content">
               <div class="settings-panel active" id="settingsPanelGeneral">
@@ -3223,15 +3589,51 @@
                 </div>
               </div>
               <div class="settings-panel" id="settingsPanelAdvanced">
-                <div class="settings-advanced-group liquid-glass">
-                  <div class="settings-advanced-header">
-                    <h3 data-translate="archivedChats">Archived Chats</h3>
-                    <button class="btn" id="refreshArchivedChatsBtn" data-translate="viewArchived">View</button>
+                <div class="settings-stack">
+                  <div class="settings-advanced-group liquid-glass">
+                    <div class="settings-advanced-header">
+                      <h3 data-translate="archivedChats">Archived Chats</h3>
+                      <button class="btn" id="refreshArchivedChatsBtn" data-translate="viewArchived">View</button>
+                    </div>
+                  </div>
+                  <div class="settings-advanced-actions">
+                    <button class="btn" id="archiveAllChatsBtn" data-translate="archiveAllChats">Archive All Chats</button>
+                    <button class="btn danger-btn" id="deleteAllChatsBtn" data-translate="deleteAllChats">Delete All Chats</button>
                   </div>
                 </div>
-                <div class="settings-advanced-actions">
-                  <button class="btn" id="archiveAllChatsBtn" data-translate="archiveAllChats">Archive All Chats</button>
-                  <button class="btn danger-btn" id="deleteAllChatsBtn" data-translate="deleteAllChats">Delete All Chats</button>
+              </div>
+              <div class="settings-panel" id="settingsPanelPrivacy">
+                <div class="settings-item">
+                  <label class="settings-label">Privacy Note</label>
+                  <div class="settings-note">Chats are local in this preview. Review browser privacy controls for speech and storage permissions.</div>
+                </div>
+                <div class="settings-item">
+                  <label class="settings-label">Voice Processing</label>
+                  <div class="settings-note">Voice input depends on your browser speech engine and may be processed outside this app.</div>
+                </div>
+              </div>
+              <div class="settings-panel" id="settingsPanelShortcuts">
+                <div class="settings-item">
+                  <label class="settings-label">Open Settings</label>
+                  <div class="settings-note">Use <code>Ctrl/Cmd + ,</code> to open Settings.</div>
+                </div>
+                <div class="settings-item">
+                  <label class="settings-label">Focus Composer</label>
+                  <div class="settings-note">Use <code>Ctrl/Cmd + K</code> to jump to the message composer.</div>
+                </div>
+                <div class="settings-item">
+                  <label class="settings-label">Voice Chat</label>
+                  <div class="settings-note">Use <code>Ctrl/Cmd + Shift + V</code> to open voice chat.</div>
+                </div>
+              </div>
+              <div class="settings-panel" id="settingsPanelAbout">
+                <div class="settings-item">
+                  <label class="settings-label">Munetios AI Preview</label>
+                  <div class="settings-note">This interface is an in-browser preview of the Munetios AI experience and local chat workflow.</div>
+                </div>
+                <div class="settings-item">
+                  <label class="settings-label">More Options</label>
+                  <div class="settings-note">Use Help, chat actions, archived chats, temporary chat, sharing, and voice tools from the current UI.</div>
                 </div>
               </div>
             </div>
@@ -3294,6 +3696,38 @@
           <button class="signout-cancel-btn" id="customConfirmCancel">Cancel</button>
           <button class="signout-confirm-btn" id="customConfirmDo">Confirm</button>
         </div>
+      </div>
+    </div>
+    <munetios-dropdown class="liquid-glass dropdown-wrapper" id="helpDropdown">
+      <div class="dropdown-item" data-help-link="documentation.html">
+        <icon class="material-symbols-rounded">description</icon>
+        <span>Documentation</span>
+      </div>
+      <div class="dropdown-item" data-help-link="how-it-works.html">
+        <icon class="material-symbols-rounded">dashboard_customize</icon>
+        <span>How it works</span>
+      </div>
+      <div class="dropdown-item" data-help-link="compare.html">
+        <icon class="material-symbols-rounded">balance</icon>
+        <span>Compare</span>
+      </div>
+      <div class="dropdown-item" data-help-link="models.html">
+        <icon class="material-symbols-rounded">deployed_code</icon>
+        <span>Models</span>
+      </div>
+    </munetios-dropdown>
+    <div class="voice-draft-dock liquid-glass" id="voiceDraftDock">
+      <div class="voice-draft-top">
+        <div class="voice-draft-heading">
+          <strong id="voiceDraftTitle">Voice Chat</strong>
+          <span id="voiceDraftStatus">Listening for your words...</span>
+        </div>
+        <button class="btn" id="voiceDraftCloseBtn" type="button">Close</button>
+      </div>
+      <textarea class="voice-draft-text" id="voiceDraftText" readonly placeholder="Your spoken words will appear here."></textarea>
+      <div class="voice-draft-actions">
+        <button class="btn" id="voiceDraftChangeBtn" type="button">Change</button>
+        <button class="btn" id="voiceDraftDoneBtn" type="button">Done</button>
       </div>
     </div>
     <div class="settings-modal" id="archivedChatsModal">
@@ -3409,7 +3843,9 @@
         <div class="voice-chat-body">
             <div class="voice-chat-main">
               <div class="voice-chat-listening">
-                <div class="voice-chat-listening-circle" id="voiceChatListeningCircle"></div>
+                <div class="voice-chat-listening-circle" id="voiceChatListeningCircle">
+                  <icon class="material-symbols-rounded" id="voiceChatCircleIcon" style="display: none;">warning</icon>
+                </div>
                 <p id="voiceChatStatusText" data-translate="voiceChatListening">Listening</p>
                 <div class="voice-chat-controls">
                   <button class="btn" id="voiceChatMicBtn" type="button">
@@ -4978,6 +5414,9 @@
         });
       });
 
+      const helpBtn = document.getElementById("helpBtn");
+      const helpDropdown = document.getElementById("helpDropdown");
+
       // Close language/theme dropdowns when clicking outside
       document.addEventListener("click", function (e) {
         if (
@@ -4989,12 +5428,33 @@
         if (!themeBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
           themeDropdown.style.display = "none";
         }
+        if (!helpBtn.contains(e.target) && !helpDropdown.contains(e.target)) {
+          helpDropdown.style.display = "none";
+        }
       });
 
       // Help button
-      const helpBtn = document.getElementById("helpBtn");
       helpBtn.addEventListener("click", function () {
-        showToast(window.currentTranslations.helpToast);
+        const isVisible = helpDropdown.style.display === "flex";
+        if (isVisible) {
+          helpDropdown.style.display = "none";
+          return;
+        }
+        const rect = helpBtn.getBoundingClientRect();
+        helpDropdown.style.display = "flex";
+        helpDropdown.style.left = `${Math.max(16, rect.left)}px`;
+        helpDropdown.style.right = "auto";
+        helpDropdown.style.top = "auto";
+        helpDropdown.style.bottom = `${Math.max(16, window.innerHeight - rect.top + 8)}px`;
+      });
+      helpDropdown.querySelectorAll("[data-help-link]").forEach((item) => {
+        item.addEventListener("click", function () {
+          const href = this.getAttribute("data-help-link");
+          helpDropdown.style.display = "none";
+          if (href) {
+            window.location.href = href;
+          }
+        });
       });
 
       // ===== PAGE ROUTER =====
@@ -5133,6 +5593,9 @@
           route === "home" ? "#/" : "#/" + route,
         );
         window.currentPage = route;
+        if (typeof window.syncPageUi === "function") {
+          window.syncPageUi(route);
+        }
       }
 
       // Hash router
@@ -6241,6 +6704,8 @@
         });
         const DB_NAME = "munetios-ai-home";
         const STORE_NAME = "chats";
+        const SETTINGS_STORE_NAME = "app-settings";
+        const MODELS_STORE_NAME = "custom-models";
         const ACTIVE_CHAT_KEY = "munetios-active-chat-id";
         const VOICE_KEY = "munetios-selected-voice";
         const APPEARANCE_KEY = "munetios-chat-appearance";
@@ -6258,6 +6723,12 @@
           homeRecognition: null,
           homeSstPending: false,
           homeMicDenied: false,
+          currentPage: "home",
+          editingModelId: "",
+          editSession: null,
+          voiceDraftContext: "",
+          voiceDraftText: "",
+          voiceDraftDenied: false,
           confirmAction: null,
           chatRenderToken: 0,
         };
@@ -6304,6 +6775,7 @@
           voiceChatChooseVoiceBtn: document.getElementById("voiceChatChooseVoiceBtn"),
           voiceChatMicBtn: document.getElementById("voiceChatMicBtn"),
           voiceChatListeningCircle: document.getElementById("voiceChatListeningCircle"),
+          voiceChatCircleIcon: document.getElementById("voiceChatCircleIcon"),
           voiceChatTranscriptList: document.getElementById("voiceChatTranscriptList"),
           voiceChatStatusText: document.getElementById("voiceChatStatusText"),
           voicePickerOverlay: document.getElementById("voicePickerOverlay"),
@@ -6327,6 +6799,24 @@
           sstModalOverlay: document.getElementById("sstModalOverlay"),
           sstModalCloseBtn: document.getElementById("sstModalCloseBtn"),
           languageDropdown: document.getElementById("languageDropdown"),
+          helpDropdown: document.getElementById("helpDropdown"),
+          editSessionWrapper: document.getElementById("editSessionWrapper"),
+          editSessionTitle: document.getElementById("editSessionTitle"),
+          editSessionSubtitle: document.getElementById("editSessionSubtitle"),
+          editSessionCount: document.getElementById("editSessionCount"),
+          editSessionAttachmentList: document.getElementById("editSessionAttachmentList"),
+          editSessionResponse: document.getElementById("editSessionResponse"),
+          cancelEditSessionBtn: document.getElementById("cancelEditSessionBtn"),
+          editVersionPrevBtn: document.getElementById("editVersionPrevBtn"),
+          editVersionNextBtn: document.getElementById("editVersionNextBtn"),
+          applyEditVersionBtn: document.getElementById("applyEditVersionBtn"),
+          voiceDraftDock: document.getElementById("voiceDraftDock"),
+          voiceDraftTitle: document.getElementById("voiceDraftTitle"),
+          voiceDraftStatus: document.getElementById("voiceDraftStatus"),
+          voiceDraftText: document.getElementById("voiceDraftText"),
+          voiceDraftChangeBtn: document.getElementById("voiceDraftChangeBtn"),
+          voiceDraftDoneBtn: document.getElementById("voiceDraftDoneBtn"),
+          voiceDraftCloseBtn: document.getElementById("voiceDraftCloseBtn"),
         };
         function t(key, fallback = "") {
           const lang = normalizeLanguageValue(
@@ -6412,9 +6902,87 @@
             reader.readAsDataURL(file);
           });
         }
+        function fileToText(file) {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result || ""));
+            reader.onerror = () => reject(reader.error);
+            reader.readAsText(file);
+          });
+        }
         function resolvePreviewUrl(fileLike) {
           const candidate = fileLike?.previewDataUrl || fileLike?.previewUrl || "";
           return candidate.startsWith("blob:") ? "" : candidate;
+        }
+        function getFileExtension(fileName = "") {
+          const parts = String(fileName).toLowerCase().split(".");
+          return parts.length > 1 ? parts.pop() : "";
+        }
+        function isTextLikeFile(fileLike) {
+          const type = String(fileLike?.type || "").toLowerCase();
+          const extension = getFileExtension(fileLike?.name || "");
+          return type.startsWith("text/")
+            || type.includes("json")
+            || type.includes("javascript")
+            || type.includes("xml")
+            || [
+              "txt",
+              "md",
+              "markdown",
+              "json",
+              "js",
+              "ts",
+              "tsx",
+              "jsx",
+              "html",
+              "css",
+              "csv",
+              "xml",
+              "yml",
+              "yaml",
+              "log",
+            ].includes(extension);
+        }
+        function dataUrlToBase64(dataUrl = "") {
+          return String(dataUrl).split(",")[1] || "";
+        }
+        function getAttachmentTextSummary(attachment) {
+          const meta = `${attachment.name} (${attachment.type || "unknown"}, ${formatBytes(attachment.size) || "size unknown"})`;
+          if (attachment.textContent?.trim()) {
+            const trimmed = attachment.textContent.trim();
+            const limited = trimmed.length > 14000 ? `${trimmed.slice(0, 14000)}\n\n[Truncated]` : trimmed;
+            return `Attached file: ${meta}\n\n${limited}`;
+          }
+          return `Attached file: ${meta}`;
+        }
+        async function prepareAttachmentForMessage(fileLike) {
+          const base = {
+            name: fileLike.name,
+            size: fileLike.size,
+            type: fileLike.type || "",
+            previewUrl: fileLike.previewUrl || "",
+            previewDataUrl: fileLike.previewDataUrl || fileLike.previewUrl || "",
+          };
+          const file = fileLike.file;
+          if (!file) return base;
+          let dataUrl = base.previewDataUrl || "";
+          if (!dataUrl && file.size <= 5 * 1024 * 1024) {
+            try {
+              dataUrl = await fileToDataUrl(file);
+            } catch (error) {}
+          }
+          let textContent = "";
+          if (isTextLikeFile(fileLike) && file.size <= 1024 * 1024) {
+            try {
+              textContent = await fileToText(file);
+            } catch (error) {}
+          }
+          return {
+            ...base,
+            dataUrl,
+            base64Data: dataUrlToBase64(dataUrl),
+            textContent,
+          };
         }
         async function primeToneAudio() {
           try {
@@ -6443,6 +7011,373 @@
         function uid(prefix) {
           return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
         }
+        function maskApiKey(apiKey = "") {
+          if (!apiKey) return "No API key";
+          const visible = apiKey.slice(-4);
+          return `${"*".repeat(Math.max(0, apiKey.length - 4))}${visible}`;
+        }
+        function getProviderLabel(provider) {
+          return (
+            {
+              openai: "OpenAI",
+              anthropic: "Claude",
+              custom: "Custom",
+            }[provider] || "Custom"
+          );
+        }
+        function getSelectedModel() {
+          return state.customModels.find((model) => model.id === state.selectedModelId) || null;
+        }
+        function setDeveloperModelProvider(value = "openai") {
+          state.developerModelProvider = value;
+          if (els.developerModelProviderLabel) {
+            els.developerModelProviderLabel.textContent = getProviderLabel(value);
+          }
+        }
+        function resetDeveloperModelForm() {
+          state.editingModelId = "";
+          setDeveloperModelProvider("openai");
+          if (els.developerModelId) els.developerModelId.value = "";
+          if (els.developerModelName) els.developerModelName.value = "";
+          if (els.developerModelApiKey) els.developerModelApiKey.value = "";
+          if (els.developerModelIntro) els.developerModelIntro.value = "";
+          if (els.saveDeveloperModelBtn) els.saveDeveloperModelBtn.textContent = "Save Model";
+        }
+        function renderDeveloperMode() {
+          els.developerModeToggle?.classList.toggle("on", !!state.developerMode);
+          els.developerModeToggle?.setAttribute("aria-pressed", String(!!state.developerMode));
+          els.developerModePanel?.classList.toggle("show", !!state.developerMode);
+          renderModelPicker();
+        }
+        function renderDeveloperModels() {
+          if (!els.developerModelList) return;
+          els.developerModelList.innerHTML = "";
+          if (!state.customModels.length) {
+            const empty = document.createElement("div");
+            empty.className = "developer-model-card";
+            empty.innerHTML = `
+              <div class="developer-model-name">No custom models yet</div>
+              <div class="developer-model-intro">Turn on Developer Mode and save an OpenAI, Claude, or custom model to see it here.</div>
+            `;
+            els.developerModelList.appendChild(empty);
+            return;
+          }
+          state.customModels.forEach((model) => {
+            const card = document.createElement("div");
+            card.className = `developer-model-card${model.id === state.selectedModelId ? " active" : ""}`;
+            card.innerHTML = `
+              <div class="developer-model-name">${model.displayName || model.modelId || "Untitled Model"}</div>
+              <div class="developer-model-meta">${getProviderLabel(model.provider)} • ${model.modelId || "No model ID"} • ${maskApiKey(model.apiKey)}</div>
+              <div class="developer-model-intro">${model.introduction?.trim() || "No custom introduction."}</div>
+              <div class="developer-model-actions">
+                <button class="btn" type="button" data-model-action="use">Use</button>
+                <button class="btn" type="button" data-model-action="edit">Edit</button>
+                <button class="btn danger-btn" type="button" data-model-action="delete">Delete</button>
+              </div>
+            `;
+            card.querySelector('[data-model-action="use"]').addEventListener("click", async () => {
+              state.selectedModelId = model.id;
+              await setDbSetting("selected-model-id", model.id);
+              renderDeveloperModels();
+              renderModelPicker();
+            });
+            card.querySelector('[data-model-action="edit"]').addEventListener("click", () => {
+              state.editingModelId = model.id;
+              setDeveloperModelProvider(model.provider || "openai");
+              els.developerModelId.value = model.modelId || "";
+              els.developerModelName.value = model.displayName || "";
+              els.developerModelApiKey.value = model.apiKey || "";
+              els.developerModelIntro.value = model.introduction || "";
+              els.saveDeveloperModelBtn.textContent = "Update Model";
+            });
+            card.querySelector('[data-model-action="delete"]').addEventListener("click", async () => {
+              await deleteCustomModel(model.id);
+              state.customModels = state.customModels.filter((entry) => entry.id !== model.id);
+              if (state.selectedModelId === model.id) {
+                state.selectedModelId = "";
+                await setDbSetting("selected-model-id", "");
+              }
+              if (state.editingModelId === model.id) {
+                resetDeveloperModelForm();
+              }
+              renderDeveloperModels();
+              renderModelPicker();
+            });
+            els.developerModelList.appendChild(card);
+          });
+        }
+        function renderModelPicker() {
+          const selectedModel = getSelectedModel();
+          if (els.modelPickerValue) {
+            els.modelPickerValue.textContent = selectedModel?.displayName || "None";
+          }
+          if (!els.modelPickerDropdown) return;
+          els.modelPickerDropdown.innerHTML = "";
+          const options = [
+            {
+              id: "",
+              title: "None",
+              meta: "Use the default Munet experience.",
+            },
+            ...state.customModels.map((model) => ({
+              id: model.id,
+              title: model.displayName || model.modelId || "Untitled Model",
+              meta: `${getProviderLabel(model.provider)}${model.introduction?.trim() ? ` • ${model.introduction.trim().slice(0, 80)}` : ""}`,
+            })),
+          ];
+          options.forEach((option) => {
+            const button = document.createElement("button");
+            button.className = `model-picker-option${option.id === state.selectedModelId ? " active" : ""}`;
+            button.type = "button";
+            button.innerHTML = `
+              <div class="model-picker-option-title">${option.title}</div>
+              <div class="model-picker-option-meta">${option.meta}</div>
+            `;
+            button.addEventListener("click", async () => {
+              state.selectedModelId = option.id;
+              await setDbSetting("selected-model-id", option.id);
+              renderModelPicker();
+              renderDeveloperModels();
+              closeDropdown(els.modelPickerDropdown);
+            });
+            els.modelPickerDropdown.appendChild(button);
+          });
+          renderModelPickerVisibility();
+        }
+        function renderModelPickerVisibility() {
+          const shouldShow = state.currentPage === "home";
+          els.topbarModelPicker?.classList.toggle("show", shouldShow);
+          if (!shouldShow) {
+            closeDropdown(els.modelPickerDropdown);
+          }
+        }
+        function setVoiceChatUnsupportedState(message) {
+          els.voiceChatListeningCircle?.classList.remove("listening");
+          els.voiceChatListeningCircle?.classList.add("warning");
+          if (els.voiceChatCircleIcon) els.voiceChatCircleIcon.style.display = "block";
+          if (els.voiceChatStatusText) els.voiceChatStatusText.textContent = message;
+        }
+        function clearVoiceChatUnsupportedState() {
+          els.voiceChatListeningCircle?.classList.remove("warning");
+          if (els.voiceChatCircleIcon) els.voiceChatCircleIcon.style.display = "none";
+        }
+        function openVoiceDraftDock(config = {}) {
+          state.voiceDraftContext = config.context || state.voiceDraftContext || "voice";
+          state.voiceDraftDenied = !!config.denied;
+          const deniedText = config.deniedText || "Microphone has been denied. Please enable microphone.";
+          if (typeof config.text === "string") {
+            state.voiceDraftText = config.text;
+          }
+          if (els.voiceDraftTitle) {
+            els.voiceDraftTitle.textContent =
+              state.voiceDraftContext === "home" ? "Voice Input" : "Voice Chat";
+          }
+          if (els.voiceDraftStatus) {
+            els.voiceDraftStatus.textContent = state.voiceDraftDenied
+              ? deniedText
+              : config.status || "Listening for your words...";
+          }
+          if (els.voiceDraftText) {
+            els.voiceDraftText.value = state.voiceDraftDenied
+              ? deniedText
+              : state.voiceDraftText;
+            els.voiceDraftText.readOnly = !config.editable;
+          }
+          els.voiceDraftChangeBtn.style.display = state.voiceDraftDenied ? "none" : "inline-flex";
+          els.voiceDraftDoneBtn.textContent = state.voiceDraftDenied ? "Enable Microphone" : "Done";
+          els.voiceDraftDock?.classList.add("show");
+        }
+        function closeVoiceDraftDock() {
+          if (state.voiceDraftContext === "home" && state.homeRecognition) {
+            stopHomeRecognition();
+          }
+          if (state.voiceDraftContext === "voice" && state.voiceChatRecognition) {
+            stopVoiceChatRecognition();
+          }
+          state.voiceDraftContext = "";
+          state.voiceDraftText = "";
+          state.voiceDraftDenied = false;
+          els.voiceDraftDock?.classList.remove("show");
+          if (els.voiceDraftText) {
+            els.voiceDraftText.value = "";
+            els.voiceDraftText.readOnly = true;
+          }
+        }
+        function updateVoiceDraftText(text, context = state.voiceDraftContext || "voice") {
+          state.voiceDraftContext = context;
+          state.voiceDraftDenied = false;
+          state.voiceDraftText = String(text || "").trim();
+          openVoiceDraftDock({
+            context,
+            text: state.voiceDraftText,
+            status: state.voiceDraftText ? "Review the spoken words below." : "Listening for your words...",
+            editable: false,
+          });
+        }
+        window.syncPageUi = (route = window.currentPage || "home") => {
+          state.currentPage = route;
+        };
+        function extractOpenAiOutputText(payload) {
+          if (payload?.output_text) return String(payload.output_text).trim();
+          const output = Array.isArray(payload?.output) ? payload.output : [];
+          const textParts = [];
+          output.forEach((item) => {
+            const content = Array.isArray(item?.content) ? item.content : [];
+            content.forEach((entry) => {
+              if (entry?.type === "output_text" && entry.text) {
+                textParts.push(entry.text);
+              }
+            });
+          });
+          return textParts.join("\n\n").trim();
+        }
+        function buildOpenAiMessage(message) {
+          if (message.role === "assistant") {
+            return {
+              role: "assistant",
+              content: message.content,
+            };
+          }
+          const content = [];
+          if (message.content?.trim()) {
+            content.push({
+              type: "input_text",
+              text: message.content,
+            });
+          }
+          (message.attachments || []).forEach((attachment) => {
+            if ((attachment.type || "").startsWith("image/") && attachment.dataUrl) {
+              content.push({
+                type: "input_image",
+                image_url: attachment.dataUrl,
+                detail: "auto",
+              });
+              return;
+            }
+            if (attachment.dataUrl) {
+              content.push({
+                type: "input_file",
+                filename: attachment.name,
+                file_data: attachment.dataUrl,
+              });
+              return;
+            }
+            content.push({
+              type: "input_text",
+              text: getAttachmentTextSummary(attachment),
+            });
+          });
+          return {
+            role: "user",
+            content: content.length
+              ? content
+              : [{ type: "input_text", text: message.content || "Continue." }],
+          };
+        }
+        function buildAnthropicMessage(message) {
+          if (message.role === "assistant") {
+            return {
+              role: "assistant",
+              content: message.content,
+            };
+          }
+          const content = [];
+          (message.attachments || []).forEach((attachment) => {
+            const isSupportedImage = ["image/jpeg", "image/png", "image/gif", "image/webp"].includes(attachment.type);
+            if (isSupportedImage && attachment.base64Data) {
+              content.push({
+                type: "image",
+                source: {
+                  type: "base64",
+                  media_type: attachment.type,
+                  data: attachment.base64Data,
+                },
+              });
+              return;
+            }
+            content.push({
+              type: "text",
+              text: getAttachmentTextSummary(attachment),
+            });
+          });
+          if (message.content?.trim()) {
+            content.push({
+              type: "text",
+              text: message.content,
+            });
+          }
+          return {
+            role: "user",
+            content: content.length ? content : message.content || "Continue.",
+          };
+        }
+        async function requestOpenAiResponse(model, chat) {
+          const response = await fetch("https://api.openai.com/v1/responses", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${model.apiKey}`,
+            },
+            body: JSON.stringify({
+              model: model.modelId,
+              instructions: model.introduction?.trim() || undefined,
+              input: chat.messages.map(buildOpenAiMessage),
+            }),
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(payload?.error?.message || "OpenAI request failed.");
+          }
+          const text = extractOpenAiOutputText(payload);
+          if (!text) {
+            throw new Error("OpenAI returned an empty response.");
+          }
+          return text;
+        }
+        async function requestAnthropicResponse(model, chat) {
+          const response = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": model.apiKey,
+              "anthropic-version": "2023-06-01",
+            },
+            body: JSON.stringify({
+              model: model.modelId,
+              max_tokens: 1200,
+              system: model.introduction?.trim() || undefined,
+              messages: chat.messages.map(buildAnthropicMessage),
+            }),
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(payload?.error?.message || "Anthropic request failed.");
+          }
+          const text = (payload?.content || [])
+            .filter((entry) => entry?.type === "text" && entry.text)
+            .map((entry) => entry.text)
+            .join("\n\n")
+            .trim();
+          if (!text) {
+            throw new Error("Anthropic returned an empty response.");
+          }
+          return text;
+        }
+        async function requestCustomModelResponse(model, chat) {
+          if (!model?.apiKey?.trim()) {
+            throw new Error("Add an API key for the selected custom model in Settings > Advanced.");
+          }
+          if (!model?.modelId?.trim()) {
+            throw new Error("Add a model ID for the selected custom model in Settings > Advanced.");
+          }
+          if (model.provider === "openai") {
+            return requestOpenAiResponse(model, chat);
+          }
+          if (model.provider === "anthropic") {
+            return requestAnthropicResponse(model, chat);
+          }
+          throw new Error("Only OpenAI and Claude providers are supported for live responses right now.");
+        }
         function playToneSequence(notes) {
           notes.forEach((entry, index) => {
             setTimeout(() => {
@@ -6466,7 +7401,86 @@
           const canSend = hasPrompt || hasFiles;
           els.sendBtn.style.display = canSend ? "flex" : "none";
           els.voiceChatBtn.style.display = canSend ? "none" : "flex";
+          els.sendBtn.setAttribute("title", state.editSession ? "Update message" : "Send message");
           autosizePrompt();
+        }
+        function renderEditSession() {
+          const session = state.editSession;
+          if (!session) {
+            els.editSessionWrapper?.classList.remove("show");
+            return;
+          }
+          els.editSessionWrapper?.classList.add("show");
+          els.editSessionCount.textContent = `${session.currentVersionIndex + 1}/${session.versions.length}`;
+          els.editVersionPrevBtn.disabled = session.currentVersionIndex === 0;
+          els.editVersionNextBtn.disabled = session.currentVersionIndex >= session.versions.length - 1;
+          els.editSessionAttachmentList.innerHTML = "";
+          session.attachments.forEach((attachment) => {
+            const pill = document.createElement("div");
+            pill.className = "attachment-pill";
+            pill.innerHTML = `<icon class="material-symbols-rounded">attach_file</icon><div class="attachment-pill-name">${attachment.name}</div>`;
+            els.editSessionAttachmentList.appendChild(pill);
+          });
+          els.editSessionResponse.textContent = session.responsePreview || "No linked response yet.";
+        }
+        function setEditVersion(index) {
+          if (!state.editSession) return;
+          state.editSession.currentVersionIndex = Math.max(0, Math.min(index, state.editSession.versions.length - 1));
+          els.promptInput.value = state.editSession.versions[state.editSession.currentVersionIndex];
+          updateComposerState();
+          renderEditSession();
+        }
+        function closeEditSession(clearComposer = false) {
+          state.editSession = null;
+          renderEditSession();
+          if (clearComposer) {
+            els.promptInput.value = "";
+            updateComposerState();
+          }
+        }
+        function startEditingUserMessage(messageId) {
+          const chat = getActiveChat();
+          const messageIndex = chat?.messages?.findIndex((entry) => entry.id === messageId && entry.role === "user") ?? -1;
+          const message = messageIndex >= 0 ? chat.messages[messageIndex] : null;
+          if (!message || !els.promptInput) {
+            showToast("Unable to edit that message.");
+            return;
+          }
+          const responsePreview = chat.messages.slice(messageIndex + 1).find((entry) => entry.role === "assistant")?.content || "";
+          const versions = Array.isArray(message.editVersions) && message.editVersions.length
+            ? message.editVersions.slice()
+            : [message.content || ""];
+          state.editSession = {
+            messageId,
+            attachments: message.attachments || [],
+            responsePreview,
+            versions,
+            currentVersionIndex: versions.length - 1,
+          };
+          els.promptInput.value = versions[state.editSession.currentVersionIndex] || "";
+          updateComposerState();
+          renderEditSession();
+          const focusComposer = () => {
+            const composer = document.querySelector(".bottom-area") || els.promptInput;
+            composer.scrollIntoView({
+              behavior: "smooth",
+              block: "end",
+            });
+            window.setTimeout(() => {
+              els.promptInput.focus({ preventScroll: true });
+              const end = els.promptInput.value.length;
+              if (typeof els.promptInput.setSelectionRange === "function") {
+                els.promptInput.setSelectionRange(end, end);
+              }
+            }, 40);
+          };
+          if (window.currentPage !== "home") {
+            window.location.hash = "#/";
+            window.setTimeout(focusComposer, 120);
+          } else {
+            requestAnimationFrame(focusComposer);
+          }
+          showToast("Message loaded into the composer.");
         }
         function formatBytes(size) {
           if (!size) return "";
@@ -6556,11 +7570,17 @@
         }
         function openChatDb() {
           return new Promise((resolve, reject) => {
-            const request = indexedDB.open(DB_NAME, 1);
+            const request = indexedDB.open(DB_NAME, 2);
             request.onupgradeneeded = () => {
               const db = request.result;
               if (!db.objectStoreNames.contains(STORE_NAME)) {
                 db.createObjectStore(STORE_NAME, { keyPath: "id" });
+              }
+              if (!db.objectStoreNames.contains(SETTINGS_STORE_NAME)) {
+                db.createObjectStore(SETTINGS_STORE_NAME, { keyPath: "key" });
+              }
+              if (!db.objectStoreNames.contains(MODELS_STORE_NAME)) {
+                db.createObjectStore(MODELS_STORE_NAME, { keyPath: "id" });
               }
             };
             request.onsuccess = () => resolve(request.result);
@@ -6590,6 +7610,51 @@
           return new Promise((resolve, reject) => {
             const tx = db.transaction(STORE_NAME, "readwrite");
             tx.objectStore(STORE_NAME).delete(chatId);
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+          });
+        }
+        async function getDbSetting(key, fallback = null) {
+          const db = await openChatDb();
+          return new Promise((resolve, reject) => {
+            const tx = db.transaction(SETTINGS_STORE_NAME, "readonly");
+            const request = tx.objectStore(SETTINGS_STORE_NAME).get(key);
+            request.onsuccess = () => resolve(request.result?.value ?? fallback);
+            request.onerror = () => reject(request.error);
+          });
+        }
+        async function setDbSetting(key, value) {
+          const db = await openChatDb();
+          return new Promise((resolve, reject) => {
+            const tx = db.transaction(SETTINGS_STORE_NAME, "readwrite");
+            tx.objectStore(SETTINGS_STORE_NAME).put({ key, value });
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+          });
+        }
+        async function getAllCustomModels() {
+          const db = await openChatDb();
+          return new Promise((resolve, reject) => {
+            const tx = db.transaction(MODELS_STORE_NAME, "readonly");
+            const request = tx.objectStore(MODELS_STORE_NAME).getAll();
+            request.onsuccess = () => resolve(request.result || []);
+            request.onerror = () => reject(request.error);
+          });
+        }
+        async function putCustomModel(model) {
+          const db = await openChatDb();
+          return new Promise((resolve, reject) => {
+            const tx = db.transaction(MODELS_STORE_NAME, "readwrite");
+            tx.objectStore(MODELS_STORE_NAME).put(model);
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+          });
+        }
+        async function deleteCustomModel(id) {
+          const db = await openChatDb();
+          return new Promise((resolve, reject) => {
+            const tx = db.transaction(MODELS_STORE_NAME, "readwrite");
+            tx.objectStore(MODELS_STORE_NAME).delete(id);
             tx.oncomplete = () => resolve();
             tx.onerror = () => reject(tx.error);
           });
@@ -6822,6 +7887,7 @@
             .join("\n\n");
         }
         function openDropdown(dropdown, button) {
+          if (!dropdown || !button) return;
           const rect = button.getBoundingClientRect();
           dropdown.style.display = "flex";
           dropdown.style.top = `${rect.bottom + 8}px`;
@@ -6829,9 +7895,18 @@
           dropdown.style.right = "auto";
         }
         function closeDropdown(dropdown) {
+          if (!dropdown) return;
           dropdown.style.display = "none";
         }
         function closeTopUiLayer() {
+          if (els.helpDropdown?.style.display === "flex") {
+            closeDropdown(els.helpDropdown);
+            return true;
+          }
+          if (state.editSession) {
+            closeEditSession();
+            return true;
+          }
           if (els.voicePickerOverlay?.classList.contains("show")) {
             els.voicePickerOverlay.classList.remove("show");
             return true;
@@ -6880,6 +7955,10 @@
             toggleUploadMenu(false);
             return true;
           }
+          if (els.voiceDraftDock?.classList.contains("show")) {
+            closeVoiceDraftDock();
+            return true;
+          }
           return false;
         }
         function getConversationRenderDelay(chat) {
@@ -6919,25 +7998,9 @@
               });
               card.appendChild(wrap);
             }
-            if (message.role === "assistant") {
+            if (message.role === "assistant" || message.role === "user") {
               const actions = document.createElement("div");
               actions.className = "chat-message-actions";
-              const shareBtn = document.createElement("button");
-              shareBtn.className = "icon-btn";
-              shareBtn.type = "button";
-              shareBtn.title = t("shareChat", "Share");
-              shareBtn.innerHTML = '<icon class="material-symbols-rounded">share</icon>';
-              shareBtn.addEventListener("click", () => {
-                openShareModal(message.content, getActiveChat()?.title || t("chatUntitled", "New Chat"));
-              });
-              const readBtn = document.createElement("button");
-              readBtn.className = "icon-btn";
-              readBtn.type = "button";
-              readBtn.title = "Read aloud";
-              readBtn.innerHTML = '<icon class="material-symbols-rounded">volume_up</icon>';
-              readBtn.addEventListener("click", () => {
-                speakText(displayContent);
-              });
               const copyBtn = document.createElement("button");
               copyBtn.className = "icon-btn";
               copyBtn.type = "button";
@@ -6948,9 +8011,39 @@
                 await navigator.clipboard.writeText(displayContent);
                 showToast(t("shareReadyToast", "Chat copied. Share it anywhere."));
               });
-              actions.appendChild(readBtn);
               actions.appendChild(copyBtn);
-              actions.appendChild(shareBtn);
+              if (message.role === "user") {
+                const editBtn = document.createElement("button");
+                editBtn.className = "icon-btn";
+                editBtn.type = "button";
+                editBtn.title = "Edit";
+                editBtn.innerHTML = '<icon class="material-symbols-rounded">edit</icon>';
+                editBtn.addEventListener("click", (event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  startEditingUserMessage(message.id);
+                });
+                actions.appendChild(editBtn);
+              } else {
+                const shareBtn = document.createElement("button");
+                shareBtn.className = "icon-btn";
+                shareBtn.type = "button";
+                shareBtn.title = t("shareChat", "Share");
+                shareBtn.innerHTML = '<icon class="material-symbols-rounded">share</icon>';
+                shareBtn.addEventListener("click", () => {
+                  openShareModal(message.content, getActiveChat()?.title || t("chatUntitled", "New Chat"));
+                });
+                const readBtn = document.createElement("button");
+                readBtn.className = "icon-btn";
+                readBtn.type = "button";
+                readBtn.title = "Read aloud";
+                readBtn.innerHTML = '<icon class="material-symbols-rounded">volume_up</icon>';
+                readBtn.addEventListener("click", () => {
+                  speakText(displayContent);
+                });
+                actions.appendChild(readBtn);
+                actions.appendChild(shareBtn);
+              }
               card.appendChild(actions);
             }
             els.chatMessages.appendChild(card);
@@ -7024,6 +8117,20 @@
           window.location.hash = "#home";
         }
         async function createTemporaryChat() {
+          const activeChat = getActiveChat();
+          if (activeChat?.temporary) {
+            const fallback = state.chats.find((chat) => !chat.temporary && !chat.archived);
+            if (fallback) {
+              state.activeChatId = fallback.id;
+            } else {
+              await createNewChat();
+              return;
+            }
+            renderHistory();
+            renderActiveChat();
+            window.location.hash = "#home";
+            return;
+          }
           const tempChat = createEmptyChat();
           tempChat.temporary = true;
           state.chats.unshift(tempChat);
@@ -7035,24 +8142,60 @@
         }
         async function sendPromptMessage() {
           const content = els.promptInput.value.trim();
-          const attachments = state.pendingFiles.map((file) => ({
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            previewUrl: file.previewUrl || "",
-            previewDataUrl: file.previewUrl || "",
-          }));
+          const attachments = await Promise.all(
+            state.pendingFiles.map((file) => prepareAttachmentForMessage(file)),
+          );
           if (!content && !attachments.length) return;
-          addMessage("user", content || t("uploadFiles", "Upload Files"), attachments);
-          const responseKey = getAssistantResponseKey();
-          addMessage("assistant", t(responseKey, "Munetios AI is coming soon. Stay tuned!"), [], {
-            translationKey: responseKey,
-          });
           const chat = getActiveChat();
+          if (state.editSession && chat) {
+            const targetMessage = chat.messages.find((entry) => entry.id === state.editSession.messageId);
+            if (targetMessage) {
+              const nextVersions = state.editSession.versions.slice();
+              if (!nextVersions.length || nextVersions[nextVersions.length - 1] !== content) {
+                nextVersions.push(content);
+              }
+              targetMessage.editVersions = nextVersions;
+              targetMessage.content = content || t("uploadFiles", "Upload Files");
+              if (attachments.length) {
+                targetMessage.attachments = attachments;
+              }
+              updateChatTitle(chat);
+              renderHistory();
+              renderActiveChat();
+              state.editSession = {
+                ...state.editSession,
+                attachments: targetMessage.attachments || [],
+                versions: nextVersions,
+                currentVersionIndex: nextVersions.length - 1,
+              };
+              renderEditSession();
+            }
+          } else {
+            addMessage("user", content || t("uploadFiles", "Upload Files"), attachments);
+          }
+          const typingId = uid("typing");
+          els.chatMessages.insertAdjacentHTML(
+            "beforeend",
+            `<div class="chat-message assistant" id="${typingId}"><div class="typing-indicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div></div>`,
+          );
+          if (els.mainScrollContainer) {
+            els.mainScrollContainer.scrollTop = els.mainScrollContainer.scrollHeight;
+          }
+          const responseKey = getAssistantResponseKey();
+          await new Promise((resolve) => window.setTimeout(resolve, 900));
+          document.getElementById(typingId)?.remove();
+          if (!state.editSession) {
+            addMessage("assistant", t(responseKey, "Munetios AI is coming soon. Stay tuned!"), [], {
+              translationKey: responseKey,
+            });
+          }
           if (chat && !chat.temporary) await putChat(chat);
           els.promptInput.value = "";
           state.pendingFiles = [];
           renderAttachments();
+          if (!state.editSession) {
+            closeEditSession();
+          }
           updateComposerState();
         }
         async function addPendingFiles(files) {
@@ -7087,6 +8230,7 @@
           renderHistory();
           renderArchivedChats();
           renderActiveChat();
+          renderEditSession();
         }
         function appendVoiceTranscript(text, type = "system") {
           const row = document.createElement("div");
@@ -7112,6 +8256,7 @@
           window.speechSynthesis.speak(utterance);
         }
         function setVoiceChatListening(on) {
+          clearVoiceChatUnsupportedState();
           els.voiceChatListeningCircle.classList.toggle("listening", on);
           els.voiceChatStatusText.textContent = on
             ? t("voiceChatListening", "Listening")
@@ -7124,8 +8269,9 @@
             } catch (error) {}
             state.voiceChatRecognition = null;
           }
-        playToneNote("G4", "8n");
-            playToneNote("C4", "8n");
+           playToneNote("C4", "8n");
+          playToneNote("G4", "8n");
+         
           setVoiceChatListening(false);
           if (!state.voiceChatMicDenied) {
             updateVoiceChatMicButton("mic", "Microphone");
@@ -7133,17 +8279,32 @@
         }
         function handleVoiceChatMicFailure(type) {
           state.voiceChatMicDenied = true;
-          appendVoiceTranscript(
-            t("voiceChatMicDeniedSpeech", "Sorry, I could not get your microphone."),
-          );
-          speakText(
-            t("voiceChatMicDeniedSpeech", "Sorry, I could not get your microphone."),
-          );
+          const deniedSpeech = type === "unsupported"
+            ? "Sorry, Voice Chat is not supported in your browser."
+            : t("voiceChatMicDeniedSpeech", "Sorry, I could not get your microphone.");
+          appendVoiceTranscript(deniedSpeech);
+          if (type !== "unsupported") {
+            speakText(deniedSpeech);
+          }
           stopVoiceChatRecognition();
+          setVoiceChatUnsupportedState(
+            type === "unsupported"
+              ? "Sorry, Voice Chat is not supported in your browser."
+              : "Microphone has been denied. Please enable microphone.",
+          );
+          openVoiceDraftDock({
+            context: "voice",
+            denied: true,
+            deniedText: type === "unsupported"
+              ? "Sorry, Voice Chat is not supported in your browser."
+              : "Microphone has been denied. Please enable microphone.",
+          });
           if (type === "audio-capture") {
             showToast(
               t("voiceChatMicNoDeviceToast", "Connect to a microphone to use voice chat."),
             );
+          } else if (type === "unsupported") {
+            showToast("Sorry, Voice Chat is not supported in your browser.");
           } else if (type === "aborted") {
             showToast(
               t(
@@ -7161,7 +8322,7 @@
         function startVoiceChatRecognition() {
           const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
           if (!SR) {
-            handleVoiceChatMicFailure("not-allowed");
+            handleVoiceChatMicFailure("unsupported");
             return;
           }
           const recognition = new SR();
@@ -7172,15 +8333,20 @@
           state.voiceChatRecognition = recognition;
           recognition.onstart = () => {
             state.voiceChatMicDenied = false;
-               playToneNote("G4", "8n");
-          playToneNote("C5", "8n");
+            playToneNote("G4", "8n");
+            playToneNote("C5", "8n");
             setVoiceChatListening(true);
             updateVoiceChatMicButton("stop_circle", "Stop Listening");
+            openVoiceDraftDock({
+              context: "voice",
+              text: state.voiceDraftText || "",
+              status: "Listening for your words...",
+            });
           };
           recognition.onresult = (event) => {
             const last = event.results[event.results.length - 1];
             if (last?.[0]?.transcript) {
-              appendVoiceTranscript(last[0].transcript, "user");
+              updateVoiceDraftText(last[0].transcript, "voice");
             }
           };
           recognition.onerror = (event) => handleVoiceChatMicFailure(event.error);
@@ -7261,6 +8427,8 @@
         function openVoiceChatOverlay() {
           els.voiceChatOverlay.classList.add("show");
           els.voiceChatTranscriptList.innerHTML = "";
+          clearVoiceChatUnsupportedState();
+          closeVoiceDraftDock();
           appendVoiceTranscript(
             t(
               "voiceChatComingSoonText",
@@ -7278,13 +8446,18 @@
         function closeVoiceChatOverlay() {
           els.voiceChatOverlay.classList.remove("show");
           stopVoiceChatRecognition();
+          if (state.voiceDraftContext === "voice") {
+            closeVoiceDraftDock();
+          }
           if ("speechSynthesis" in window) window.speechSynthesis.cancel();
         }
         function startHomeRecognition() {
           const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
           if (!SR) {
+            playToneNote("G4", "8n");
+            playToneNote("C4", "8n");
             showToast(
-              t("micDeniedToast", "Speech recognition is not supported in this browser"),
+              "Voice Input is not supported in your browser",
             );
             return;
           }
@@ -7296,7 +8469,7 @@
           recognition.onstart = () => {
             state.homeMicDenied = false;
             updateHomeMicButton("stop_circle", "Stop Listening");
-          playToneNote("G4", "8n");
+            playToneNote("G4", "8n");
             playToneNote("C5", "8n");
           };
           recognition.onresult = (event) => {
@@ -7309,7 +8482,7 @@
           };
           recognition.onerror = (event) => {
             state.homeMicDenied = true;
-           playToneNote("G4", "8n");
+            playToneNote("G4", "8n");
             playToneNote("C4", "8n");
             if (event.error === "audio-capture") {
               showToast(
@@ -7493,6 +8666,20 @@
           state.homeSstPending = false;
           setTimeout(startHomeRecognition, 0);
         });
+        els.cancelEditSessionBtn?.addEventListener("click", () => closeEditSession());
+        els.editVersionPrevBtn?.addEventListener("click", () => {
+          if (!state.editSession) return;
+          setEditVersion(state.editSession.currentVersionIndex - 1);
+        });
+        els.editVersionNextBtn?.addEventListener("click", () => {
+          if (!state.editSession) return;
+          setEditVersion(state.editSession.currentVersionIndex + 1);
+        });
+        els.applyEditVersionBtn?.addEventListener("click", () => {
+          if (!state.editSession) return;
+          setEditVersion(state.editSession.currentVersionIndex);
+          els.promptInput.focus();
+        });
         els.voiceChatBtn.addEventListener("click", async () => {
           await primeToneAudio();
           openVoiceChatOverlay();
@@ -7515,6 +8702,58 @@
           if (event.target === els.voicePickerOverlay) {
             event.stopPropagation();
           }
+        });
+        els.voiceDraftChangeBtn?.addEventListener("click", () => {
+          if (state.voiceDraftContext === "home") {
+            stopHomeRecognition();
+          } else if (state.voiceDraftContext === "voice") {
+            stopVoiceChatRecognition();
+          }
+          if (els.voiceDraftText) {
+            els.voiceDraftText.readOnly = false;
+            els.voiceDraftText.focus();
+            els.voiceDraftText.setSelectionRange(
+              els.voiceDraftText.value.length,
+              els.voiceDraftText.value.length,
+            );
+          }
+          if (els.voiceDraftStatus) {
+            els.voiceDraftStatus.textContent = "Edit the text, then click Done.";
+          }
+        });
+        els.voiceDraftDoneBtn?.addEventListener("click", async () => {
+          if (state.voiceDraftDenied) {
+            if (state.voiceDraftContext === "home") {
+              startHomeRecognition();
+            } else {
+              startVoiceChatRecognition();
+            }
+            return;
+          }
+          const text = els.voiceDraftText?.value.trim() || "";
+          state.voiceDraftText = text;
+          if (state.voiceDraftContext === "home") {
+            stopHomeRecognition();
+            els.promptInput.value = text;
+            updateComposerState();
+            closeVoiceDraftDock();
+            return;
+          }
+          if (state.voiceDraftContext === "voice") {
+            stopVoiceChatRecognition();
+            if (text) {
+              appendVoiceTranscript(text, "user");
+            }
+            closeVoiceDraftDock();
+          }
+        });
+        els.voiceDraftCloseBtn?.addEventListener("click", () => {
+          if (state.voiceDraftContext === "home") {
+            stopHomeRecognition();
+          } else if (state.voiceDraftContext === "voice") {
+            stopVoiceChatRecognition();
+          }
+          closeVoiceDraftDock();
         });
         els.customConfirmModal.addEventListener("click", (event) => {
           if (event.target === els.customConfirmModal) event.stopPropagation();
@@ -7717,6 +8956,10 @@
         if (window.speechSynthesis) {
           speechSynthesis.onvoiceschanged = loadVoices;
           loadVoices();
+        }
+        if (!(window.SpeechRecognition || window.webkitSpeechRecognition)) {
+          els.micBtn?.classList.add("unsupported-mic");
+          updateHomeMicButton("mic_off", "Voice Input is not supported in your browser");
         }
         applyAppearanceSettings();
         if (window.location.hash.startsWith("#/share?text=")) {
