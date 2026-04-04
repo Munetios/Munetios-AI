@@ -1692,6 +1692,160 @@
         font-size: 34px;
       }
 
+      /* ===== LIVE CAMERA PREVIEW MODAL ===== */
+      .camera-preview-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.88);
+        align-items: center;
+        justify-content: center;
+      }
+      .camera-preview-overlay.show {
+        display: flex;
+      }
+      .camera-preview-container {
+        display: flex;
+        flex-direction: column;
+        width: min(480px, 96vw);
+        border-radius: 24px;
+        overflow: hidden;
+        background: #111;
+        box-shadow: 0 8px 48px rgba(0, 0, 0, 0.7);
+      }
+      .camera-preview-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px 12px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .camera-preview-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .camera-preview-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.18s;
+      }
+      .camera-preview-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .camera-preview-close icon {
+        font-size: 20px;
+        line-height: 1;
+      }
+      .camera-preview-viewport {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4/3;
+        background: #000;
+        overflow: hidden;
+      }
+      .camera-preview-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transform: scaleX(-1); /* mirror for selfie mode */
+      }
+      .camera-preview-video.rear-camera {
+        transform: scaleX(1);
+      }
+      .camera-preview-record-indicator {
+        display: none;
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        align-items: center;
+        gap: 7px;
+        background: rgba(0, 0, 0, 0.55);
+        border-radius: 20px;
+        padding: 5px 14px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .camera-preview-record-indicator.active {
+        display: flex;
+      }
+      .camera-record-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #f44336;
+        animation: recPulse 1s ease-in-out infinite;
+      }
+      @keyframes recPulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+      .camera-preview-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px 32px 26px;
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .camera-shutter-btn {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        background: #fff;
+        cursor: pointer;
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25);
+        transition:
+          transform 0.1s,
+          background 0.15s;
+        flex-shrink: 0;
+      }
+      .camera-shutter-btn:active {
+        transform: scale(0.92);
+      }
+      .camera-shutter-btn.recording {
+        background: #f44336;
+        border-color: #f44336;
+        box-shadow: 0 0 0 5px rgba(244, 67, 54, 0.35);
+      }
+      .camera-flip-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.18s;
+        flex-shrink: 0;
+      }
+      .camera-flip-btn:hover {
+        background: rgba(255, 255, 255, 0.22);
+      }
+      .camera-flip-btn icon {
+        font-size: 24px;
+      }
+
       /* ===== CONNECTORS PAGE ===== */
       #connectorsPage {
         flex-direction: column;
@@ -5842,6 +5996,57 @@
               <span data-translate="recordVideo">Record video</span>
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- Live Camera Preview Modal -->
+    <div class="camera-preview-overlay" id="cameraPreviewModal">
+      <div class="camera-preview-container">
+        <div class="camera-preview-header">
+          <span class="camera-preview-title" id="cameraPreviewTitle"
+            >Take a picture</span
+          >
+          <button
+            class="camera-preview-close"
+            id="cameraPreviewCloseBtn"
+            type="button"
+            aria-label="Close camera"
+          >
+            <icon class="material-symbols-rounded">close</icon>
+          </button>
+        </div>
+        <div class="camera-preview-viewport">
+          <video
+            class="camera-preview-video"
+            id="cameraPreviewVideo"
+            autoplay
+            playsinline
+            muted
+          ></video>
+          <div
+            class="camera-preview-record-indicator"
+            id="cameraRecordIndicator"
+          >
+            <span class="camera-record-dot"></span>
+            <span id="cameraRecordTime">0:00</span>
+          </div>
+        </div>
+        <div class="camera-preview-controls">
+          <button
+            class="camera-flip-btn"
+            id="cameraFlipBtn"
+            type="button"
+            aria-label="Flip camera"
+          >
+            <icon class="material-symbols-rounded">flip_camera_ios</icon>
+          </button>
+          <button
+            class="camera-shutter-btn"
+            id="cameraShutterBtn"
+            type="button"
+            aria-label="Capture"
+          ></button>
+          <div style="width: 48px"></div>
         </div>
       </div>
     </div>
@@ -10754,26 +10959,95 @@
         function closeCameraChoiceModal() {
           els.cameraChoiceModal?.classList.remove("show");
         }
-        async function requestCameraAndOpenInput(mode = "photo") {
-          const mediaDevices = navigator.mediaDevices;
-          if (!mediaDevices?.getUserMedia) {
-            closeCameraChoiceModal();
+
+        // ── Live Camera Preview ──────────────────────────────────────────
+        const cameraState = {
+          stream: null,
+          mode: "photo", // "photo" | "video"
+          facingMode: "user",
+          mediaRecorder: null,
+          recordedChunks: [],
+          recordTimer: null,
+          recordSeconds: 0,
+        };
+
+        function stopCameraStream() {
+          if (cameraState.stream) {
+            cameraState.stream.getTracks().forEach((t) => t.stop());
+            cameraState.stream = null;
+          }
+          const video = document.getElementById("cameraPreviewVideo");
+          if (video) video.srcObject = null;
+        }
+
+        function closeCameraPreview() {
+          stopRecordingIfActive();
+          stopCameraStream();
+          document
+            .getElementById("cameraPreviewModal")
+            ?.classList.remove("show");
+        }
+
+        function stopRecordingIfActive() {
+          if (
+            cameraState.mediaRecorder &&
+            cameraState.mediaRecorder.state !== "inactive"
+          ) {
+            cameraState.mediaRecorder.stop();
+          }
+          clearInterval(cameraState.recordTimer);
+          cameraState.recordTimer = null;
+          cameraState.recordSeconds = 0;
+          const indicator = document.getElementById("cameraRecordIndicator");
+          if (indicator) indicator.classList.remove("active");
+          const shutterBtn = document.getElementById("cameraShutterBtn");
+          if (shutterBtn) shutterBtn.classList.remove("recording");
+        }
+
+        async function startCameraPreview(mode) {
+          cameraState.mode = mode;
+          closeCameraChoiceModal();
+          const overlay = document.getElementById("cameraPreviewModal");
+          const title = document.getElementById("cameraPreviewTitle");
+          const video = document.getElementById("cameraPreviewVideo");
+          const shutterBtn = document.getElementById("cameraShutterBtn");
+          const indicator = document.getElementById("cameraRecordIndicator");
+
+          if (!navigator.mediaDevices?.getUserMedia) {
             showToast(t("cameraNotFoundToast", "Camera not found"));
             return;
           }
+
+          if (title) {
+            title.textContent =
+              mode === "video"
+                ? t("recordVideo", "Record video")
+                : t("takePicture", "Take a picture");
+          }
+
+          // Reset record state
+          stopRecordingIfActive();
+          cameraState.recordedChunks = [];
+          if (shutterBtn) shutterBtn.classList.remove("recording");
+          if (indicator) indicator.classList.remove("active");
+
           try {
-            const stream = await mediaDevices.getUserMedia({
-              video: true,
+            stopCameraStream();
+            const stream = await navigator.mediaDevices.getUserMedia({
+              video: { facingMode: cameraState.facingMode },
               audio: mode === "video",
             });
-            stream.getTracks().forEach((track) => track.stop());
-            els.cameraInput.accept = mode === "video" ? "video/*" : "image/*";
-            els.cameraInput.removeAttribute("capture");
-            els.cameraInput.setAttribute("capture", "environment");
-            closeCameraChoiceModal();
-            els.cameraInput?.click();
+            cameraState.stream = stream;
+            if (video) {
+              video.srcObject = stream;
+              if (cameraState.facingMode === "environment") {
+                video.classList.add("rear-camera");
+              } else {
+                video.classList.remove("rear-camera");
+              }
+            }
+            overlay?.classList.add("show");
           } catch (error) {
-            closeCameraChoiceModal();
             const message =
               error?.name === "NotFoundError" ||
               error?.name === "DevicesNotFoundError"
@@ -10782,6 +11056,121 @@
             showToast(message);
           }
         }
+
+        async function requestCameraAndOpenInput(mode = "photo") {
+          await startCameraPreview(mode);
+        }
+
+        function handleShutterClick() {
+          if (cameraState.mode === "photo") {
+            capturePhoto();
+          } else {
+            if (
+              cameraState.mediaRecorder &&
+              cameraState.mediaRecorder.state === "recording"
+            ) {
+              stopVideoRecording();
+            } else {
+              startVideoRecording();
+            }
+          }
+        }
+
+        function capturePhoto() {
+          const video = document.getElementById("cameraPreviewVideo");
+          if (!video) return;
+          const canvas = document.createElement("canvas");
+          canvas.width = video.videoWidth || 640;
+          canvas.height = video.videoHeight || 480;
+          const ctx = canvas.getContext("2d");
+          // Flip horizontally for front camera to match preview
+          if (cameraState.facingMode !== "environment") {
+            ctx.translate(canvas.width, 0);
+            ctx.scale(-1, 1);
+          }
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob(
+            async (blob) => {
+              if (!blob) return;
+              const file = new File([blob], `photo_${Date.now()}.jpg`, {
+                type: "image/jpeg",
+              });
+              closeCameraPreview();
+              await addPendingFiles([file]);
+            },
+            "image/jpeg",
+            0.92,
+          );
+        }
+
+        function startVideoRecording() {
+          if (!cameraState.stream) return;
+          const shutterBtn = document.getElementById("cameraShutterBtn");
+          const indicator = document.getElementById("cameraRecordIndicator");
+          const timeEl = document.getElementById("cameraRecordTime");
+          const mimeType = MediaRecorder.isTypeSupported(
+            "video/webm;codecs=vp9",
+          )
+            ? "video/webm;codecs=vp9"
+            : "video/webm";
+          cameraState.recordedChunks = [];
+          const recorder = new MediaRecorder(cameraState.stream, { mimeType });
+          cameraState.mediaRecorder = recorder;
+          recorder.ondataavailable = (e) => {
+            if (e.data && e.data.size > 0)
+              cameraState.recordedChunks.push(e.data);
+          };
+          recorder.onstop = async () => {
+            const blob = new Blob(cameraState.recordedChunks, {
+              type: mimeType,
+            });
+            const file = new File([blob], `video_${Date.now()}.webm`, {
+              type: mimeType,
+            });
+            closeCameraPreview();
+            await addPendingFiles([file]);
+          };
+          recorder.start(100);
+          if (shutterBtn) shutterBtn.classList.add("recording");
+          if (indicator) indicator.classList.add("active");
+          cameraState.recordSeconds = 0;
+          cameraState.recordTimer = setInterval(() => {
+            cameraState.recordSeconds++;
+            const m = Math.floor(cameraState.recordSeconds / 60);
+            const s = String(cameraState.recordSeconds % 60).padStart(2, "0");
+            if (timeEl) timeEl.textContent = `${m}:${s}`;
+          }, 1000);
+        }
+
+        function stopVideoRecording() {
+          stopRecordingIfActive();
+          if (cameraState.mediaRecorder) {
+            cameraState.mediaRecorder.stop();
+          }
+        }
+
+        async function flipCamera() {
+          cameraState.facingMode =
+            cameraState.facingMode === "user" ? "environment" : "user";
+          await startCameraPreview(cameraState.mode);
+        }
+
+        // Wire up camera preview modal buttons
+        document
+          .getElementById("cameraPreviewCloseBtn")
+          ?.addEventListener("click", closeCameraPreview);
+        document
+          .getElementById("cameraShutterBtn")
+          ?.addEventListener("click", handleShutterClick);
+        document
+          .getElementById("cameraFlipBtn")
+          ?.addEventListener("click", flipCamera);
+        document
+          .getElementById("cameraPreviewModal")
+          ?.addEventListener("click", (e) => {
+            if (e.target === document.getElementById("cameraPreviewModal"))
+              closeCameraPreview();
+          });
         function renderBooksLibrary() {
           if (!els.booksLibraryList || !els.booksEmpty) return;
           els.booksLibraryList.innerHTML = "";
@@ -11761,6 +12150,14 @@
           }
           if (els.cameraChoiceModal?.classList.contains("show")) {
             closeCameraChoiceModal();
+            return true;
+          }
+          if (
+            document
+              .getElementById("cameraPreviewModal")
+              ?.classList.contains("show")
+          ) {
+            closeCameraPreview();
             return true;
           }
           if (els.voiceDraftDock?.classList.contains("show")) {
