@@ -5118,21 +5118,6 @@
                 <div class="settings-item">
                   <div class="settings-toggle-row">
                     <div class="settings-toggle-copy">
-                      <strong>Sounds</strong>
-                      <span class="settings-note"
-                        >Play audio feedback for messages and actions.</span
-                      >
-                    </div>
-                    <button
-                      class="settings-toggle"
-                      id="toggleSounds"
-                      aria-pressed="false"
-                    ></button>
-                  </div>
-                </div>
-                <div class="settings-item">
-                  <div class="settings-toggle-row">
-                    <div class="settings-toggle-copy">
                       <strong>Reduce Motion</strong>
                       <span class="settings-note"
                         >Limit animations and transitions throughout the
@@ -8316,13 +8301,7 @@
 
       // Tone.js helper
       function playToneNote(note, duration) {
-        if (window.__munetiosSoundsEnabled === false) return;
-        // Also initialise on first call if not yet set
-        if (window.__munetiosSoundsEnabled === undefined) {
-          window.__munetiosSoundsEnabled =
-            localStorage.getItem("munetios-toggle-toggleSounds") !== "off";
-          if (!window.__munetiosSoundsEnabled) return;
-        }
+        // Sounds are always enabled
         try {
           const synth = new Tone.Synth().toDestination();
           synth.triggerAttackRelease(note, duration);
@@ -12526,7 +12505,6 @@
         }
         function speakText(text) {
           if (!("speechSynthesis" in window)) return;
-          if (window.__munetiosSoundsEnabled === false) return;
           window.speechSynthesis.cancel();
           const utterance = new SpeechSynthesisUtterance(text);
           const voice = getSelectedVoice();
@@ -13298,7 +13276,6 @@
         const TOGGLE_IDS = [
           "togglePersonalization",
           "toggleSuggestions",
-          "toggleSounds",
           "toggleReduceMotion",
           "togglePersonalizedContent",
           "toggleForYouSuggestions",
@@ -13384,8 +13361,8 @@
             renderHistory();
           }
 
-          // Sounds flag (read before playing any audio)
-          window.__munetiosSoundsEnabled = isToggleOn("toggleSounds");
+          // Sounds are always enabled
+          window.__munetiosSoundsEnabled = true;
 
           // Debug mode
           if (isToggleOn("toggleDebugMode")) {
@@ -13931,8 +13908,7 @@
         window.__munetiosChatHistoryEnabled =
           localStorage.getItem("munetios-toggle-togglePrivacyChatHistory") !==
           "off";
-        window.__munetiosSoundsEnabled =
-          localStorage.getItem("munetios-toggle-toggleSounds") === "on";
+        window.__munetiosSoundsEnabled = true;
         if (window.location.hash.startsWith("#/share?text=")) {
           const raw = window.location.hash.split("#/share?text=")[1] || "";
           openShareModal(decodeURIComponent(raw));
