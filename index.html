@@ -15,7 +15,7 @@
     />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self' https://*.munetios.com; script-src 'self' 'nonce-ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg' https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://api.munetios.com 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com  data:; connect-src 'self' https://api.munetios.com https://*.munetios.com https://api.anthropic.com https://api.openai.com;"
+      content="default-src 'self' blob: https://*.munetios.com; script-src 'self' 'nonce-ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg' https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://api.munetios.com 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com  data:; connect-src 'self' https://api.munetios.com https://*.munetios.com https://api.anthropic.com https://api.openai.com;"
     />
     <link rel="icon" type="image/png" href="logo.png" />
     <link rel="apple-touch-icon" href="logo.png" />
@@ -584,6 +584,370 @@
         font-size: 13px;
         opacity: 0.8;
       }
+      /* ── Virtual Keyboard (floating, draggable) ──────────────────────── */
+      .vk-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 3200;
+        width: 680px;
+        max-width: calc(100vw - 32px);
+        border-radius: 18px;
+        padding: 0 0 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.38);
+        animation: vkFadeIn 0.18s ease;
+        user-select: none;
+      }
+      .vk-float.vk-desktop {
+        width: 840px;
+      }
+      @keyframes vkFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(14px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      .vk-titlebar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px 4px;
+        cursor: grab;
+        border-radius: 18px 18px 0 0;
+        flex-shrink: 0;
+      }
+      .vk-titlebar:active {
+        cursor: grabbing;
+      }
+      .vk-drag-icon {
+        font-size: 18px;
+        opacity: 0.45;
+        flex-shrink: 0;
+      }
+      .vk-title {
+        font-size: 12px;
+        font-weight: 600;
+        opacity: 0.6;
+        flex-shrink: 0;
+      }
+      .vk-mode-tabs {
+        display: flex;
+        gap: 4px;
+        flex: 1;
+        justify-content: center;
+      }
+      .vk-mode-tab {
+        padding: 5px 12px;
+        border-radius: 9px;
+        border: none;
+        background: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.14s;
+        letter-spacing: 0.03em;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+      .vk-mode-tab:hover {
+        background: rgba(255, 255, 255, 0.16);
+      }
+      .vk-mode-tab.active {
+        background: rgba(var(--accent-rgb), 0.72);
+        color: #fff;
+      }
+      .vk-close-btn {
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        border-radius: 9px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: inherit;
+        flex-shrink: 0;
+        transition: background 0.14s;
+      }
+      .vk-close-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .vk-close-btn icon {
+        font-size: 17px;
+      }
+      .vk-lang-row {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        padding: 0 12px;
+      }
+      .vk-lang-btn {
+        padding: 3px 8px;
+        border-radius: 7px;
+        border: none;
+        background: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        font-size: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.13s;
+      }
+      .vk-lang-btn:hover {
+        background: rgba(255, 255, 255, 0.17);
+      }
+      .vk-lang-btn.active {
+        background: rgba(var(--accent-rgb), 0.72);
+        color: #fff;
+      }
+      .vk-layer {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 0 10px;
+        user-select: none;
+      }
+      .vk-row {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+      }
+      .vk-key {
+        min-width: 28px;
+        height: 40px;
+        border-radius: 9px;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: inherit;
+        font-size: 15px;
+        font-family: inherit;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        max-width: 52px;
+        padding: 0 3px;
+        transition:
+          background 0.1s,
+          transform 0.07s;
+        position: relative;
+        line-height: 1;
+      }
+      .vk-float.vk-desktop .vk-key {
+        height: 42px;
+        font-size: 14px;
+      }
+      .vk-key:active {
+        transform: scale(0.88);
+        background: rgba(var(--accent-rgb), 0.48);
+      }
+      .vk-key:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .vk-key.vk-wide {
+        flex: 2;
+        max-width: 88px;
+        font-size: 12px;
+      }
+      .vk-key.vk-wider {
+        flex: 3;
+        max-width: 130px;
+        font-size: 12px;
+      }
+      .vk-key.vk-space {
+        flex: 6;
+        max-width: 320px;
+      }
+      .vk-key.vk-accent {
+        background: rgba(var(--accent-rgb), 0.32);
+      }
+      .vk-key.vk-accent:hover {
+        background: rgba(var(--accent-rgb), 0.52);
+      }
+      .vk-key.vk-shift-active {
+        background: rgba(var(--accent-rgb), 0.55);
+        color: #fff;
+      }
+      .vk-key .vk-sub {
+        position: absolute;
+        top: 3px;
+        right: 4px;
+        font-size: 8px;
+        opacity: 0.5;
+        line-height: 1;
+        pointer-events: none;
+      }
+      .vk-emoji-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 0 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+      }
+      .vk-emoji-cat-row {
+        display: flex;
+        gap: 4px;
+        padding: 0 10px 2px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .vk-emoji-cat-row::-webkit-scrollbar {
+        display: none;
+      }
+      .vk-emoji-cat-btn {
+        padding: 4px 9px;
+        border-radius: 8px;
+        border: none;
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 15px;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.13s;
+      }
+      .vk-emoji-cat-btn.active {
+        background: rgba(var(--accent-rgb), 0.6);
+      }
+      .vk-emoji-cat-btn:hover {
+        background: rgba(255, 255, 255, 0.18);
+      }
+      .vk-emoji-key {
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+        border: none;
+        background: rgba(255, 255, 255, 0.06);
+        font-size: 21px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.1s,
+          transform 0.07s;
+        flex-shrink: 0;
+      }
+      .vk-emoji-key:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .vk-emoji-key:active {
+        transform: scale(0.85);
+      }
+      .vk-preview {
+        min-height: 32px;
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 6px 12px;
+        font-size: 13px;
+        word-break: break-word;
+        display: flex;
+        align-items: center;
+        color: inherit;
+        margin: 0 10px;
+        overflow: hidden;
+      }
+      .vk-cursor {
+        display: inline-block;
+        animation: vkBlink 1s step-start infinite;
+        color: rgba(var(--accent-rgb), 1);
+        font-weight: 300;
+        font-size: 15px;
+        margin-left: 1px;
+      }
+      @keyframes vkBlink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      .vk-controls {
+        display: flex;
+        gap: 7px;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 10px;
+      }
+      .vk-ctrl-btn {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 7px 12px;
+        border-radius: 9px;
+        border: none;
+        background: rgba(255, 255, 255, 0.09);
+        color: inherit;
+        font-size: 12px;
+        font-family: inherit;
+        cursor: pointer;
+        transition: background 0.14s;
+      }
+      .vk-ctrl-btn:hover {
+        background: rgba(255, 255, 255, 0.19);
+      }
+      .vk-ctrl-btn icon {
+        font-size: 16px;
+      }
+      .vk-insert-btn {
+        background: rgba(var(--accent-rgb), 0.6);
+        color: #fff;
+        font-weight: 700;
+      }
+      .vk-insert-btn:hover {
+        background: rgba(var(--accent-rgb), 0.85);
+      }
+      /* light theme */
+      body[data-theme="light"] .vk-key {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      body[data-theme="light"] .vk-key:hover {
+        background: rgba(0, 0, 0, 0.12);
+      }
+      body[data-theme="light"] .vk-lang-btn {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      body[data-theme="light"] .vk-lang-btn:hover {
+        background: rgba(0, 0, 0, 0.12);
+      }
+      body[data-theme="light"] .vk-mode-tab {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      body[data-theme="light"] .vk-mode-tab:hover {
+        background: rgba(0, 0, 0, 0.12);
+      }
+      body[data-theme="light"] .vk-close-btn {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      body[data-theme="light"] .vk-preview {
+        background: rgba(0, 0, 0, 0.05);
+      }
+      body[data-theme="light"] .vk-ctrl-btn {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      body[data-theme="light"] .vk-ctrl-btn:hover {
+        background: rgba(0, 0, 0, 0.12);
+      }
+      body[data-theme="light"] .vk-emoji-key {
+        background: rgba(0, 0, 0, 0.05);
+      }
+      body[data-theme="light"] .vk-emoji-cat-btn {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      /* ─────────────────────────────────────────────────────────────────── */
       .unsupported-mic {
         opacity: 0.42;
       }
@@ -1578,7 +1942,7 @@
         color: #f5f7ff;
         padding: 18px;
         overflow: auto;
-        font-family: "IBM Plex Mono", "Cascadia Code", monospace;
+        font-family: "Google Sans Code", "Cascadia Code", monospace;
         font-size: 13px;
         line-height: 1.6;
         white-space: pre;
@@ -2649,8 +3013,7 @@
         pointer-events: auto;
       }
       .prompt-container textarea {
-        width: auto;
-        flex: 1;
+        width: 100%;
         min-width: 0;
         resize: none;
         background-color: transparent;
@@ -2662,6 +3025,131 @@
         font-family: var(--chat-font-family);
         font-size: var(--chat-font-size);
         line-height: var(--chat-line-height);
+      }
+      /* ── Icon-btn outline — prompt container in multi mode only ── */
+      body[data-prompt-layout="multi"] .prompt-container .icon-btn {
+        outline: 1.5px solid rgba(255, 255, 255, 0.18);
+        width: 50px;
+        height: 50px;
+        outline-offset: 0;
+      }
+      body[data-prompt-layout="multi"][data-theme="light"]
+        .prompt-container
+        .icon-btn {
+        outline-color: rgba(0, 0, 0, 0.14);
+      }
+      body[data-prompt-layout="multi"]
+        .prompt-container
+        .icon-btn.composer-primary-action {
+        outline: none;
+      }
+      /* ── Prompt tool pill ── */
+      .prompt-tool-pill {
+        display: inline-flex;
+        align-items: center;
+        height: 37px;
+        gap: 5px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1.5px solid rgba(255, 255, 255, 0.18);
+        color: inherit;
+        font-size: 13px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.2s;
+        flex-shrink: 1;
+        min-width: 0;
+      }
+      .prompt-tool-pill icon {
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+      .prompt-tool-pill span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .prompt-tool-pill:hover {
+        background: rgba(255, 255, 255, 0.16);
+      }
+      body[data-theme="light"] .prompt-tool-pill {
+        background: rgba(0, 0, 0, 0.06);
+        border-color: rgba(0, 0, 0, 0.14);
+      }
+      /* ── Prompt action row ── */
+      .prompt-action-row {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        gap: 4px;
+      }
+      .prompt-action-left {
+        display: none; /* hidden in dual mode */
+      }
+      .prompt-action-right {
+        display: contents; /* buttons appear inline in dual mode */
+      }
+      /* ── Multi-mode: column layout ── */
+      body[data-prompt-layout="multi"] #promptAreaLeft {
+        display: none;
+      }
+      body[data-prompt-layout="multi"] .prompt-container {
+        flex-direction: column;
+        padding: 10px;
+        border-radius: 30px;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      body[data-prompt-layout="multi"] .prompt-container textarea {
+        max-height: 260px;
+        margin-left: 0;
+        white-space: wrap;
+        margin: 4px;
+        padding: 6px 2px;
+      }
+      body[data-prompt-layout="multi"] .prompt-action-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-top: 8px;
+        margin-top: 4px;
+        gap: 0;
+        container-type: inline-size;
+      }
+      body[data-theme="light"][data-prompt-layout="multi"] .prompt-action-row {
+        border-top-color: rgba(0, 0, 0, 0.08);
+      }
+      body[data-prompt-layout="multi"] .prompt-action-left {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex: 1;
+        min-width: 0;
+      }
+      body[data-prompt-layout="multi"] .prompt-action-right {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+      /* Hide pill text when action row is narrow */
+      @media (max-width: 960px) {
+        .prompt-tool-pill span {
+          display: none;
+        }
+        .prompt-tool-pill {
+          width: 26px;
+          align-items: center;
+          display: inline-flex;
+          justify-content: center;
+        }
+      }
+      .prompt-layout-btn.active {
+        background: rgba(var(--accent-rgb), 0.72);
+        color: #fff;
       }
       .bottom-prompt-area {
         width: 100%;
@@ -2997,6 +3485,12 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         font-size: 13px;
+      }
+      .attachment-pill-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
       }
       .attachment-pill-remove {
         background: transparent;
@@ -3819,6 +4313,230 @@
       .preview-modal-close:hover {
         background: rgba(255, 255, 255, 0.12);
       }
+
+      /* ── Media / PDF / Doc Preview Modal ── */
+      .media-preview-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 3400;
+        background: rgba(0, 0, 0, 0.72);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .media-preview-overlay.show {
+        display: flex;
+      }
+      .media-preview-shell {
+        display: flex;
+        flex-direction: column;
+        width: min(92vw, 960px);
+        max-height: 90vh;
+        border-radius: 18px;
+        overflow: hidden;
+      }
+      .media-preview-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        flex-shrink: 0;
+      }
+      .media-preview-title {
+        font-size: 14px;
+        font-weight: 600;
+        opacity: 0.85;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 60%;
+      }
+      .media-preview-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .media-dl-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 47px;
+        background: rgba(255, 255, 255, 0.1);
+        text-decoration: none;
+        color: inherit;
+        transition: background 0.2s;
+      }
+      .media-dl-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      /* Video */
+      .media-video-wrap {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        background: #000;
+      }
+      .media-video-el {
+        width: 100%;
+        max-height: 55vh;
+        object-fit: contain;
+        display: block;
+      }
+      .vp-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: rgba(0, 0, 0, 0.55);
+        flex-wrap: nowrap;
+        position: relative;
+      }
+      .vp-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        opacity: 0.85;
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        flex-shrink: 0;
+        transition: opacity 0.15s;
+      }
+      .vp-btn:hover {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .vp-btn icon {
+        font-size: 20px;
+      }
+      .vp-time {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.75);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .vp-seek {
+        flex: 1;
+        min-width: 0;
+        height: 4px;
+        cursor: pointer;
+        accent-color: rgba(var(--accent-rgb), 1);
+      }
+      .vp-right {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+      .vp-settings-wrap {
+        position: relative;
+      }
+      .vp-settings-panel {
+        position: absolute;
+        bottom: calc(100% + 8px);
+        right: 0;
+        background: rgba(20, 20, 30, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 10px 0;
+        min-width: 190px;
+        z-index: 10;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      }
+      .vp-settings-section {
+        padding: 6px 14px 4px;
+        font-size: 11px;
+        opacity: 0.6;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .vp-speed-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 4px 10px 6px;
+      }
+      .vp-speed-btn {
+        padding: 3px 8px;
+        font-size: 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: #fff;
+        transition: background 0.15s;
+      }
+      .vp-speed-btn:hover,
+      .vp-speed-btn.active {
+        background: rgba(var(--accent-rgb), 0.72);
+        border-color: transparent;
+      }
+      .vp-settings-sep {
+        margin: 4px 0;
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .vp-settings-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        font-size: 13px;
+        color: #fff;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: background 0.15s;
+        text-align: left;
+      }
+      .vp-settings-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .vp-settings-item icon {
+        font-size: 16px;
+        opacity: 0.75;
+      }
+      /* PDF */
+      .media-pdf-wrap {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+      }
+      .media-pdf-frame {
+        flex: 1;
+        width: 100%;
+        border: none;
+        min-height: 60vh;
+      }
+      /* Doc / text */
+      .media-doc-wrap {
+        flex: 1;
+        overflow: auto;
+        padding: 16px;
+        min-height: 0;
+      }
+      .media-doc-pre {
+        margin: 0;
+        padding: 16px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.35);
+        font-size: 13px;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-family: "Consolas", "Fira Code", monospace;
+      }
       @keyframes fadeInUp {
         from {
           opacity: 0;
@@ -4224,9 +4942,13 @@
                     <span data-translate="useCamera">Use Camera</span>
                   </button>
                 </div>
-                <div class="bottom-prompt-area">
+                <div class="bottom-prompt-area" id="bottomPromptArea">
                   <div class="prompt-area" id="prompt">
-                    <div class="prompt-area-left liquid-glass">
+                    <!-- Dual-mode left container (hidden in multi) -->
+                    <div
+                      class="prompt-area-left liquid-glass"
+                      id="promptAreaLeft"
+                    >
                       <div
                         class="icon-btn"
                         id="addBtn"
@@ -4236,6 +4958,7 @@
                         <icon class="material-symbols-rounded">add</icon>
                       </div>
                     </div>
+                    <!-- Unified prompt container (both modes) -->
                     <div class="prompt-container liquid-glass">
                       <textarea
                         class="prompt-input"
@@ -4244,30 +4967,68 @@
                         placeholder="Ask Munetios AI"
                         data-translate-placeholder="promptPlaceholder"
                       ></textarea>
-                      <div
-                        class="icon-btn"
-                        id="micBtn"
-                        data-translate-title="voiceInput"
-                        title="Voice input"
-                      >
-                        <icon class="material-symbols-rounded">mic</icon>
-                      </div>
-                      <div
-                        class="icon-btn composer-primary-action"
-                        id="voiceChatBtn"
-                        data-translate-title="voiceChatTitle"
-                        title="Voice Chat"
-                      >
-                        <icon class="material-symbols-rounded">voice_chat</icon>
-                      </div>
-                      <div
-                        class="icon-btn composer-primary-action"
-                        id="sendBtn"
-                        style="display: none"
-                        data-translate-title="sendMessage"
-                        title="Send message"
-                      >
-                        <icon class="material-symbols-rounded">send</icon>
+                      <!-- Bottom action row -->
+                      <div class="prompt-action-row">
+                        <!-- Left: tools (multi mode only) -->
+                        <div class="prompt-action-left">
+                          <div
+                            class="icon-btn"
+                            id="addBtnMulti"
+                            title="Upload Files"
+                          >
+                            <icon class="material-symbols-rounded">add</icon>
+                          </div>
+                          <button
+                            class="prompt-tool-pill"
+                            id="imageCreationBtnMulti"
+                          >
+                            <icon class="material-symbols-rounded"
+                              >imagesmode</icon
+                            >
+                            <span data-translate="imageCreation"
+                              >Image creation</span
+                            >
+                          </button>
+                        </div>
+                        <!-- Right: keyboard, mic, send (both modes) -->
+                        <div class="prompt-action-right">
+                          <div
+                            class="icon-btn"
+                            id="keyboardBtn"
+                            title="Virtual Keyboard"
+                          >
+                            <icon class="material-symbols-rounded"
+                              >keyboard</icon
+                            >
+                          </div>
+                          <div
+                            class="icon-btn"
+                            id="micBtn"
+                            data-translate-title="voiceInput"
+                            title="Voice input"
+                          >
+                            <icon class="material-symbols-rounded">mic</icon>
+                          </div>
+                          <div
+                            class="icon-btn composer-primary-action"
+                            id="voiceChatBtn"
+                            data-translate-title="voiceChatTitle"
+                            title="Voice Chat"
+                          >
+                            <icon class="material-symbols-rounded"
+                              >voice_chat</icon
+                            >
+                          </div>
+                          <div
+                            class="icon-btn composer-primary-action"
+                            id="sendBtn"
+                            style="display: none"
+                            data-translate-title="sendMessage"
+                            title="Send message"
+                          >
+                            <icon class="material-symbols-rounded">send</icon>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -4884,6 +5645,26 @@
                       class="settings-range-value"
                       >22px</span
                     >
+                  </div>
+                </div>
+                <!-- Prompt Layout -->
+                <div class="settings-item">
+                  <label class="settings-label">Prompt Layout</label>
+                  <div class="settings-control-row" style="gap: 6px">
+                    <button
+                      class="btn prompt-layout-btn active"
+                      id="promptLayoutDual"
+                      data-pl="dual"
+                    >
+                      2 Container
+                    </button>
+                    <button
+                      class="btn prompt-layout-btn"
+                      id="promptLayoutMulti"
+                      data-pl="multi"
+                    >
+                      Multi
+                    </button>
                   </div>
                 </div>
               </div>
@@ -5715,6 +6496,173 @@
           class="preview-modal-image"
           alt="Preview"
         />
+      </div>
+    </div>
+    <!-- Media / PDF / Doc Preview Modal -->
+    <div class="media-preview-overlay" id="mediaPreviewModal">
+      <div class="media-preview-shell liquid-glass" id="mediaPreviewShell">
+        <div class="media-preview-header">
+          <span class="media-preview-title" id="mediaPreviewTitle"></span>
+          <div class="media-preview-header-actions">
+            <a
+              class="btn media-dl-btn"
+              id="mediaDownloadBtn"
+              download
+              title="Download"
+            >
+              <icon class="material-symbols-rounded">download</icon>
+            </a>
+            <button
+              class="preview-modal-close"
+              id="mediaPreviewClose"
+              aria-label="Close preview"
+            >
+              <icon class="material-symbols-rounded">close</icon>
+            </button>
+          </div>
+        </div>
+        <!-- Video player -->
+        <div class="media-video-wrap" id="mediaVideoWrap" style="display: none">
+          <video
+            class="media-video-el"
+            id="mediaVideoEl"
+            preload="metadata"
+          ></video>
+          <div class="vp-controls" id="vpControls">
+            <button class="vp-btn" id="vpPlayBtn" title="Play/Pause">
+              <icon class="material-symbols-rounded">play_arrow</icon>
+            </button>
+            <span class="vp-time" id="vpTime">0:00 / 0:00</span>
+            <input
+              type="range"
+              class="vp-seek"
+              id="vpSeek"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+            />
+            <div class="vp-right">
+              <div class="vp-settings-wrap">
+                <button class="vp-btn" id="vpSettingsBtn" title="Settings">
+                  <icon class="material-symbols-rounded">settings</icon>
+                </button>
+                <div
+                  class="vp-settings-panel"
+                  id="vpSettingsPanel"
+                  style="display: none"
+                >
+                  <div class="vp-settings-section">
+                    <span>Playback Speed</span>
+                    <div class="vp-speed-list" id="vpSpeedList">
+                      <!-- filled by JS -->
+                    </div>
+                  </div>
+                  <hr class="vp-settings-sep" />
+                  <button class="vp-settings-item" id="vpDownloadItem">
+                    <icon class="material-symbols-rounded">download</icon>
+                    Download
+                  </button>
+                </div>
+              </div>
+              <button class="vp-btn" id="vpPipBtn" title="Picture in Picture">
+                <icon class="material-symbols-rounded"
+                  >picture_in_picture_alt</icon
+                >
+              </button>
+              <button class="vp-btn" id="vpFullscreenBtn" title="Fullscreen">
+                <icon class="material-symbols-rounded">fullscreen</icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- PDF viewer -->
+        <div class="media-pdf-wrap" id="mediaPdfWrap" style="display: none">
+          <iframe
+            class="media-pdf-frame"
+            id="mediaPdfFrame"
+            title="PDF Preview"
+          ></iframe>
+        </div>
+        <!-- Text / code viewer -->
+        <div class="media-doc-wrap" id="mediaDocWrap" style="display: none">
+          <pre class="media-doc-pre"><code id="mediaDocCode"></code></pre>
+        </div>
+      </div>
+    </div>
+    <!-- Virtual Keyboard -->
+    <div class="vk-float liquid-glass" id="vkModal" style="display: none">
+      <!-- Drag handle / title bar -->
+      <div class="vk-titlebar" id="vkTitlebar">
+        <icon class="material-symbols-rounded vk-drag-icon"
+          >drag_indicator</icon
+        >
+        <span class="vk-title">Virtual Keyboard</span>
+        <div class="vk-mode-tabs">
+          <button class="vk-mode-tab active" data-vk-mode="abc">ABC</button>
+          <button class="vk-mode-tab" data-vk-mode="num">123</button>
+          <button class="vk-mode-tab" data-vk-mode="emoji">&#x1F600;</button>
+          <button
+            class="vk-mode-tab"
+            data-vk-mode="desktop"
+            title="Desktop layout"
+          >
+            <icon
+              class="material-symbols-rounded"
+              style="font-size: 14px; vertical-align: middle"
+              >computer</icon
+            >
+          </button>
+        </div>
+        <button class="vk-close-btn" id="vkCloseBtn" title="Close keyboard">
+          <icon class="material-symbols-rounded">close</icon>
+        </button>
+      </div>
+      <!-- Lang strip (hidden in emoji/num modes) -->
+      <div class="vk-lang-row" id="vkLangRow">
+        <button class="vk-lang-btn active" data-vk-lang="en" title="English">
+          EN
+        </button>
+        <button class="vk-lang-btn" data-vk-lang="es" title="Español">
+          ES
+        </button>
+        <button class="vk-lang-btn" data-vk-lang="fr" title="Français">
+          FR
+        </button>
+        <button class="vk-lang-btn" data-vk-lang="de" title="Deutsch">
+          DE
+        </button>
+        <button class="vk-lang-btn" data-vk-lang="pt" title="Português">
+          PT
+        </button>
+        <button class="vk-lang-btn" data-vk-lang="it" title="Italiano">
+          IT
+        </button>
+        <button class="vk-lang-btn" data-vk-lang="ru" title="Русский">
+          RU
+        </button>
+        <button class="vk-lang-btn" data-vk-lang="ar" title="العربية">
+          AR
+        </button>
+        <button class="vk-lang-btn" data-vk-lang="zh" title="中文">ZH</button>
+        <button class="vk-lang-btn" data-vk-lang="ja" title="日本語">JA</button>
+        <button class="vk-lang-btn" data-vk-lang="ko" title="한국어">KO</button>
+        <button class="vk-lang-btn" data-vk-lang="hi" title="हिन्दी">HI</button>
+      </div>
+      <!-- Key area -->
+      <div class="vk-layer" id="vkLayerMain"></div>
+      <!-- Preview + controls -->
+      <div class="vk-preview" id="vkPreview">
+        <span id="vkPreviewText"></span><span class="vk-cursor">|</span>
+      </div>
+      <div class="vk-controls">
+        <button class="vk-ctrl-btn" id="vkClearBtn" title="Clear">
+          <icon class="material-symbols-rounded">delete_sweep</icon>
+        </button>
+        <button class="vk-ctrl-btn vk-insert-btn" id="vkInsertBtn" title="Done">
+          <icon class="material-symbols-rounded">check</icon>
+          <span>Done</span>
+        </button>
       </div>
     </div>
     <div class="voice-chat-overlay" id="voiceChatOverlay">
@@ -9970,6 +10918,7 @@
             accentColor: "#5c2fd4",
             lineHeight: 1.6,
             bubbleRadius: 22,
+            promptLayout: "dual",
           };
           try {
             return {
@@ -10057,6 +11006,32 @@
             els.chatBubbleRadiusRange.value = String(settings.bubbleRadius);
           if (els.chatBubbleRadiusValue)
             els.chatBubbleRadiusValue.textContent = `${settings.bubbleRadius}px`;
+          // Prompt layout
+          const pl = settings.promptLayout || "dual";
+          document.body.dataset.promptLayout = pl;
+          document.querySelectorAll(".prompt-layout-btn").forEach((b) => {
+            b.classList.toggle("active", b.dataset.pl === pl);
+          });
+        }
+        function setPromptLayout(layout) {
+          updateAppearanceSetting("promptLayout", layout);
+        }
+        document
+          .getElementById("promptLayoutDual")
+          ?.addEventListener("click", () => setPromptLayout("dual"));
+        document
+          .getElementById("promptLayoutMulti")
+          ?.addEventListener("click", () => setPromptLayout("multi"));
+        function maybeAutoSwitchToMulti() {
+          const settings = getAppearanceSettings();
+          if (settings.promptLayout === "multi") return; // already multi
+          // state is defined in the same IIFE scope — access via closure
+          const hasFiles = (state?.pendingFiles?.length || 0) > 0;
+          const promptLen =
+            document.getElementById("promptInput")?.value.length || 0;
+          if (hasFiles || promptLen > 120) {
+            setPromptLayout("multi");
+          }
         }
         function updateAppearanceSetting(key, value) {
           const settings = getAppearanceSettings();
@@ -10784,11 +11759,31 @@
           state.pendingFiles.forEach((file) => {
             const pill = document.createElement("div");
             const previewSrc = resolvePreviewUrl(file);
-            const isImage =
-              (file.type || "").startsWith("image/") && previewSrc;
+            const mime = (file.type || "").toLowerCase();
+            const fname = (file.name || "").toLowerCase();
+            const isImage = mime.startsWith("image/") && previewSrc;
+            const isVideo =
+              mime.startsWith("video/") ||
+              /\.(mp4|webm|ogg|mov|avi|mkv)$/.test(fname);
+            const isPdf = mime === "application/pdf" || fname.endsWith(".pdf");
+            const isText =
+              isTextLikeFile(file) ||
+              /\.(txt|md|html|htm|css|js|ts|json|xml|csv|py|java|c|cpp|cs|rb|go|rs|sh|yaml|yml)$/.test(
+                fname,
+              );
+
+            const iconName = isPdf
+              ? "picture_as_pdf"
+              : isVideo
+                ? "movie"
+                : isText
+                  ? "description"
+                  : "draft";
+
             pill.className = `attachment-pill${isImage ? " image" : ""}`;
-            pill.innerHTML = isImage
-              ? `
+
+            if (isImage) {
+              pill.innerHTML = `
               <img class="attachment-preview-thumb" src="${previewSrc}" alt="${file.name}" />
               <div>
                 <div class="attachment-pill-name">${file.name}</div>
@@ -10799,21 +11794,31 @@
                 <button class="attachment-pill-remove" type="button" aria-label="Remove file">
                   <icon class="material-symbols-rounded">close</icon>
                 </button>
-              </div>
-            `
-              : `
-              <icon class="material-symbols-rounded">draft</icon>
+              </div>`;
+            } else {
+              pill.innerHTML = `
+              <icon class="material-symbols-rounded">${iconName}</icon>
               <div class="attachment-pill-name">${file.name}</div>
               <div class="sidebar-history-subtitle">${formatBytes(file.size)}</div>
+              ${isVideo || isPdf || isText ? `<button class="attachment-preview-btn" type="button">Preview</button>` : ""}
               <button class="attachment-pill-remove" type="button" aria-label="Remove file">
                 <icon class="material-symbols-rounded">close</icon>
-              </button>
-            `;
+              </button>`;
+            }
+
             const previewBtn = pill.querySelector(".attachment-preview-btn");
             if (previewBtn) {
               previewBtn.addEventListener("click", () => {
-                els.imagePreviewModalImg.src = previewSrc;
-                els.imagePreviewModal.classList.add("show");
+                if (isImage) {
+                  els.imagePreviewModalImg.src = previewSrc;
+                  els.imagePreviewModal.classList.add("show");
+                } else if (isVideo) {
+                  openMediaPreview("video", file);
+                } else if (isPdf) {
+                  openMediaPreview("pdf", file);
+                } else if (isText) {
+                  openMediaPreview("doc", file);
+                }
               });
             }
             pill
@@ -10835,6 +11840,251 @@
               : !els.uploadMenu.classList.contains("show");
           els.uploadMenu.classList.toggle("show", shouldShow);
         }
+
+        // ── Media preview (video / PDF / doc) ────────────────────────────
+        let _mediaPreviewObjectUrl = null;
+
+        function openMediaPreview(type, fileLike) {
+          const modal = document.getElementById("mediaPreviewModal");
+          const title = document.getElementById("mediaPreviewTitle");
+          const dlBtn = document.getElementById("mediaDownloadBtn");
+          const videoW = document.getElementById("mediaVideoWrap");
+          const pdfW = document.getElementById("mediaPdfWrap");
+          const docW = document.getElementById("mediaDocWrap");
+          const videoEl = document.getElementById("mediaVideoEl");
+          const pdfFrame = document.getElementById("mediaPdfFrame");
+          const codeEl = document.getElementById("mediaDocCode");
+
+          // Hide all panes
+          videoW.style.display = "none";
+          pdfW.style.display = "none";
+          docW.style.display = "none";
+
+          // Revoke previous blob URL
+          if (_mediaPreviewObjectUrl) {
+            URL.revokeObjectURL(_mediaPreviewObjectUrl);
+            _mediaPreviewObjectUrl = null;
+          }
+
+          title.textContent = fileLike.name || "Preview";
+          dlBtn.download = fileLike.name || "download";
+
+          const rawFile = fileLike.file || null;
+          // Fallback for sent-message attachments (no raw File, but have dataUrl/textContent)
+          const storedDataUrl =
+            fileLike.dataUrl || fileLike.previewDataUrl || "";
+
+          function makeSrc() {
+            if (rawFile) {
+              const u = URL.createObjectURL(rawFile);
+              _mediaPreviewObjectUrl = u;
+              return u;
+            }
+            return storedDataUrl;
+          }
+
+          if (type === "video") {
+            const src = makeSrc();
+            if (!src) {
+              modal.classList.add("show");
+              return;
+            }
+            videoEl.src = src;
+            dlBtn.href = src;
+            videoW.style.display = "flex";
+            initVideoPlayer(videoEl);
+          } else if (type === "pdf") {
+            const src = makeSrc();
+            if (!src) {
+              modal.classList.add("show");
+              return;
+            }
+            pdfFrame.src = src;
+            dlBtn.href = src;
+            pdfW.style.display = "flex";
+          } else if (type === "doc") {
+            const stored = fileLike.textContent ?? null;
+            if (rawFile) {
+              const blobSrc = URL.createObjectURL(rawFile);
+              _mediaPreviewObjectUrl = blobSrc;
+              dlBtn.href = blobSrc;
+              if (stored !== null) {
+                codeEl.textContent = stored;
+                docW.style.display = "flex";
+              } else {
+                fileToText(rawFile).then((text) => {
+                  codeEl.textContent = text;
+                  docW.style.display = "flex";
+                });
+              }
+            } else if (stored !== null) {
+              dlBtn.href = storedDataUrl || "#";
+              codeEl.textContent = stored;
+              docW.style.display = "flex";
+            } else if (storedDataUrl) {
+              dlBtn.href = storedDataUrl;
+              try {
+                codeEl.textContent = atob(storedDataUrl.split(",")[1] || "");
+              } catch (_) {
+                codeEl.textContent = "";
+              }
+              docW.style.display = "flex";
+            }
+          }
+
+          modal.classList.add("show");
+        }
+
+        function closeMediaPreview() {
+          const modal = document.getElementById("mediaPreviewModal");
+          const videoEl = document.getElementById("mediaVideoEl");
+          modal.classList.remove("show");
+          if (videoEl) {
+            videoEl.pause();
+            videoEl.src = "";
+          }
+          if (_mediaPreviewObjectUrl) {
+            URL.revokeObjectURL(_mediaPreviewObjectUrl);
+            _mediaPreviewObjectUrl = null;
+          }
+        }
+
+        function initVideoPlayer(vid) {
+          const playBtn = document.getElementById("vpPlayBtn");
+          const timeEl = document.getElementById("vpTime");
+          const seekEl = document.getElementById("vpSeek");
+          const settBtn = document.getElementById("vpSettingsBtn");
+          const settPanel = document.getElementById("vpSettingsPanel");
+          const speedList = document.getElementById("vpSpeedList");
+          const dlItem = document.getElementById("vpDownloadItem");
+          const pipBtn = document.getElementById("vpPipBtn");
+          const fsBtn = document.getElementById("vpFullscreenBtn");
+          const wrap = document.getElementById("mediaVideoWrap");
+
+          const SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 3, 4, 8, 16];
+          speedList.innerHTML = "";
+          SPEEDS.forEach((s) => {
+            const b = document.createElement("button");
+            b.className = "vp-speed-btn" + (s === 1 ? " active" : "");
+            b.textContent = s + "x";
+            b.addEventListener("click", () => {
+              vid.playbackRate = s;
+              speedList
+                .querySelectorAll(".vp-speed-btn")
+                .forEach((x) => x.classList.remove("active"));
+              b.classList.add("active");
+            });
+            speedList.appendChild(b);
+          });
+
+          function fmt(t) {
+            const m = Math.floor(t / 60),
+              s = Math.floor(t % 60);
+            return `${m}:${String(s).padStart(2, "0")}`;
+          }
+          function updateTime() {
+            timeEl.textContent = `${fmt(vid.currentTime)} / ${fmt(vid.duration || 0)}`;
+            seekEl.value = vid.duration
+              ? (vid.currentTime / vid.duration) * 100
+              : 0;
+          }
+          function setPlayIcon() {
+            const ic = playBtn.querySelector("icon");
+            if (ic) ic.textContent = vid.paused ? "play_arrow" : "pause";
+          }
+
+          // Remove old listeners by cloning
+          const newPlayBtn = playBtn.cloneNode(true);
+          playBtn.parentNode.replaceChild(newPlayBtn, playBtn);
+          newPlayBtn.addEventListener("click", () =>
+            vid.paused ? vid.play() : vid.pause(),
+          );
+
+          vid.addEventListener("play", setPlayIcon);
+          vid.addEventListener("pause", setPlayIcon);
+          vid.addEventListener("timeupdate", updateTime);
+          vid.addEventListener("loadedmetadata", updateTime);
+          vid.addEventListener("ended", setPlayIcon);
+
+          seekEl.addEventListener("input", () => {
+            vid.currentTime = (seekEl.value / 100) * (vid.duration || 0);
+          });
+
+          settBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            settPanel.style.display =
+              settPanel.style.display === "none" ? "block" : "none";
+          });
+          document.addEventListener("click", (e) => {
+            if (
+              !e.target.closest("#vpSettingsPanel") &&
+              !e.target.closest("#vpSettingsBtn")
+            ) {
+              settPanel.style.display = "none";
+            }
+          });
+
+          dlItem.addEventListener("click", () => {
+            const a = document.createElement("a");
+            a.href = vid.src;
+            a.download =
+              document.getElementById("mediaPreviewTitle").textContent;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          });
+
+          if (document.pictureInPictureEnabled) {
+            pipBtn.style.display = "";
+            pipBtn.addEventListener("click", async () => {
+              try {
+                if (document.pictureInPictureElement) {
+                  await document.exitPictureInPicture();
+                } else {
+                  await vid.requestPictureInPicture();
+                }
+              } catch (_) {}
+            });
+          } else {
+            pipBtn.style.display = "none";
+          }
+
+          fsBtn.addEventListener("click", () => {
+            if (!document.fullscreenElement) {
+              wrap.requestFullscreen?.() || wrap.webkitRequestFullscreen?.();
+            } else {
+              document.exitFullscreen?.() || document.webkitExitFullscreen?.();
+            }
+          });
+          document.addEventListener("fullscreenchange", () => {
+            const ic = fsBtn.querySelector("icon");
+            if (ic)
+              ic.textContent = document.fullscreenElement
+                ? "fullscreen_exit"
+                : "fullscreen";
+          });
+        }
+
+        // Bind close events for media preview modal
+        document
+          .getElementById("mediaPreviewClose")
+          ?.addEventListener("click", closeMediaPreview);
+        document
+          .getElementById("mediaPreviewModal")
+          ?.addEventListener("click", (e) => {
+            if (e.target === document.getElementById("mediaPreviewModal"))
+              closeMediaPreview();
+          });
+        document.addEventListener("keydown", (e) => {
+          if (
+            e.key === "Escape" &&
+            document
+              .getElementById("mediaPreviewModal")
+              ?.classList.contains("show")
+          ) {
+            closeMediaPreview();
+          }
+        });
         async function saveBooksLibrary() {
           localStorage.setItem(BOOKS_STORAGE_KEY, JSON.stringify(state.books));
           const db = await openChatDb();
@@ -12164,18 +13414,60 @@
               wrap.className = "chat-message-attachments";
               message.attachments.forEach((attachment) => {
                 const pill = document.createElement("div");
+                const mime = String(attachment.type || "");
+                const fname = String(attachment.name || "").toLowerCase();
+                const isImg = mime.startsWith("image/");
+                const isVid =
+                  mime.startsWith("video/") ||
+                  /\.(mp4|webm|ogg|mov|avi|mkv)$/.test(fname);
+                const isPdf =
+                  mime === "application/pdf" || fname.endsWith(".pdf");
+                const isTxt =
+                  !isImg && !isVid && !isPdf && isTextLikeFile(attachment);
                 const previewSrc = resolvePreviewUrl(attachment);
+                const hasData = !!(
+                  attachment.dataUrl || attachment.previewDataUrl
+                );
+                const canPreview = isImg
+                  ? !!previewSrc
+                  : isVid
+                    ? hasData
+                    : isPdf
+                      ? hasData
+                      : isTxt
+                        ? attachment.textContent != null || hasData
+                        : false;
+                const iconName = isVid
+                  ? "movie"
+                  : isPdf
+                    ? "picture_as_pdf"
+                    : isTxt
+                      ? "description"
+                      : "draft";
+                const safeName = escapeHtml(attachment.name || "file");
+
                 pill.className = "attachment-pill";
-                pill.innerHTML = previewSrc
-                  ? `<img class="attachment-preview-thumb" src="${previewSrc}" alt="${attachment.name}" /><div class="attachment-pill-actions"><button class="attachment-preview-btn" type="button">Preview</button></div>`
-                  : `<icon class="material-symbols-rounded">draft</icon><div class="attachment-pill-name">${attachment.name}</div>`;
+                if (isImg && previewSrc) {
+                  pill.innerHTML = `<img class="attachment-preview-thumb" src="${previewSrc}" alt="${safeName}" /><div class="attachment-pill-info"><div class="attachment-pill-name">${safeName}</div><div class="attachment-pill-actions"><button class="attachment-preview-btn" type="button">Preview</button></div></div>`;
+                } else {
+                  pill.innerHTML = `<icon class="material-symbols-rounded">${iconName}</icon><div class="attachment-pill-info"><div class="attachment-pill-name">${safeName}</div>${canPreview ? '<div class="attachment-pill-actions"><button class="attachment-preview-btn" type="button">Preview</button></div>' : ""}</div>`;
+                }
+
                 const previewBtn = pill.querySelector(
                   ".attachment-preview-btn",
                 );
                 if (previewBtn) {
                   previewBtn.addEventListener("click", () => {
-                    els.imagePreviewModalImg.src = previewSrc;
-                    els.imagePreviewModal.classList.add("show");
+                    if (isImg) {
+                      els.imagePreviewModalImg.src = previewSrc;
+                      els.imagePreviewModal.classList.add("show");
+                    } else if (isVid) {
+                      openMediaPreview("video", attachment);
+                    } else if (isPdf) {
+                      openMediaPreview("pdf", attachment);
+                    } else if (isTxt) {
+                      openMediaPreview("doc", attachment);
+                    }
                   });
                 }
                 wrap.appendChild(pill);
@@ -12445,6 +13737,8 @@
           }
           renderAttachments();
           updateComposerState();
+          // Auto-switch to multi layout when files attached in dual mode
+          if (state.pendingFiles.length > 0) maybeAutoSwitchToMulti();
         }
         async function bootstrapChats() {
           try {
@@ -12785,7 +14079,10 @@
             event.preventDefault();
             createNewChat();
           });
-        els.promptInput.addEventListener("input", updateComposerState);
+        els.promptInput.addEventListener("input", () => {
+          updateComposerState();
+          maybeAutoSwitchToMulti();
+        });
         els.promptInput.addEventListener("keydown", (event) => {
           if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
@@ -12797,6 +14094,20 @@
           event.stopPropagation();
           toggleUploadMenu();
         });
+        // Multi-mode toolbar buttons mirror the same actions
+        document
+          .getElementById("addBtnMulti")
+          ?.addEventListener("click", (event) => {
+            event.stopPropagation();
+            toggleUploadMenu();
+          });
+        document
+          .getElementById("imageCreationBtnMulti")
+          ?.addEventListener("click", () => {
+            showToast(
+              t("imageCreationComingSoon", "Image creation is coming soon."),
+            );
+          });
         els.uploadFilesBtn.addEventListener("click", () => {
           toggleUploadMenu(false);
           els.fileInput.click();
@@ -13964,6 +15275,1652 @@
         if (typeof applyTranslations === "function") {
           applyTranslations(currentLanguage);
         }
+      })();
+    </script>
+    <script nonce="ertyuioherafguighweruifuidfhj3rhjeasdf8uh4wertauedrsfg">
+      /* ── Virtual Keyboard ──────────────────────────────────────────────── */
+      (function () {
+        "use strict";
+
+        // ── Emoji categories ──────────────────────────────────────────────
+        const EMOJI_CATS = [
+          {
+            label: "😀",
+            name: "Smileys",
+            emojis: [
+              "😀",
+              "😁",
+              "😂",
+              "🤣",
+              "😃",
+              "😄",
+              "😅",
+              "😆",
+              "😉",
+              "😊",
+              "😋",
+              "😎",
+              "😍",
+              "🥰",
+              "😘",
+              "😗",
+              "😙",
+              "😚",
+              "🙂",
+              "🤗",
+              "🤩",
+              "🤔",
+              "🤨",
+              "😐",
+              "😑",
+              "😶",
+              "🙄",
+              "😏",
+              "😣",
+              "😥",
+              "😮",
+              "🤐",
+              "😯",
+              "😪",
+              "😫",
+              "🥱",
+              "😴",
+              "😌",
+              "😛",
+              "😜",
+              "😝",
+              "🤤",
+              "😒",
+              "😓",
+              "😔",
+              "😕",
+              "🙃",
+              "🤑",
+              "😲",
+              "🙁",
+              "😖",
+              "😞",
+              "😟",
+              "😤",
+              "😢",
+              "😭",
+              "😦",
+              "😧",
+              "😨",
+              "😩",
+              "🤯",
+              "😬",
+              "😰",
+              "😱",
+              "🥵",
+              "🥶",
+              "😳",
+              "🤪",
+              "😵",
+              "🥴",
+              "😠",
+              "😡",
+              "🤬",
+              "😷",
+              "🤒",
+              "🤕",
+              "🤢",
+              "🤮",
+              "🤧",
+              "🥳",
+              "🥸",
+              "🥺",
+              "🤡",
+              "👹",
+              "👺",
+              "💀",
+              "👻",
+              "👽",
+              "🤖",
+            ],
+          },
+          {
+            label: "👋",
+            name: "People",
+            emojis: [
+              "👋",
+              "🤚",
+              "🖐️",
+              "✋",
+              "🖖",
+              "👌",
+              "🤌",
+              "🤏",
+              "✌️",
+              "🤞",
+              "🤟",
+              "🤘",
+              "🤙",
+              "👈",
+              "👉",
+              "👆",
+              "🖕",
+              "👇",
+              "☝️",
+              "👍",
+              "👎",
+              "✊",
+              "👊",
+              "🤛",
+              "🤜",
+              "👏",
+              "🙌",
+              "👐",
+              "🤲",
+              "🤝",
+              "🙏",
+              "✍️",
+              "💅",
+              "🤳",
+              "💪",
+              "🦾",
+              "🦿",
+              "🦵",
+              "🦶",
+              "👂",
+              "🦻",
+              "👃",
+              "👁️",
+              "👅",
+              "👄",
+              "👶",
+              "🧒",
+              "👦",
+              "👧",
+              "🧑",
+              "👱",
+              "👨",
+              "🧔",
+              "👩",
+              "🧓",
+              "👴",
+              "👵",
+              "🙍",
+              "🙎",
+              "🙅",
+              "🙆",
+              "💁",
+              "🙋",
+              "🧏",
+              "🙇",
+              "🤦",
+              "🤷",
+              "👮",
+              "🕵️",
+              "💂",
+              "🥷",
+              "👷",
+              "👸",
+              "👳",
+              "👲",
+              "🧕",
+              "🤵",
+              "👰",
+              "🤰",
+              "🤱",
+              "👼",
+              "🎅",
+              "🤶",
+              "🦸",
+              "🦹",
+              "🧙",
+              "🧝",
+              "🧛",
+              "🧟",
+              "🧞",
+              "🧜",
+              "🧚",
+              "👫",
+              "👬",
+              "👭",
+              "💏",
+              "💑",
+              "👪",
+            ],
+          },
+          {
+            label: "🐶",
+            name: "Animals",
+            emojis: [
+              "🐶",
+              "🐱",
+              "🐭",
+              "🐹",
+              "🐰",
+              "🦊",
+              "🐻",
+              "🐼",
+              "🐨",
+              "🐯",
+              "🦁",
+              "🐮",
+              "🐷",
+              "🐸",
+              "🐵",
+              "🙈",
+              "🙉",
+              "🙊",
+              "🐒",
+              "🐔",
+              "🐧",
+              "🐦",
+              "🐤",
+              "🦆",
+              "🦅",
+              "🦉",
+              "🦇",
+              "🐺",
+              "🐗",
+              "🐴",
+              "🦄",
+              "🐝",
+              "🐛",
+              "🦋",
+              "🐌",
+              "🐞",
+              "🐜",
+              "🦟",
+              "🦗",
+              "🕷️",
+              "🦂",
+              "🐢",
+              "🐍",
+              "🦎",
+              "🦖",
+              "🦕",
+              "🐙",
+              "🦑",
+              "🦐",
+              "🦞",
+              "🦀",
+              "🐡",
+              "🐠",
+              "🐟",
+              "🐬",
+              "🐳",
+              "🐋",
+              "🦈",
+              "🐊",
+              "🐅",
+              "🐆",
+              "🦓",
+              "🦍",
+              "🦧",
+              "🐘",
+              "🦛",
+              "🦏",
+              "🐪",
+              "🐫",
+              "🦒",
+              "🦘",
+              "🦬",
+              "🐃",
+              "🐂",
+              "🐄",
+              "🐎",
+              "🐖",
+              "🐏",
+              "🐑",
+              "🦙",
+              "🐐",
+              "🦌",
+              "🐕",
+              "🐩",
+              "🦮",
+              "🐕‍🦺",
+              "🐈",
+              "🐈‍⬛",
+              "🐓",
+              "🦃",
+              "🦤",
+              "🦚",
+              "🦜",
+              "🦢",
+              "🦩",
+            ],
+          },
+          {
+            label: "🍕",
+            name: "Food",
+            emojis: [
+              "🍕",
+              "🍔",
+              "🍟",
+              "🌭",
+              "🍿",
+              "🧂",
+              "🥓",
+              "🥚",
+              "🍳",
+              "🧇",
+              "🥞",
+              "🧈",
+              "🍞",
+              "🥐",
+              "🥖",
+              "🫓",
+              "🥨",
+              "🥯",
+              "🧀",
+              "🥗",
+              "🥙",
+              "🌮",
+              "🌯",
+              "🫔",
+              "🍝",
+              "🍜",
+              "🍲",
+              "🍛",
+              "🍣",
+              "🍱",
+              "🥟",
+              "🦪",
+              "🍤",
+              "🍙",
+              "🍚",
+              "🍘",
+              "🍥",
+              "🥮",
+              "🍡",
+              "🧁",
+              "🍰",
+              "🎂",
+              "🍮",
+              "🍭",
+              "🍬",
+              "🍫",
+              "🍩",
+              "🍪",
+              "🌰",
+              "🥜",
+              "🍯",
+              "🍎",
+              "🍐",
+              "🍊",
+              "🍋",
+              "🍌",
+              "🍉",
+              "🍇",
+              "🍓",
+              "🫐",
+              "🍈",
+              "🍒",
+              "🍑",
+              "🥭",
+              "🍍",
+              "🥥",
+              "🥝",
+              "🍅",
+              "🍆",
+              "🥑",
+              "🥦",
+              "🥬",
+              "🥒",
+              "🌶️",
+              "🫑",
+              "🌽",
+              "🥕",
+              "🧄",
+              "🧅",
+              "🥔",
+              "☕",
+              "🍵",
+              "🧃",
+              "🥤",
+              "🧋",
+              "🍺",
+              "🍻",
+              "🥂",
+              "🍷",
+              "🥃",
+              "🍸",
+              "🍹",
+              "🧉",
+              "🍾",
+            ],
+          },
+          {
+            label: "⚽",
+            name: "Activity",
+            emojis: [
+              "⚽",
+              "🏀",
+              "🏈",
+              "⚾",
+              "🥎",
+              "🎾",
+              "🏐",
+              "🏉",
+              "🥏",
+              "🎱",
+              "🏓",
+              "🏸",
+              "🏒",
+              "🏑",
+              "🥍",
+              "🏏",
+              "🪃",
+              "🥅",
+              "⛳",
+              "🪁",
+              "🏹",
+              "🎣",
+              "🤿",
+              "🥊",
+              "🥋",
+              "🎽",
+              "🛹",
+              "🛼",
+              "🛷",
+              "⛸️",
+              "🥌",
+              "🎿",
+              "⛷️",
+              "🏂",
+              "🪂",
+              "🏋️",
+              "🤼",
+              "🤸",
+              "⛹️",
+              "🤺",
+              "🤾",
+              "🏌️",
+              "🏇",
+              "🧘",
+              "🏄",
+              "🏊",
+              "🤽",
+              "🚣",
+              "🧗",
+              "🚵",
+              "🚴",
+              "🏆",
+              "🥇",
+              "🥈",
+              "🥉",
+              "🏅",
+              "🎖️",
+              "🎫",
+              "🎟️",
+              "🎪",
+              "🤹",
+              "🎭",
+              "🩰",
+              "🎨",
+              "🎬",
+              "🎤",
+              "🎧",
+              "🎼",
+              "🎹",
+              "🥁",
+              "🪘",
+              "🎷",
+              "🎺",
+              "🎸",
+              "🎻",
+              "🎲",
+              "♟️",
+              "🎯",
+              "🎳",
+              "🎮",
+              "🎰",
+              "🧩",
+            ],
+          },
+          {
+            label: "🚀",
+            name: "Travel",
+            emojis: [
+              "🚀",
+              "✈️",
+              "🚂",
+              "🚃",
+              "🚄",
+              "🚅",
+              "🚆",
+              "🚇",
+              "🚈",
+              "🚉",
+              "🚊",
+              "🚝",
+              "🚞",
+              "🚋",
+              "🚌",
+              "🚍",
+              "🚎",
+              "🏎️",
+              "🚐",
+              "🚑",
+              "🚒",
+              "🚓",
+              "🚔",
+              "🚕",
+              "🚖",
+              "🚗",
+              "🚘",
+              "🚙",
+              "🛻",
+              "🚚",
+              "🚛",
+              "🚜",
+              "🏍️",
+              "🛵",
+              "🚲",
+              "🛴",
+              "🛺",
+              "🚨",
+              "🚥",
+              "🚦",
+              "🛑",
+              "🚧",
+              "⚓",
+              "🛟",
+              "⛵",
+              "🛶",
+              "🚤",
+              "🛳️",
+              "⛴️",
+              "🛥️",
+              "🚢",
+              "🛩️",
+              "💺",
+              "🚁",
+              "🚟",
+              "🚠",
+              "🚡",
+              "🛰️",
+              "🛸",
+              "🪂",
+              "🏖️",
+              "🌍",
+              "🌎",
+              "🌏",
+              "🗺️",
+              "🧭",
+              "🏔️",
+              "⛰️",
+              "🌋",
+              "🗻",
+              "🏕️",
+              "🏞️",
+              "🏜️",
+              "🏝️",
+              "🏟️",
+              "🏛️",
+              "🏗️",
+              "🏘️",
+              "🏠",
+              "🏡",
+              "🏢",
+              "🏣",
+              "🏤",
+              "🏥",
+              "🏦",
+              "🏨",
+              "🏩",
+              "🏪",
+              "🏫",
+              "🏬",
+              "🏭",
+              "🏯",
+              "🏰",
+              "💒",
+              "🗼",
+              "🗽",
+              "⛪",
+              "🕌",
+            ],
+          },
+          {
+            label: "💡",
+            name: "Objects",
+            emojis: [
+              "💡",
+              "🔦",
+              "🕯️",
+              "🪔",
+              "🧱",
+              "💎",
+              "🔑",
+              "🗝️",
+              "🔒",
+              "🔓",
+              "🔨",
+              "🪓",
+              "⛏️",
+              "⚒️",
+              "🛠️",
+              "🗡️",
+              "⚔️",
+              "🛡️",
+              "🪚",
+              "🔧",
+              "🪛",
+              "🔩",
+              "⚙️",
+              "🗜️",
+              "⚖️",
+              "🔗",
+              "⛓️",
+              "🪝",
+              "🧲",
+              "🪜",
+              "🧰",
+              "📱",
+              "💻",
+              "⌨️",
+              "🖥️",
+              "🖨️",
+              "🖱️",
+              "🖲️",
+              "💽",
+              "💾",
+              "💿",
+              "📀",
+              "📷",
+              "📸",
+              "📹",
+              "🎥",
+              "📞",
+              "☎️",
+              "📟",
+              "📺",
+              "📻",
+              "🎙️",
+              "🎚️",
+              "🎛️",
+              "🧭",
+              "⏱️",
+              "⏲️",
+              "⏰",
+              "🕰️",
+              "⌛",
+              "⏳",
+              "📡",
+              "🔋",
+              "🪫",
+              "🔌",
+              "💡",
+              "🔦",
+              "🕯️",
+              "💰",
+              "💳",
+              "💸",
+              "📈",
+              "📉",
+              "📊",
+              "📋",
+              "📌",
+              "📍",
+              "✂️",
+              "📝",
+              "✏️",
+              "🖊️",
+              "🖋️",
+              "📖",
+              "📚",
+              "📰",
+              "🗞️",
+              "📄",
+              "📃",
+              "📑",
+              "📅",
+              "📆",
+              "📇",
+              "📁",
+              "📂",
+            ],
+          },
+          {
+            label: "❤️",
+            name: "Symbols",
+            emojis: [
+              "❤️",
+              "🧡",
+              "💛",
+              "💚",
+              "💙",
+              "💜",
+              "🖤",
+              "🤍",
+              "🤎",
+              "💔",
+              "❣️",
+              "💕",
+              "💞",
+              "💓",
+              "💗",
+              "💖",
+              "💘",
+              "💝",
+              "💟",
+              "☮️",
+              "✝️",
+              "☪️",
+              "🕉️",
+              "☸️",
+              "✡️",
+              "🔯",
+              "🕎",
+              "☯️",
+              "☦️",
+              "🛐",
+              "⛎",
+              "♈",
+              "♉",
+              "♊",
+              "♋",
+              "♌",
+              "♍",
+              "♎",
+              "♏",
+              "♐",
+              "♑",
+              "♒",
+              "♓",
+              "🆔",
+              "⚛️",
+              "☢️",
+              "☣️",
+              "❌",
+              "⭕",
+              "🛑",
+              "⛔",
+              "📛",
+              "🚫",
+              "💯",
+              "‼️",
+              "⁉️",
+              "🔅",
+              "🔆",
+              "🔱",
+              "⚜️",
+              "🔰",
+              "♻️",
+              "✅",
+              "❇️",
+              "✳️",
+              "❎",
+              "🌐",
+              "💠",
+              "💤",
+              "🏧",
+              "🚾",
+              "♿",
+              "🅿️",
+              "🈳",
+              "🈂️",
+              "🛂",
+              "🛃",
+              "🛄",
+              "🛅",
+              "🚹",
+              "🚺",
+              "🚼",
+              "⚧️",
+              "🚻",
+              "🚮",
+              "🎦",
+              "📶",
+              "🈁",
+              "ℹ️",
+              "🔤",
+              "🔡",
+              "🔠",
+              "🆕",
+              "🆓",
+              "🆒",
+              "🆙",
+              "🆗",
+              "🆖",
+              "0️⃣",
+              "1️⃣",
+              "2️⃣",
+              "3️⃣",
+              "4️⃣",
+              "5️⃣",
+              "6️⃣",
+              "7️⃣",
+              "8️⃣",
+              "9️⃣",
+              "🔟",
+              "▶️",
+              "⏸️",
+              "⏏️",
+              "⏭️",
+              "⏮️",
+              "⏩",
+              "⏪",
+              "⏫",
+              "⏬",
+              "◀️",
+              "🔼",
+              "🔽",
+              "➡️",
+              "⬅️",
+              "⬆️",
+              "⬇️",
+              "↕️",
+              "↔️",
+              "↩️",
+              "↪️",
+              "⤴️",
+              "⤵️",
+              "🔀",
+              "🔁",
+              "🔂",
+              "🔃",
+              "🔄",
+            ],
+          },
+        ];
+
+        // ── Number / symbol layout ─────────────────────────────────────────
+        const NUM_LAYOUT = [
+          [
+            "1 !",
+            "2 @",
+            "3 #",
+            "4 $",
+            "5 %",
+            "6 ^",
+            "7 &",
+            "8 *",
+            "9 (",
+            "0 )",
+          ],
+          [
+            "- _",
+            "= +",
+            "[ {",
+            "] }",
+            "| \\",
+            "~ `",
+            "< ,",
+            "> .",
+            "? /",
+            "; :",
+          ],
+          [
+            "! @",
+            "# $",
+            "% ^",
+            "& *",
+            "( )",
+            "_ +",
+            ": ;",
+            "\" '",
+            "< >",
+            "/ ?",
+          ],
+          [
+            "@ #",
+            "$ %",
+            "^ &",
+            "* (",
+            "= )",
+            ", .",
+            "! ?",
+            "\\n \\t",
+            "... ",
+            "::",
+          ],
+        ];
+
+        // ── Layout definitions ────────────────────────────────────────────
+        const LAYOUTS = {
+          en: {
+            name: "English",
+            rtl: false,
+            rows: [
+              [
+                "` ~",
+                "1 !",
+                "2 @",
+                "3 #",
+                "4 $",
+                "5 %",
+                "6 ^",
+                "7 &",
+                "8 *",
+                "9 (",
+                "0 )",
+                "- _",
+                "= +",
+              ],
+              [
+                "q",
+                "w",
+                "e",
+                "r",
+                "t",
+                "y",
+                "u",
+                "i",
+                "o",
+                "p",
+                "[ {",
+                "] }",
+                "\\ |",
+              ],
+              ["a", "s", "d", "f", "g", "h", "j", "k", "l", "; :", "' \""],
+              ["z", "x", "c", "v", "b", "n", "m", ", <", ". >", "/ ?"],
+            ],
+          },
+          es: {
+            name: "Español",
+            rtl: false,
+            rows: [
+              [
+                "|° ª",
+                "1 !",
+                '2 "',
+                "3 #",
+                "4 $",
+                "5 %",
+                "6 &",
+                "7 /",
+                "8 (",
+                "9 )",
+                "0 =",
+                "' ?",
+                "¡ ¿",
+              ],
+              ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "` ^", "+ *"],
+              ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ", "{ [", "} ]"],
+              ["z", "x", "c", "v", "b", "n", "m", ", ;", ". :", "- _"],
+            ],
+          },
+          fr: {
+            name: "Français",
+            rtl: false,
+            rows: [
+              [
+                "² ~",
+                "& 1",
+                "é 2",
+                '" 3',
+                "' 4",
+                "( 5",
+                "-_ 6",
+                "è 7",
+                "_ 8",
+                "ç 9",
+                "à 0",
+                ") °",
+                "= +",
+              ],
+              ["a", "z", "e", "r", "t", "y", "u", "i", "o", "p", "^ ¨", "$ £"],
+              ["q", "s", "d", "f", "g", "h", "j", "k", "l", "m", "ù %", "* µ"],
+              ["w", "x", "c", "v", "b", "n", ", ?", "; .", ": /", "! §"],
+            ],
+          },
+          de: {
+            name: "Deutsch",
+            rtl: false,
+            rows: [
+              [
+                "`^ °",
+                "1 !",
+                '2 "',
+                "3 §",
+                "4 $",
+                "5 %",
+                "6 &",
+                "7 /",
+                "8 (",
+                "9 )",
+                "0 =",
+                "ß ?",
+                "´ `",
+              ],
+              ["q", "w", "e", "r", "t", "z", "u", "i", "o", "p", "ü", "+ *"],
+              ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ö", "ä", "# '"],
+              ["y", "x", "c", "v", "b", "n", "m", ", ;", ". :", "- _"],
+            ],
+          },
+          pt: {
+            name: "Português",
+            rtl: false,
+            rows: [
+              [
+                "\\ |",
+                "1 !",
+                "2 @",
+                "3 #",
+                "4 $",
+                "5 %",
+                "6 ¨",
+                "7 &",
+                "8 *",
+                "9 (",
+                "0 )",
+                "- _",
+                "= +",
+              ],
+              ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "´ `", "[ {"],
+              ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ç", "~ ^", "] }"],
+              ["z", "x", "c", "v", "b", "n", "m", ", <", ". >", "/ ?"],
+            ],
+          },
+          it: {
+            name: "Italiano",
+            rtl: false,
+            rows: [
+              [
+                "\\ |",
+                "1 !",
+                '2 "',
+                "3 £",
+                "4 $",
+                "5 %",
+                "6 &",
+                "7 /",
+                "8 (",
+                "9 )",
+                "0 =",
+                "' ?",
+                "ì ^",
+              ],
+              ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "è é", "+ *"],
+              [
+                "a",
+                "s",
+                "d",
+                "f",
+                "g",
+                "h",
+                "j",
+                "k",
+                "l",
+                "ò ç",
+                "à °",
+                "ù §",
+              ],
+              ["z", "x", "c", "v", "b", "n", "m", ", ;", ". :", "- _"],
+            ],
+          },
+          ru: {
+            name: "Русский",
+            rtl: false,
+            rows: [
+              ["ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="],
+              ["й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ"],
+              ["ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э"],
+              ["я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ". ,"],
+            ],
+          },
+          ar: {
+            name: "العربية",
+            rtl: true,
+            rows: [
+              ["ذ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="],
+              ["ض", "ص", "ث", "ق", "ف", "غ", "ع", "ه", "خ", "ح", "ج", "د"],
+              ["ش", "س", "ي", "ب", "ل", "ا", "ت", "ن", "م", "ك", "ط"],
+              ["ئ", "ء", "ؤ", "ر", "لا", "ى", "ة", "و", "ز", "ظ"],
+            ],
+          },
+          zh: {
+            name: "中文 Pinyin",
+            rtl: false,
+            rows: [
+              ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+              ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+              ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
+              ["z", "x", "c", "v", "b", "n", "m"],
+            ],
+          },
+          ja: {
+            name: "日本語",
+            rtl: false,
+            rows: [
+              [
+                "わ",
+                "を",
+                "ん",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "0",
+              ],
+              [
+                "た",
+                "て",
+                "い",
+                "す",
+                "か",
+                "ん",
+                "な",
+                "に",
+                "ら",
+                "せ",
+                "゛",
+                "゜",
+              ],
+              ["ち", "と", "し", "は", "き", "く", "ま", "の", "り", "れ"],
+              ["つ", "さ", "そ", "ひ", "こ", "み", "も", "ね", "る", "め"],
+            ],
+          },
+          ko: {
+            name: "한국어",
+            rtl: false,
+            rows: [
+              ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="],
+              [
+                "ㅂ",
+                "ㅈ",
+                "ㄷ",
+                "ㄱ",
+                "ㅅ",
+                "ㅛ",
+                "ㅕ",
+                "ㅑ",
+                "ㅐ",
+                "ㅔ",
+                "[",
+                "]",
+              ],
+              ["ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ", ";", "'"],
+              ["ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ", ",", ".", "/"],
+            ],
+          },
+          hi: {
+            name: "हिन्दी",
+            rtl: false,
+            rows: [
+              ["ौ", "ै", "ा", "ी", "ू", "ब", "ह", "ग", "द", "ज", "ड"],
+              ["ो", "े", "् ", "ि", "ु", "प", "र", "क", "त", "च", "ट"],
+              ["ं", "म", "न", "व", "ल", "स", ",", "."],
+              ["ा", "ि", "श", "ष", "य", "ख", "थ", "भ", "ण", "ञ"],
+            ],
+          },
+        };
+
+        // ── State ─────────────────────────────────────────────────────────
+        let vkLang = "en";
+        let vkMode = "abc"; // abc | num | emoji | desktop
+        let vkShift = false;
+        let vkCaps = false;
+        let vkText = "";
+        let vkTarget = null;
+        let vkEmojiCat = 0;
+
+        const modal = document.getElementById("vkModal");
+        const layer = document.getElementById("vkLayerMain");
+        const previewEl = document.getElementById("vkPreviewText");
+        const langRow = document.getElementById("vkLangRow");
+        const keyboardBtn = document.getElementById("keyboardBtn");
+        const vkCloseBtn = document.getElementById("vkCloseBtn");
+        const vkClearBtn = document.getElementById("vkClearBtn");
+        const vkInsertBtn = document.getElementById("vkInsertBtn");
+
+        // ── Utilities ─────────────────────────────────────────────────────
+        function syncTargetFromVkText() {
+          // Keep vkTarget in sync with vkText after each keystroke
+          if (!vkTarget) return;
+          vkTarget.value = vkText;
+          vkTarget.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+
+        function typeChar(val) {
+          // Insert at cursor position in vkTarget, then update vkText from target
+          if (vkTarget) {
+            const start = vkTarget.selectionStart ?? vkText.length;
+            const end = vkTarget.selectionEnd ?? start;
+            const cur = vkTarget.value;
+            vkTarget.value = cur.slice(0, start) + val + cur.slice(end);
+            const pos = start + val.length;
+            vkTarget.setSelectionRange(pos, pos);
+            vkTarget.dispatchEvent(new Event("input", { bubbles: true }));
+            vkText = vkTarget.value;
+          } else {
+            vkText += val;
+          }
+          updatePreview();
+        }
+
+        function backspaceChar() {
+          if (vkTarget) {
+            const start = vkTarget.selectionStart ?? vkText.length;
+            const end = vkTarget.selectionEnd ?? start;
+            if (start !== end) {
+              // Delete selection
+              vkTarget.value =
+                vkTarget.value.slice(0, start) + vkTarget.value.slice(end);
+              vkTarget.setSelectionRange(start, start);
+            } else if (start > 0) {
+              vkTarget.value =
+                vkTarget.value.slice(0, start - 1) +
+                vkTarget.value.slice(start);
+              vkTarget.setSelectionRange(start - 1, start - 1);
+            }
+            vkTarget.dispatchEvent(new Event("input", { bubbles: true }));
+            vkText = vkTarget.value;
+          } else {
+            vkText = vkText.slice(0, -1);
+          }
+          updatePreview();
+        }
+
+        function backspaceEmoji() {
+          if (vkTarget) {
+            const start = vkTarget.selectionStart ?? vkText.length;
+            if (start > 0) {
+              const arr = [...vkTarget.value.slice(0, start)];
+              arr.pop();
+              const before = arr.join("");
+              vkTarget.value = before + vkTarget.value.slice(start);
+              vkTarget.setSelectionRange(before.length, before.length);
+            }
+            vkTarget.dispatchEvent(new Event("input", { bubbles: true }));
+            vkText = vkTarget.value;
+          } else {
+            const arr = [...vkText];
+            arr.pop();
+            vkText = arr.join("");
+          }
+          updatePreview();
+        }
+
+        function updatePreview() {
+          previewEl.textContent = vkTarget ? vkTarget.value : vkText;
+        }
+
+        function mkSpecKey(label, iconName, extraCls, onClick) {
+          const b = document.createElement("button");
+          b.className = "vk-key vk-wide vk-accent " + (extraCls || "");
+          if (iconName) {
+            const ic = document.createElement("icon");
+            ic.className = "material-symbols-rounded";
+            ic.textContent = iconName;
+            ic.style.fontSize = "18px";
+            b.appendChild(ic);
+          } else {
+            b.textContent = label;
+          }
+          b.addEventListener("pointerdown", function (e) {
+            e.preventDefault();
+            onClick();
+          });
+          return b;
+        }
+
+        function buildCtrlRow() {
+          const row = document.createElement("div");
+          row.className = "vk-row";
+
+          const shiftBtn = mkSpecKey("Shift", "shift", "", function () {
+            vkShift = !vkShift;
+            updateKeyLabels();
+          });
+          shiftBtn.id = "vkShiftBtn";
+
+          const capsBtn = mkSpecKey(
+            "Caps",
+            "keyboard_capslock",
+            "",
+            function () {
+              vkCaps = !vkCaps;
+              capsBtn.classList.toggle("vk-shift-active", vkCaps);
+              updateKeyLabels();
+            },
+          );
+
+          const bspBtn = mkSpecKey("", "backspace", "", function () {
+            backspaceChar();
+          });
+
+          const spaceBtn = mkSpecKey("Space", null, "vk-space", function () {
+            typeChar(" ");
+          });
+
+          const enterBtn = mkSpecKey("", "keyboard_return", "", function () {
+            typeChar("\n");
+          });
+
+          row.appendChild(shiftBtn);
+          row.appendChild(capsBtn);
+          row.appendChild(bspBtn);
+          row.appendChild(spaceBtn);
+          row.appendChild(enterBtn);
+          return row;
+        }
+
+        // ── Render ABC layout ─────────────────────────────────────────────
+        function renderABC() {
+          layer.innerHTML = "";
+          const layout = LAYOUTS[vkLang];
+          if (!layout) return;
+          layer.style.direction = layout.rtl ? "rtl" : "ltr";
+
+          layout.rows.forEach(function (row) {
+            const rowEl = document.createElement("div");
+            rowEl.className = "vk-row";
+            row.forEach(function (descriptor) {
+              const parts = descriptor.split(" ");
+              const normal = parts[0];
+              const shifted =
+                parts[1] !== undefined ? parts[1] : parts[0].toUpperCase();
+              const btn = document.createElement("button");
+              btn.className = "vk-key";
+              btn.dataset.vkNormal = normal;
+              btn.dataset.vkShifted = shifted;
+              btn.dataset.vkShift = "1";
+              btn.textContent = vkShift || vkCaps ? shifted : normal;
+              if (shifted !== normal) {
+                const sub = document.createElement("span");
+                sub.className = "vk-sub";
+                sub.textContent = shifted;
+                btn.appendChild(sub);
+              }
+              btn.addEventListener("pointerdown", function (e) {
+                e.preventDefault();
+                const val =
+                  vkShift || vkCaps
+                    ? btn.dataset.vkShifted
+                    : btn.dataset.vkNormal;
+                typeChar(val);
+                if (vkShift && !vkCaps) {
+                  vkShift = false;
+                  updateKeyLabels();
+                }
+              });
+              rowEl.appendChild(btn);
+            });
+            layer.appendChild(rowEl);
+          });
+
+          layer.appendChild(buildCtrlRow());
+          updateKeyLabels();
+        }
+
+        // ── Render 123 layout ─────────────────────────────────────────────
+        function renderNUM() {
+          layer.innerHTML = "";
+          layer.style.direction = "ltr";
+          NUM_LAYOUT.forEach(function (row) {
+            const rowEl = document.createElement("div");
+            rowEl.className = "vk-row";
+            row.forEach(function (descriptor) {
+              const parts = descriptor.split(" ");
+              const normal = parts[0];
+              const shifted = parts[1] !== undefined ? parts[1] : parts[0];
+              const btn = document.createElement("button");
+              btn.className = "vk-key";
+              btn.textContent = normal;
+              btn.addEventListener("pointerdown", function (e) {
+                e.preventDefault();
+                typeChar(normal);
+              });
+              rowEl.appendChild(btn);
+            });
+            layer.appendChild(rowEl);
+          });
+          // minimal bsp/space/enter row
+          const ctrl = document.createElement("div");
+          ctrl.className = "vk-row";
+          ctrl.appendChild(
+            mkSpecKey("", "backspace", "", function () {
+              backspaceChar();
+            }),
+          );
+          ctrl.appendChild(
+            mkSpecKey("Space", null, "vk-space", function () {
+              typeChar(" ");
+            }),
+          );
+          ctrl.appendChild(
+            mkSpecKey("", "keyboard_return", "", function () {
+              typeChar("\n");
+            }),
+          );
+          layer.appendChild(ctrl);
+        }
+
+        // ── Render Emoji layout ───────────────────────────────────────────
+        function renderEmoji() {
+          layer.innerHTML = "";
+          layer.style.direction = "ltr";
+
+          // Category strip
+          const catRow = document.createElement("div");
+          catRow.className = "vk-emoji-cat-row";
+          EMOJI_CATS.forEach(function (cat, idx) {
+            const btn = document.createElement("button");
+            btn.className =
+              "vk-emoji-cat-btn" + (idx === vkEmojiCat ? " active" : "");
+            btn.title = cat.name;
+            btn.textContent = cat.label;
+            btn.addEventListener("click", function () {
+              vkEmojiCat = idx;
+              renderEmoji();
+            });
+            catRow.appendChild(btn);
+          });
+          layer.appendChild(catRow);
+
+          // Emoji grid
+          const grid = document.createElement("div");
+          grid.className = "vk-emoji-grid";
+          EMOJI_CATS[vkEmojiCat].emojis.forEach(function (em) {
+            const btn = document.createElement("button");
+            btn.className = "vk-emoji-key";
+            btn.textContent = em;
+            btn.addEventListener("pointerdown", function (e) {
+              e.preventDefault();
+              typeChar(em);
+            });
+            grid.appendChild(btn);
+          });
+          layer.appendChild(grid);
+
+          // Backspace only
+          const ctrl = document.createElement("div");
+          ctrl.className = "vk-row";
+          ctrl.appendChild(
+            mkSpecKey("", "backspace", "", function () {
+              backspaceEmoji();
+            }),
+          );
+          layer.appendChild(ctrl);
+        }
+
+        // ── Render Desktop layout (wider ABC) ─────────────────────────────
+        function renderDesktop() {
+          modal.classList.add("vk-desktop");
+          renderABC();
+        }
+
+        // ── Dispatch by mode ──────────────────────────────────────────────
+        function renderByMode() {
+          if (vkMode === "abc") {
+            langRow.style.display = "";
+            modal.classList.remove("vk-desktop");
+            renderABC();
+          } else if (vkMode === "num") {
+            langRow.style.display = "none";
+            modal.classList.remove("vk-desktop");
+            renderNUM();
+          } else if (vkMode === "emoji") {
+            langRow.style.display = "none";
+            modal.classList.remove("vk-desktop");
+            renderEmoji();
+          } else if (vkMode === "desktop") {
+            langRow.style.display = "";
+            renderDesktop();
+          }
+        }
+
+        function updateKeyLabels() {
+          layer
+            .querySelectorAll(".vk-key[data-vk-shift]")
+            .forEach(function (k) {
+              const val =
+                vkShift || vkCaps ? k.dataset.vkShifted : k.dataset.vkNormal;
+              const sub = k.querySelector(".vk-sub");
+              if (sub) {
+                k.childNodes.forEach(function (n) {
+                  if (n.nodeType === Node.TEXT_NODE) n.textContent = val;
+                });
+              } else {
+                k.textContent = val;
+              }
+              k.classList.toggle("vk-shift-active", vkShift || vkCaps);
+            });
+          const s = document.getElementById("vkShiftBtn");
+          if (s) s.classList.toggle("vk-shift-active", vkShift);
+        }
+
+        // ── Mode tabs ─────────────────────────────────────────────────────
+        document.querySelectorAll(".vk-mode-tab").forEach(function (tab) {
+          tab.addEventListener("click", function () {
+            document.querySelectorAll(".vk-mode-tab").forEach(function (t) {
+              t.classList.remove("active");
+            });
+            tab.classList.add("active");
+            vkMode = tab.dataset.vkMode;
+            renderByMode();
+          });
+        });
+
+        // ── Language buttons ──────────────────────────────────────────────
+        document.querySelectorAll(".vk-lang-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            vkLang = btn.dataset.vkLang;
+            document.querySelectorAll(".vk-lang-btn").forEach(function (b) {
+              b.classList.toggle("active", b.dataset.vkLang === vkLang);
+            });
+            renderByMode();
+          });
+        });
+
+        // ── Open / close ──────────────────────────────────────────────────
+        function openVK() {
+          vkTarget = document.getElementById("promptInput");
+          vkText = vkTarget ? vkTarget.value : "";
+          updatePreview();
+          renderByMode();
+          modal.style.display = "flex";
+          // Focus target so cursor position is known
+          vkTarget?.focus();
+        }
+
+        function closeVK() {
+          modal.style.display = "none";
+        }
+
+        // ── Keyboard button ───────────────────────────────────────────────
+        keyboardBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (modal.style.display !== "none" && modal.style.display !== "") {
+            closeVK();
+          } else {
+            openVK();
+          }
+        });
+
+        vkCloseBtn.addEventListener("click", closeVK);
+
+        // ── Clear ─────────────────────────────────────────────────────────
+        vkClearBtn.addEventListener("click", function () {
+          if (vkTarget) {
+            vkTarget.value = "";
+            vkTarget.dispatchEvent(new Event("input", { bubbles: true }));
+          }
+          vkText = "";
+          updatePreview();
+        });
+
+        // ── Done / close (previously Insert) ─────────────────────────────
+        vkInsertBtn.addEventListener("click", function () {
+          closeVK();
+        });
+
+        // ── Drag to reposition ────────────────────────────────────────────
+        (function () {
+          const titlebar = document.getElementById("vkTitlebar");
+          let dragging = false,
+            offX = 0,
+            offY = 0;
+
+          function startDrag(cx, cy) {
+            dragging = true;
+            const rect = modal.getBoundingClientRect();
+            offX = cx - rect.left;
+            offY = cy - rect.top;
+            // Switch from bottom/right anchoring to top/left
+            modal.style.bottom = "auto";
+            modal.style.right = "auto";
+            modal.style.left = rect.left + "px";
+            modal.style.top = rect.top + "px";
+            titlebar.style.cursor = "grabbing";
+          }
+
+          function moveDrag(cx, cy) {
+            if (!dragging) return;
+            const maxX = window.innerWidth - modal.offsetWidth;
+            const maxY = window.innerHeight - modal.offsetHeight;
+            modal.style.left = Math.max(0, Math.min(maxX, cx - offX)) + "px";
+            modal.style.top = Math.max(0, Math.min(maxY, cy - offY)) + "px";
+          }
+
+          function stopDrag() {
+            dragging = false;
+            titlebar.style.cursor = "grab";
+          }
+
+          titlebar.addEventListener("mousedown", function (e) {
+            if (e.target.closest(".vk-close-btn, .vk-mode-tabs")) return;
+            e.preventDefault();
+            startDrag(e.clientX, e.clientY);
+          });
+          document.addEventListener("mousemove", function (e) {
+            moveDrag(e.clientX, e.clientY);
+          });
+          document.addEventListener("mouseup", stopDrag);
+
+          titlebar.addEventListener(
+            "touchstart",
+            function (e) {
+              if (e.target.closest(".vk-close-btn, .vk-mode-tabs")) return;
+              const t = e.touches[0];
+              startDrag(t.clientX, t.clientY);
+            },
+            { passive: true },
+          );
+          document.addEventListener(
+            "touchmove",
+            function (e) {
+              if (!dragging) return;
+              const t = e.touches[0];
+              moveDrag(t.clientX, t.clientY);
+            },
+            { passive: true },
+          );
+          document.addEventListener("touchend", stopDrag);
+        })();
+
+        // ── Escape key closes VK ──────────────────────────────────────────
+        document.addEventListener("keydown", function (e) {
+          if (
+            e.key === "Escape" &&
+            modal.style.display !== "none" &&
+            modal.style.display !== ""
+          ) {
+            closeVK();
+          }
+        });
       })();
     </script>
   </body>
