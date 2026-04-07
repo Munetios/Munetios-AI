@@ -81,4 +81,4 @@ Q: The AI is not returning the expected results. What should I do?
 A: Ensure that your input is clear and specific. If the issue continues, try rephrasing your query or consult the documentation for guidance on how to structure your prompts effectively.
 
 Contact
-For support or inquiries, please contact us at minecraftgamer97529@gmail.com.
+For support or inquiries, please contact us at munetios96@gmail.com.
