@@ -7055,7 +7055,7 @@
                 : "Unknown error");
             sessionStorage.setItem("munetios-crash-info", info);
           } catch (_e) {}
-          window.location.replace("whoops.html");
+         showToast('Something Went Wrong.')
         }
 
         window.onerror = function (msg, src, line, col, err) {
