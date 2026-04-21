@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Munetios AI - Coming Soon</title>
+    <title>Munetios AI</title>
     <!-- for Liquid-glass class, text-glow, .pulse, .cursor-pointer, .hidden, .frosted-glass -->
     <link
       rel="stylesheet"
@@ -494,36 +494,29 @@
         font: inherit;
         outline: none;
       }
-      .settings-custom-select {
+      .settings-dropdown-anchor {
         position: relative;
         display: inline-block;
       }
-      .settings-custom-select-dropdown {
-        position: absolute;
-        top: calc(100% + 6px);
-        left: 0;
+      .settings-dropdown-menu {
         min-width: 180px;
-        z-index: 300;
-        display: none;
-        flex-direction: column;
-        border-radius: 14px;
-        padding: 6px;
         gap: 2px;
+        padding: 6px;
       }
-      .settings-custom-select-dropdown.open {
-        display: flex;
+      .settings-dropdown-trigger {
+        min-width: 140px;
       }
-      .settings-custom-select-option {
+      .settings-dropdown-option {
         padding: 9px 14px;
         border-radius: 10px;
         cursor: pointer;
         font-size: 15px;
         transition: background 0.15s;
       }
-      .settings-custom-select-option:hover {
+      .settings-dropdown-option:hover {
         background: rgba(255, 255, 255, 0.08);
       }
-      .settings-custom-select-option.selected {
+      .settings-dropdown-option.selected {
         background: rgba(var(--accent-rgb), 0.28);
       }
       .settings-swatch {
@@ -979,6 +972,126 @@
         background: transparent;
         padding: 0;
         cursor: pointer;
+      }
+      .accent-color-dropdown {
+        width: min(320px, calc(100vw - 32px));
+        padding: 14px;
+        gap: 14px;
+      }
+      .accent-picker-top {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .accent-picker-canvas {
+        position: relative;
+        width: 100%;
+        height: 176px;
+        border-radius: 18px;
+        cursor: crosshair;
+        touch-action: none;
+        overflow: hidden;
+        background:
+          linear-gradient(to top, #000, transparent),
+          linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
+      }
+      .accent-picker-thumb {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.92);
+        box-shadow:
+          0 0 0 1px rgba(0, 0, 0, 0.28),
+          0 6px 18px rgba(0, 0, 0, 0.32);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+      .accent-picker-hue {
+        position: relative;
+        width: 100%;
+        height: 16px;
+        border-radius: 999px;
+        touch-action: none;
+        background: linear-gradient(
+          90deg,
+          #ff0000 0%,
+          #ffff00 17%,
+          #00ff00 33%,
+          #00ffff 50%,
+          #0000ff 67%,
+          #ff00ff 83%,
+          #ff0000 100%
+        );
+        cursor: ew-resize;
+      }
+      .accent-picker-hue-thumb {
+        position: absolute;
+        top: 50%;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.92);
+        background: transparent;
+        box-shadow:
+          0 0 0 1px rgba(0, 0, 0, 0.28),
+          0 6px 18px rgba(0, 0, 0, 0.32);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+      .accent-picker-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .accent-picker-preview {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        flex-shrink: 0;
+      }
+      .accent-picker-value-wrap {
+        flex: 1;
+        min-width: 0;
+      }
+      .accent-picker-label {
+        font-size: 12px;
+        opacity: 0.68;
+        margin-bottom: 4px;
+      }
+      .accent-picker-value {
+        width: 100%;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+        color: inherit;
+        padding: 10px 12px;
+        font: inherit;
+        outline: none;
+        text-transform: uppercase;
+      }
+      .accent-picker-swatches {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .accent-picker-swatch {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        cursor: pointer;
+        position: relative;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+      .accent-picker-swatch.active::after {
+        content: "";
+        position: absolute;
+        inset: 4px;
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.9);
       }
       #languageBtn {
         position: relative;
@@ -1437,13 +1550,19 @@
       .icon-btn {
         width: 38px;
         height: 38px;
+        padding: 0;
+        border: none;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
+        background: transparent;
+        color: inherit;
+        font: inherit;
         cursor: pointer;
         transition: background 0.2s;
         position: relative;
+        appearance: none;
       }
       .icon-btn:hover {
         background: rgba(255, 255, 255, 0.12);
@@ -3983,6 +4102,23 @@
         justify-content: center;
         z-index: 1690;
       }
+      .voice-chat-wrapper {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        width: min(360px, calc(100vw - 20px));
+        max-height: min(70vh, 620px);
+        display: none;
+        flex-direction: column;
+        gap: 14px;
+        padding: 14px;
+        border-radius: 24px;
+        z-index: 1640;
+        touch-action: none;
+      }
+      .voice-chat-wrapper.show {
+        display: flex;
+      }
       .voice-chat-overlay.show,
       .voice-picker-overlay.show {
         display: flex;
@@ -4002,6 +4138,87 @@
         display: flex;
         flex-direction: column;
         gap: 18px;
+      }
+      .voice-chat-wrapper-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        cursor: grab;
+        user-select: none;
+      }
+      .voice-chat-wrapper-header:active {
+        cursor: grabbing;
+      }
+      .voice-chat-wrapper-title {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+      }
+      .voice-chat-wrapper-title h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+      .voice-chat-wrapper-title span {
+        font-size: 12px;
+        opacity: 0.68;
+      }
+      .voice-chat-wrapper-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .voice-chat-wrapper-body {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        min-height: 0;
+      }
+      .voice-chat-wrapper-main,
+      .voice-chat-wrapper-transcript {
+        border-radius: 20px;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .voice-chat-wrapper-main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+      .voice-chat-wrapper-circle {
+        width: 108px;
+        box-shadow:
+          0 0 0 0 rgba(112, 67, 255, 0.34),
+          0 18px 42px rgba(56, 16, 148, 0.28);
+      }
+      .voice-chat-wrapper-status {
+        margin: 0;
+        text-align: center;
+      }
+      .voice-chat-wrapper-transcript {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+      .voice-chat-wrapper-transcript-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .voice-chat-wrapper-transcript-header h3 {
+        margin: 0;
+        font-size: 14px;
+      }
+      .voice-chat-wrapper-transcript-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: min(32vh, 240px);
+        overflow-y: auto;
       }
       .voice-chat-header,
       .voice-picker-header {
@@ -4174,6 +4391,12 @@
       body[data-theme="light"] .voice-picker-overlay {
         background: rgba(244, 247, 251, 0.62);
       }
+      body[data-theme="light"] .voice-chat-wrapper-main,
+      body[data-theme="light"] .voice-chat-wrapper-transcript {
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        color: #1a1a1a;
+      }
       body[data-theme="light"] .voice-chat-main,
       body[data-theme="light"] .voice-chat-transcript,
       body[data-theme="light"] .voice-picker-modal {
@@ -4222,6 +4445,12 @@
         }
         body[data-theme="system"] .voice-picker-overlay {
           background: rgba(244, 247, 251, 0.62);
+        }
+        body[data-theme="system"] .voice-chat-wrapper-main,
+        body[data-theme="system"] .voice-chat-wrapper-transcript {
+          background: rgba(255, 255, 255, 0.72);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          color: #1a1a1a;
         }
         body[data-theme="system"] .voice-chat-main,
         body[data-theme="system"] .voice-chat-transcript,
@@ -4278,6 +4507,12 @@
           height: calc(100vh - 24px);
           width: calc(100vw - 24px);
           padding: 16px;
+        }
+        .voice-chat-wrapper {
+          right: 10px;
+          bottom: 10px;
+          width: calc(100vw - 20px);
+          max-height: calc(100vh - 20px);
         }
         .settings-sidebar-nav {
           flex-direction: row;
@@ -4625,7 +4860,7 @@
                   <div class="menu-text" data-translate="images">Images</div>
                 </div>
                 <div class="sidebar-item" id="agentModeBtn">
-                  <icon class="material-symbos-rounded"
+                  <icon class="material-symbols-rounded"
                     >highlight_mouse_cursor</icon
                   >
                   <div class="menu-text" data-translate="agentMode">
@@ -5444,6 +5679,230 @@
         ><span>Turkish</span>
       </div>
     </munetios-dropdown>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper settings-dropdown-menu"
+      id="voiceChatModeDropdown"
+    >
+      <div
+        class="settings-dropdown-option selected"
+        data-value="wrapper"
+        data-translate="voiceChatLayoutWrapper"
+      >
+        Wrapper
+      </div>
+      <div
+        class="settings-dropdown-option"
+        data-value="fullscreen"
+        data-translate="voiceChatLayoutFullscreen"
+      >
+        Fullscreen
+      </div>
+    </munetios-dropdown>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper accent-color-dropdown"
+      id="accentColorDropdown"
+    >
+      <div class="accent-picker-top">
+        <div class="accent-picker-canvas" id="accentColorCanvas">
+          <div class="accent-picker-thumb" id="accentColorCanvasThumb"></div>
+        </div>
+        <div class="accent-picker-hue" id="accentColorHue">
+          <div class="accent-picker-hue-thumb" id="accentColorHueThumb"></div>
+        </div>
+      </div>
+      <div class="accent-picker-meta">
+        <div class="accent-picker-preview" id="accentColorPreview"></div>
+        <div class="accent-picker-value-wrap">
+          <div class="accent-picker-label" data-translate="colorValueLabel">
+            Color Value
+          </div>
+          <input
+            class="accent-picker-value"
+            id="accentColorHexInput"
+            type="text"
+            value="#5C2FD4"
+            maxlength="7"
+            spellcheck="false"
+          />
+        </div>
+      </div>
+      <div class="accent-picker-swatches" id="accentColorSwatches">
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#5C2FD4"
+          style="background: #5c2fd4"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#FF5A5F"
+          style="background: #ff5a5f"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#FF8C42"
+          style="background: #ff8c42"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#F7C948"
+          style="background: #f7c948"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#2ECC71"
+          style="background: #2ecc71"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#00C2A8"
+          style="background: #00c2a8"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#3BA4FF"
+          style="background: #3ba4ff"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#7C5CFF"
+          style="background: #7c5cff"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#B84CFF"
+          style="background: #b84cff"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#FF4FC3"
+          style="background: #ff4fc3"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#FFFFFF"
+          style="background: #ffffff"
+        ></button>
+        <button
+          class="accent-picker-swatch"
+          type="button"
+          data-color="#111827"
+          style="background: #111827"
+        ></button>
+      </div>
+    </munetios-dropdown>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper settings-dropdown-menu"
+      id="personalizationToneDropdown"
+    >
+      <div class="settings-dropdown-option selected" data-value="neutral">
+        Neutral
+      </div>
+      <div class="settings-dropdown-option" data-value="friendly">Friendly</div>
+      <div class="settings-dropdown-option" data-value="professional">
+        Professional
+      </div>
+      <div class="settings-dropdown-option" data-value="concise">Concise</div>
+      <div class="settings-dropdown-option" data-value="creative">Creative</div>
+      <div class="settings-dropdown-option" data-value="academic">Academic</div>
+    </munetios-dropdown>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper settings-dropdown-menu"
+      id="autoDeleteDropdown"
+    >
+      <div class="settings-dropdown-option selected" data-value="never">
+        Never
+      </div>
+      <div class="settings-dropdown-option" data-value="7d">After 7 days</div>
+      <div class="settings-dropdown-option" data-value="30d">After 30 days</div>
+      <div class="settings-dropdown-option" data-value="90d">After 90 days</div>
+      <div class="settings-dropdown-option" data-value="1y">After 1 year</div>
+    </munetios-dropdown>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper settings-dropdown-menu"
+      id="bookPageCountDropdown"
+    >
+      <div class="settings-dropdown-option selected" data-value="6">6</div>
+      <div class="settings-dropdown-option" data-value="12">12</div>
+      <div class="settings-dropdown-option" data-value="24">24</div>
+      <div class="settings-dropdown-option" data-value="48">48</div>
+    </munetios-dropdown>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper settings-dropdown-menu"
+      id="bookFormatDropdown"
+    >
+      <div
+        class="settings-dropdown-option selected"
+        data-value="Novel"
+        data-translate="bookFormatNovel"
+      >
+        Novel
+      </div>
+      <div
+        class="settings-dropdown-option"
+        data-value="Workbook"
+        data-translate="bookFormatWorkbook"
+      >
+        Workbook
+      </div>
+      <div
+        class="settings-dropdown-option"
+        data-value="Short Story"
+        data-translate="bookFormatShortStory"
+      >
+        Short Story
+      </div>
+      <div
+        class="settings-dropdown-option"
+        data-value="Study Guide"
+        data-translate="bookFormatStudyGuide"
+      >
+        Study Guide
+      </div>
+    </munetios-dropdown>
+    <munetios-dropdown
+      class="liquid-glass dropdown-wrapper settings-dropdown-menu"
+      id="bookToneDropdown"
+    >
+      <div
+        class="settings-dropdown-option selected"
+        data-value="Clear"
+        data-translate="bookToneClear"
+      >
+        Clear
+      </div>
+      <div
+        class="settings-dropdown-option"
+        data-value="Warm"
+        data-translate="bookToneWarm"
+      >
+        Warm
+      </div>
+      <div
+        class="settings-dropdown-option"
+        data-value="Professional"
+        data-translate="bookToneProfessional"
+      >
+        Professional
+      </div>
+      <div
+        class="settings-dropdown-option"
+        data-value="Playful"
+        data-translate="bookTonePlayful"
+      >
+        Playful
+      </div>
+    </munetios-dropdown>
     <!-- SST Modal -->
     <div class="sst-modal-overlay" id="sstModalOverlay">
       <div class="sst-modal liquid-glass">
@@ -5501,15 +5960,17 @@
                 data-settings-panel="personalization"
               >
                 <icon class="material-symbols-rounded">person</icon
-                ><span>Personalization</span>
+                ><span data-translate="personalizationTab"
+                  >Personalization</span
+                >
               </button>
               <button class="settings-nav-item" data-settings-panel="privacy">
                 <icon class="material-symbols-rounded">shield</icon
-                ><span>Privacy</span>
+                ><span data-translate="privacyTab">Privacy</span>
               </button>
               <button class="settings-nav-item" data-settings-panel="shortcuts">
                 <icon class="material-symbols-rounded">keyboard</icon
-                ><span>Shortcuts</span>
+                ><span data-translate="shortcutsTab">Shortcuts</span>
               </button>
               <button class="settings-nav-item" data-settings-panel="advanced">
                 <icon class="material-symbols-rounded">build</icon
@@ -5541,6 +6002,32 @@
                   >
                     Choose Voice
                   </button>
+                </div>
+                <div class="settings-item">
+                  <label
+                    class="settings-label"
+                    data-translate="voiceChatLayoutLabel"
+                    >Voice Chat Layout</label
+                  >
+                  <input
+                    id="voiceChatModeInput"
+                    type="hidden"
+                    value="wrapper"
+                  />
+                  <div
+                    class="settings-dropdown-anchor"
+                    id="voiceChatModeWrapper"
+                  >
+                    <button
+                      class="btn settings-dropdown-trigger"
+                      type="button"
+                      id="voiceChatModeTrigger"
+                    >
+                      <span data-translate="voiceChatLayoutWrapper"
+                        >Wrapper</span
+                      >
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="settings-panel" id="settingsPanelAppearance">
@@ -5595,17 +6082,18 @@
                     data-translate="accentColorLabel"
                     >Accent Color</label
                   >
-                  <button id="accentColorBtn" class="btn" type="button">
-                    <span class="settings-swatch" id="accentColorSwatch"></span>
-                    <span id="accentColorValue">#5C2FD4</span>
-                  </button>
-                  <input
-                    id="accentColorInput"
-                    class="settings-color"
-                    type="color"
-                    value="#5c2fd4"
-                    style="display: none"
-                  />
+                  <div
+                    class="settings-dropdown-anchor"
+                    id="accentColorPickerWrapper"
+                  >
+                    <button id="accentColorBtn" class="btn" type="button">
+                      <span
+                        class="settings-swatch"
+                        id="accentColorSwatch"
+                      ></span>
+                      <span id="accentColorValue">#5C2FD4</span>
+                    </button>
+                  </div>
                 </div>
                 <div class="settings-item">
                   <label class="settings-label" data-translate="lineHeightLabel"
@@ -5649,21 +6137,25 @@
                 </div>
                 <!-- Prompt Layout -->
                 <div class="settings-item">
-                  <label class="settings-label">Prompt Layout</label>
+                  <label
+                    class="settings-label"
+                    data-translate="promptLayoutLabel"
+                    >Prompt Layout</label
+                  >
                   <div class="settings-control-row" style="gap: 6px">
                     <button
                       class="btn prompt-layout-btn active"
                       id="promptLayoutDual"
                       data-pl="dual"
                     >
-                      2 Container
+                      <span data-translate="promptLayoutDual">2 Container</span>
                     </button>
                     <button
                       class="btn prompt-layout-btn"
                       id="promptLayoutMulti"
                       data-pl="multi"
                     >
-                      Multi
+                      <span data-translate="promptLayoutMulti">Multi</span>
                     </button>
                   </div>
                 </div>
@@ -5700,14 +6192,24 @@
                   </div>
                   <div class="settings-advanced-group liquid-glass">
                     <div class="settings-advanced-header">
-                      <h3>Export &amp; Import</h3>
+                      <h3 data-translate="exportImportTitle">
+                        Export &amp; Import
+                      </h3>
                     </div>
                   </div>
                   <div class="settings-advanced-actions">
-                    <button class="btn" id="exportChatsBtn">
+                    <button
+                      class="btn"
+                      id="exportChatsBtn"
+                      data-translate="exportChatHistory"
+                    >
                       Export Chat History
                     </button>
-                    <button class="btn" id="importChatsBtn">
+                    <button
+                      class="btn"
+                      id="importChatsBtn"
+                      data-translate="importChatHistory"
+                    >
                       Import Chat History
                     </button>
                     <input
@@ -5719,14 +6221,18 @@
                   </div>
                   <div class="settings-advanced-group liquid-glass">
                     <div class="settings-advanced-header">
-                      <h3>Developer</h3>
+                      <h3 data-translate="developerTitle">Developer</h3>
                     </div>
                   </div>
                   <div class="settings-item">
                     <div class="settings-toggle-row">
                       <div class="settings-toggle-copy">
-                        <strong>Debug Mode</strong>
-                        <span class="settings-note"
+                        <strong data-translate="debugModeTitle"
+                          >Debug Mode</strong
+                        >
+                        <span
+                          class="settings-note"
+                          data-translate="debugModeDesc"
                           >Log diagnostic information to the browser
                           console.</span
                         >
@@ -5741,8 +6247,12 @@
                   <div class="settings-item">
                     <div class="settings-toggle-row">
                       <div class="settings-toggle-copy">
-                        <strong>Experimental Features</strong>
-                        <span class="settings-note"
+                        <strong data-translate="experimentalFeaturesTitle"
+                          >Experimental Features</strong
+                        >
+                        <span
+                          class="settings-note"
+                          data-translate="experimentalFeaturesDesc"
                           >Enable early-access features that may be
                           unstable.</span
                         >
@@ -5758,7 +6268,11 @@
                     class="settings-advanced-actions"
                     style="margin-top: 8px"
                   >
-                    <button class="btn danger-btn" id="clearAllDataBtn">
+                    <button
+                      class="btn danger-btn"
+                      id="clearAllDataBtn"
+                      data-translate="clearAllLocalData"
+                    >
                       Clear All Local Data
                     </button>
                   </div>
@@ -5766,7 +6280,9 @@
               </div>
               <div class="settings-panel" id="settingsPanelPersonalization">
                 <div class="settings-item">
-                  <label class="settings-label">Name</label>
+                  <label class="settings-label" data-translate="nameLabel"
+                    >Name</label
+                  >
                   <input
                     id="personalizationName"
                     class="settings-text-input"
@@ -5776,64 +6292,25 @@
                   />
                 </div>
                 <div class="settings-item">
-                  <label class="settings-label">Tone</label>
+                  <label class="settings-label" data-translate="toneLabel"
+                    >Tone</label
+                  >
                   <input
                     type="hidden"
                     id="personalizationTone"
                     value="neutral"
                   />
                   <div
-                    class="settings-custom-select"
+                    class="settings-dropdown-anchor"
                     id="personalizationToneWrapper"
                   >
                     <button
-                      class="btn settings-custom-select-btn"
+                      class="btn settings-dropdown-trigger"
                       type="button"
                       id="personalizationToneTrigger"
                     >
                       Neutral
                     </button>
-                    <div
-                      class="settings-custom-select-dropdown liquid-glass"
-                      id="personalizationToneDropdown"
-                    >
-                      <div
-                        class="settings-custom-select-option selected"
-                        data-value="neutral"
-                      >
-                        Neutral
-                      </div>
-                      <div
-                        class="settings-custom-select-option"
-                        data-value="friendly"
-                      >
-                        Friendly
-                      </div>
-                      <div
-                        class="settings-custom-select-option"
-                        data-value="professional"
-                      >
-                        Professional
-                      </div>
-                      <div
-                        class="settings-custom-select-option"
-                        data-value="concise"
-                      >
-                        Concise
-                      </div>
-                      <div
-                        class="settings-custom-select-option"
-                        data-value="creative"
-                      >
-                        Creative
-                      </div>
-                      <div
-                        class="settings-custom-select-option"
-                        data-value="academic"
-                      >
-                        Academic
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div
@@ -5844,7 +6321,11 @@
                     gap: 6px;
                   "
                 >
-                  <label class="settings-label">Custom Instructions</label>
+                  <label
+                    class="settings-label"
+                    data-translate="customInstructionsLabel"
+                    >Custom Instructions</label
+                  >
                   <div class="settings-note" style="margin-bottom: 4px">
                     Tell Munetios AI about yourself or how it should respond.
                     Max 10 000 characters. Instructions that attempt to bypass
@@ -5868,8 +6349,12 @@
                 <div class="settings-item">
                   <div class="settings-toggle-row">
                     <div class="settings-toggle-copy">
-                      <strong>Personalization</strong>
-                      <span class="settings-note"
+                      <strong data-translate="personalizationTitle"
+                        >Personalization</strong
+                      >
+                      <span
+                        class="settings-note"
+                        data-translate="personalizationDesc"
                         >Let Munetios AI remember your preferences across
                         conversations.</span
                       >
@@ -5884,8 +6369,12 @@
                 <div class="settings-item">
                   <div class="settings-toggle-row">
                     <div class="settings-toggle-copy">
-                      <strong>Suggestions</strong>
-                      <span class="settings-note"
+                      <strong data-translate="suggestionsTitle"
+                        >Suggestions</strong
+                      >
+                      <span
+                        class="settings-note"
+                        data-translate="suggestionsDesc"
                         >Show follow-up suggestions after AI responses.</span
                       >
                     </div>
@@ -5899,8 +6388,12 @@
                 <div class="settings-item">
                   <div class="settings-toggle-row">
                     <div class="settings-toggle-copy">
-                      <strong>Reduce Motion</strong>
-                      <span class="settings-note"
+                      <strong data-translate="reduceMotionTitle"
+                        >Reduce Motion</strong
+                      >
+                      <span
+                        class="settings-note"
+                        data-translate="reduceMotionDesc"
                         >Limit animations and transitions throughout the
                         UI.</span
                       >
@@ -5917,8 +6410,12 @@
                 <div class="settings-item">
                   <div class="settings-toggle-row">
                     <div class="settings-toggle-copy">
-                      <strong>Personalized Content</strong>
-                      <span class="settings-note"
+                      <strong data-translate="personalizedContentTitle"
+                        >Personalized Content</strong
+                      >
+                      <span
+                        class="settings-note"
+                        data-translate="personalizedContentDesc"
                         >Allow Munetios AI to tailor responses based on your
                         chat history and preferences.</span
                       >
@@ -5933,8 +6430,12 @@
                 <div class="settings-item">
                   <div class="settings-toggle-row">
                     <div class="settings-toggle-copy">
-                      <strong>For You Suggestions</strong>
-                      <span class="settings-note"
+                      <strong data-translate="forYouSuggestionsTitle"
+                        >For You Suggestions</strong
+                      >
+                      <span
+                        class="settings-note"
+                        data-translate="forYouSuggestionsDesc"
                         >Show personalized prompt suggestions on the home
                         screen.</span
                       >
@@ -5949,8 +6450,12 @@
                 <div class="settings-item">
                   <div class="settings-toggle-row">
                     <div class="settings-toggle-copy">
-                      <strong>Chat History</strong>
-                      <span class="settings-note"
+                      <strong data-translate="chatHistoryTitle"
+                        >Chat History</strong
+                      >
+                      <span
+                        class="settings-note"
+                        data-translate="chatHistoryDesc"
                         >Save your conversations locally in this browser.</span
                       >
                     </div>
@@ -5962,55 +6467,24 @@
                   </div>
                 </div>
                 <div class="settings-item">
-                  <label class="settings-label">Auto-Delete Chat History</label>
+                  <label
+                    class="settings-label"
+                    data-translate="autoDeleteChatHistoryLabel"
+                    >Auto-Delete Chat History</label
+                  >
                   <input
                     type="hidden"
                     id="autoDeleteChatHistory"
                     value="never"
                   />
-                  <div class="settings-custom-select" id="autoDeleteWrapper">
+                  <div class="settings-dropdown-anchor" id="autoDeleteWrapper">
                     <button
-                      class="btn settings-custom-select-btn"
+                      class="btn settings-dropdown-trigger"
                       type="button"
                       id="autoDeleteTrigger"
                     >
                       Never
                     </button>
-                    <div
-                      class="settings-custom-select-dropdown liquid-glass"
-                      id="autoDeleteDropdown"
-                    >
-                      <div
-                        class="settings-custom-select-option selected"
-                        data-value="never"
-                      >
-                        Never
-                      </div>
-                      <div
-                        class="settings-custom-select-option"
-                        data-value="7d"
-                      >
-                        After 7 days
-                      </div>
-                      <div
-                        class="settings-custom-select-option"
-                        data-value="30d"
-                      >
-                        After 30 days
-                      </div>
-                      <div
-                        class="settings-custom-select-option"
-                        data-value="90d"
-                      >
-                        After 90 days
-                      </div>
-                      <div
-                        class="settings-custom-select-option"
-                        data-value="1y"
-                      >
-                        After 1 year
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -6665,6 +7139,70 @@
         </button>
       </div>
     </div>
+    <div class="voice-chat-wrapper liquid-glass" id="voiceChatWrapper">
+      <div class="voice-chat-wrapper-header" id="voiceChatWrapperDragHandle">
+        <div class="voice-chat-wrapper-title">
+          <h3 data-translate="voiceChatTitle">Voice Chat</h3>
+          <span data-translate="dragToMove">Drag to move</span>
+        </div>
+        <div class="voice-chat-wrapper-actions">
+          <button
+            class="icon-btn"
+            id="voiceChatWrapperFullscreenBtn"
+            type="button"
+            title="Fullscreen"
+          >
+            <icon class="material-symbols-rounded">fullscreen</icon>
+          </button>
+          <button
+            class="icon-btn"
+            id="voiceChatWrapperCloseBtn"
+            type="button"
+            data-translate-title="endVoiceChat"
+            title="End Voice Chat"
+          >
+            <icon class="material-symbols-rounded">call_end</icon>
+          </button>
+        </div>
+      </div>
+      <div class="voice-chat-wrapper-body">
+        <div class="voice-chat-wrapper-main">
+          <div
+            class="voice-chat-listening-circle voice-chat-wrapper-circle"
+            id="voiceChatWrapperListeningCircle"
+          >
+            <icon
+              class="material-symbols-rounded"
+              id="voiceChatWrapperCircleIcon"
+              style="display: none"
+              >warning</icon
+            >
+          </div>
+          <p
+            class="voice-chat-wrapper-status"
+            id="voiceChatWrapperStatusText"
+            data-translate="voiceChatListening"
+          >
+            Listening
+          </p>
+          <div class="voice-chat-controls">
+            <button class="btn" id="voiceChatWrapperMicBtn" type="button">
+              <icon class="material-symbols-rounded">mic</icon>
+              <span>Microphone</span>
+            </button>
+          </div>
+        </div>
+        <div class="voice-chat-wrapper-transcript">
+          <div class="voice-chat-wrapper-transcript-header">
+            <h3 data-translate="voiceTranscript">Transcript</h3>
+          </div>
+          <div
+            class="voice-chat-wrapper-transcript-list"
+            id="voiceChatWrapperTranscriptList"
+          ></div>
+        </div>
+      </div>
+    </div>
     <div class="voice-chat-overlay" id="voiceChatOverlay">
       <div class="voice-chat-shell liquid-glass">
         <div class="voice-chat-header">
@@ -6767,29 +7305,14 @@
               >Pages</label
             >
             <input id="bookPageCountSelect" type="hidden" value="6" />
-            <div class="settings-custom-select" id="bookPageCountWrapper">
-              <button class="btn settings-custom-select-btn" type="button">
+            <div class="settings-dropdown-anchor" id="bookPageCountWrapper">
+              <button
+                class="btn settings-dropdown-trigger"
+                type="button"
+                id="bookPageCountTrigger"
+              >
                 6
               </button>
-              <munetios-dropdown
-                class="settings-custom-select-dropdown liquid-glass"
-              >
-                <div
-                  class="settings-custom-select-option selected"
-                  data-value="6"
-                >
-                  6
-                </div>
-                <div class="settings-custom-select-option" data-value="12">
-                  12
-                </div>
-                <div class="settings-custom-select-option" data-value="24">
-                  24
-                </div>
-                <div class="settings-custom-select-option" data-value="48">
-                  48
-                </div>
-              </munetios-dropdown>
             </div>
           </div>
           <div class="books-field">
@@ -6797,46 +7320,15 @@
               >Formatting</label
             >
             <input id="bookFormatSelect" type="hidden" value="Novel" />
-            <div class="settings-custom-select" id="bookFormatWrapper">
+            <div class="settings-dropdown-anchor" id="bookFormatWrapper">
               <button
-                class="btn settings-custom-select-btn"
+                class="btn settings-dropdown-trigger"
                 type="button"
+                id="bookFormatTrigger"
                 data-translate="bookFormatNovel"
               >
                 Novel
               </button>
-              <munetios-dropdown
-                class="settings-custom-select-dropdown liquid-glass"
-              >
-                <div
-                  class="settings-custom-select-option selected"
-                  data-value="Novel"
-                  data-translate="bookFormatNovel"
-                >
-                  Novel
-                </div>
-                <div
-                  class="settings-custom-select-option"
-                  data-value="Workbook"
-                  data-translate="bookFormatWorkbook"
-                >
-                  Workbook
-                </div>
-                <div
-                  class="settings-custom-select-option"
-                  data-value="Short Story"
-                  data-translate="bookFormatShortStory"
-                >
-                  Short Story
-                </div>
-                <div
-                  class="settings-custom-select-option"
-                  data-value="Study Guide"
-                  data-translate="bookFormatStudyGuide"
-                >
-                  Study Guide
-                </div>
-              </munetios-dropdown>
             </div>
           </div>
           <div class="books-field">
@@ -6844,46 +7336,15 @@
               >Tone</label
             >
             <input id="bookToneSelect" type="hidden" value="Clear" />
-            <div class="settings-custom-select" id="bookToneWrapper">
+            <div class="settings-dropdown-anchor" id="bookToneWrapper">
               <button
-                class="btn settings-custom-select-btn"
+                class="btn settings-dropdown-trigger"
                 type="button"
+                id="bookToneTrigger"
                 data-translate="bookToneClear"
               >
                 Clear
               </button>
-              <munetios-dropdown
-                class="settings-custom-select-dropdown liquid-glass"
-              >
-                <div
-                  class="settings-custom-select-option selected"
-                  data-value="Clear"
-                  data-translate="bookToneClear"
-                >
-                  Clear
-                </div>
-                <div
-                  class="settings-custom-select-option"
-                  data-value="Warm"
-                  data-translate="bookToneWarm"
-                >
-                  Warm
-                </div>
-                <div
-                  class="settings-custom-select-option"
-                  data-value="Professional"
-                  data-translate="bookToneProfessional"
-                >
-                  Professional
-                </div>
-                <div
-                  class="settings-custom-select-option"
-                  data-value="Playful"
-                  data-translate="bookTonePlayful"
-                >
-                  Playful
-                </div>
-              </munetios-dropdown>
             </div>
           </div>
         </div>
@@ -7055,7 +7516,7 @@
                 : "Unknown error");
             sessionStorage.setItem("munetios-crash-info", info);
           } catch (_e) {}
-         showToast('Something Went Wrong.')
+          showToast("Something Went Wrong.");
         }
 
         window.onerror = function (msg, src, line, col, err) {
@@ -8721,6 +9182,9 @@
           sidebarBtn: "codeTabBtn",
         },
       };
+      function redirectToCodePage() {
+        window.location.href = "code.html";
+      }
 
       function navigateTo(route) {
         const page = pages[route] || pages["home"];
@@ -8882,6 +9346,11 @@
           if (hash.startsWith("#/share?text=")) continue;
           // legacy / simple routes
           const route = hash.replace(/^#\/?/, "") || "home";
+          if (route === "code") {
+            redirectToCodePage();
+            navigated = true;
+            continue;
+          }
           if (typeof pages !== "undefined" && pages[route]) {
             navigateTo(route);
             navigated = true;
@@ -8920,7 +9389,7 @@
       document
         .getElementById("codeTabBtn")
         .addEventListener("click", function () {
-          navigateTo("code");
+          redirectToCodePage();
         });
       document
         .getElementById("myBotsBtn")
@@ -9895,87 +10364,80 @@
               "Este sistema de respostas do Munetios AI chegarÃ¡ em breve. Fique ligado!",
           },
           Chinese: {
-            voiceChatMicDeniedSpeech:
-              "æŠ±æ­‰ï¼Œæˆ‘æ— æ³•èŽ·å–æ‚¨çš„éº¦å…‹é£Žã€‚",
-            voiceChatMicDeniedToast:
-              "è¦ä½¿ç”¨è¯­éŸ³èŠå¤©ï¼Œè¯·å¯ç”¨éº¦å…‹é£Žã€‚",
-            voiceChatMicNoDeviceToast:
-              "è¯·è¿žæŽ¥éº¦å…‹é£Žä»¥ä½¿ç”¨è¯­éŸ³èŠå¤©ã€‚",
-            comingSoonResponse1: "Munetios AI å³å°†æŽ¨å‡ºï¼Œæ•¬è¯·æœŸå¾…ï¼",
-            comingSoonResponse2:
-              "Munetios AI ä»åœ¨å¼€å‘ä¸­ï¼Œå¾ˆå¿«å°±ä¼šæœ‰æ›´å¤šå†…å®¹ã€‚",
+            voiceChatMicDeniedSpeech: "抱歉，我无法获取您的麦克风。",
+            voiceChatMicDeniedToast: "要使用语音聊天，请启用麦克风。",
+            voiceChatMicNoDeviceToast: "请连接麦克风以使用语音聊天。",
+            comingSoonResponse1: "Munetios AI 即将推出，敬请期待！",
+            comingSoonResponse2: "Munetios AI 仍在开发中，很快就会有更多内容。",
             comingSoonResponse3:
-              "Munetios AI çš„è¿™ä¸ªå›žå¤ç³»ç»Ÿå³å°†æŽ¨å‡ºï¼Œæ•¬è¯·æœŸå¾…ï¼",
+              "Munetios AI 的这个回复系统即将推出，敬请期待！",
           },
           Japanese: {
             voiceChatMicDeniedSpeech:
-              "ç”³ã—è¨³ã‚ã‚Šã¾ã›ã‚“ã€‚ãƒžã‚¤ã‚¯ã‚’å–å¾—ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚",
+              "申し訳ありません。マイクを取得できませんでした。",
             voiceChatMicDeniedToast:
-              "éŸ³å£°ãƒãƒ£ãƒƒãƒˆã‚’ä½¿ã†ã«ã¯ãƒžã‚¤ã‚¯ã‚’æœ‰åŠ¹ã«ã—ã¦ãã ã•ã„ã€‚",
+              "音声チャットを使うにはマイクを有効にしてください。",
             voiceChatMicNoDeviceToast:
-              "éŸ³å£°ãƒãƒ£ãƒƒãƒˆã‚’ä½¿ã†ã«ã¯ãƒžã‚¤ã‚¯ã‚’æŽ¥ç¶šã—ã¦ãã ã•ã„ã€‚",
+              "音声チャットを使うにはマイクを接続してください。",
             comingSoonResponse1:
-              "Munetios AI ã¯ã¾ã‚‚ãªãç™»å ´ã—ã¾ã™ã€‚ãŠæ¥½ã—ã¿ã«ï¼",
+              "Munetios AI はまもなく登場します。お楽しみに！",
             comingSoonResponse2:
-              "Munetios AI ã¯ã¾ã é–‹ç™ºä¸­ã§ã™ã€‚ã¾ã‚‚ãªãã•ã‚‰ã«å¢—ãˆã¾ã™ã€‚",
+              "Munetios AI はまだ開発中です。まもなくさらに増えます。",
             comingSoonResponse3:
-              "ã“ã® Munetios AI å¿œç­”ã‚·ã‚¹ãƒ†ãƒ ã¯ã¾ã‚‚ãªãåˆ©ç”¨å¯èƒ½ã«ãªã‚Šã¾ã™ã€‚ãŠæ¥½ã—ã¿ã«ï¼",
+              "この Munetios AI 応答システムはまもなく利用可能になります。お楽しみに！",
           },
           Korean: {
             voiceChatMicDeniedSpeech:
-              "ì£„ì†¡í•©ë‹ˆë‹¤. ë§ˆì´í¬ë¥¼ ê°€ì ¸ì˜¤ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.",
+              "죄송합니다. 마이크를 가져오지 못했습니다.",
             voiceChatMicDeniedToast:
-              "ìŒì„± ì±„íŒ…ì„ ì‚¬ìš©í•˜ë ¤ë©´ ë§ˆì´í¬ë¥¼ í™œì„±í™”í•´ ì£¼ì„¸ìš”.",
+              "음성 채팅을 사용하려면 마이크를 활성화해 주세요.",
             voiceChatMicNoDeviceToast:
-              "ìŒì„± ì±„íŒ…ì„ ì‚¬ìš©í•˜ë ¤ë©´ ë§ˆì´í¬ë¥¼ ì—°ê²°í•˜ì„¸ìš”.",
-            comingSoonResponse1:
-              "Munetios AIê°€ ê³§ ì¶œì‹œë©ë‹ˆë‹¤. ê¸°ëŒ€í•´ ì£¼ì„¸ìš”!",
+              "음성 채팅을 사용하려면 마이크를 연결하세요.",
+            comingSoonResponse1: "Munetios AI가 곧 출시됩니다. 기대해 주세요!",
             comingSoonResponse2:
-              "Munetios AIëŠ” ì•„ì§ ê°œë°œ ì¤‘ìž…ë‹ˆë‹¤. ê³§ ë” ë§Žì€ ê¸°ëŠ¥ì´ ì¶”ê°€ë©ë‹ˆë‹¤.",
+              "Munetios AI는 아직 개발 중입니다. 곧 더 많은 기능이 추가됩니다.",
             comingSoonResponse3:
-              "ì´ Munetios AI ì‘ë‹µ ì‹œìŠ¤í…œì€ ê³§ ì¶œì‹œë©ë‹ˆë‹¤. ê¸°ëŒ€í•´ ì£¼ì„¸ìš”!",
+              "이 Munetios AI 응답 시스템은 곧 출시됩니다. 기대해 주세요!",
           },
           Russian: {
             voiceChatMicDeniedSpeech:
-              "Ð˜Ð·Ð²Ð¸Ð½Ð¸Ñ‚Ðµ, Ð½Ðµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ñ‚ÑŒ Ð´Ð¾ÑÑ‚ÑƒÐ¿ Ðº Ð¼Ð¸ÐºÑ€Ð¾Ñ„Ð¾Ð½Ñƒ.",
+              "Извините, не удалось получить доступ к микрофону.",
             voiceChatMicDeniedToast:
-              "Ð§Ñ‚Ð¾Ð±Ñ‹ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ Ð³Ð¾Ð»Ð¾ÑÐ¾Ð²Ð¾Ð¹ Ñ‡Ð°Ñ‚, Ð²ÐºÐ»ÑŽÑ‡Ð¸Ñ‚Ðµ Ð¼Ð¸ÐºÑ€Ð¾Ñ„Ð¾Ð½.",
+              "Чтобы использовать голосовой чат, включите микрофон.",
             voiceChatMicNoDeviceToast:
-              "ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡Ð¸Ñ‚Ðµ Ð¼Ð¸ÐºÑ€Ð¾Ñ„Ð¾Ð½, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ Ð³Ð¾Ð»Ð¾ÑÐ¾Ð²Ð¾Ð¹ Ñ‡Ð°Ñ‚.",
+              "Подключите микрофон, чтобы использовать голосовой чат.",
             comingSoonResponse1:
-              "Munetios AI ÑÐºÐ¾Ñ€Ð¾ Ð¿Ð¾ÑÐ²Ð¸Ñ‚ÑÑ. Ð¡Ð»ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð° Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸ÑÐ¼Ð¸!",
+              "Munetios AI скоро появится. Следите за обновлениями!",
             comingSoonResponse2:
-              "Munetios AI Ð²ÑÐµ ÐµÑ‰Ðµ Ñ€Ð°Ð·Ñ€Ð°Ð±Ð°Ñ‚Ñ‹Ð²Ð°ÐµÑ‚ÑÑ. Ð¡ÐºÐ¾Ñ€Ð¾ Ð±ÑƒÐ´ÐµÑ‚ Ð±Ð¾Ð»ÑŒÑˆÐµ.",
+              "Munetios AI все еще разрабатывается. Скоро будет больше.",
             comingSoonResponse3:
-              "Ð­Ñ‚Ð° ÑÐ¸ÑÑ‚ÐµÐ¼Ð° Ð¾Ñ‚Ð²ÐµÑ‚Ð¾Ð² Munetios AI ÑÐºÐ¾Ñ€Ð¾ Ð¿Ð¾ÑÐ²Ð¸Ñ‚ÑÑ. Ð¡Ð»ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð° Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸ÑÐ¼Ð¸!",
+              "Эта система ответов Munetios AI скоро появится. Следите за обновлениями!",
           },
           Arabic: {
             voiceChatMicDeniedSpeech:
-              "Ø¹Ø°Ø±Ù‹Ø§ØŒ Ù„Ù… Ø£ØªÙ…ÙƒÙ† Ù…Ù† Ø§Ù„ÙˆØµÙˆÙ„ Ø¥Ù„Ù‰ Ø§Ù„Ù…ÙŠÙƒØ±ÙˆÙÙˆÙ†.",
+              "عذراً، لم أتمكن من الوصول إلى الميكروفون.",
             voiceChatMicDeniedToast:
-              "Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ø¯Ø±Ø¯Ø´Ø© Ø§Ù„ØµÙˆØªÙŠØ©ØŒ ÙŠØ±Ø¬Ù‰ ØªÙØ¹ÙŠÙ„ Ø§Ù„Ù…ÙŠÙƒØ±ÙˆÙÙˆÙ†.",
+              "لاستخدام الدردشة الصوتية، يرجى تفعيل الميكروفون.",
             voiceChatMicNoDeviceToast:
-              "Ù‚Ù… Ø¨ØªÙˆØµÙŠÙ„ Ù…ÙŠÙƒØ±ÙˆÙÙˆÙ† Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ø¯Ø±Ø¯Ø´Ø© Ø§Ù„ØµÙˆØªÙŠØ©.",
-            comingSoonResponse1:
-              "Munetios AI Ø³ÙŠØµÙ„ Ù‚Ø±ÙŠØ¨Ù‹Ø§. ØªØ±Ù‚Ø¨ÙˆØ§!",
+              "قم بتوصيل ميكروفون لاستخدام الدردشة الصوتية.",
+            comingSoonResponse1: "Munetios AI سيصل قريباً. ترقبوا!",
             comingSoonResponse2:
-              "Ù…Ø§ Ø²Ø§Ù„ Munetios AI Ù‚ÙŠØ¯ Ø§Ù„ØªØ·ÙˆÙŠØ±. Ø§Ù„Ù…Ø²ÙŠØ¯ Ù‚Ø±ÙŠØ¨Ù‹Ø§.",
+              "ما زال Munetios AI قيد التطوير. المزيد قريباً.",
             comingSoonResponse3:
-              "Ù†Ø¸Ø§Ù… Ø§Ù„Ø±Ø¯ÙˆØ¯ Ù‡Ø°Ø§ Ù…Ù† Munetios AI Ø³ÙŠØªÙˆÙØ± Ù‚Ø±ÙŠØ¨Ù‹Ø§. ØªØ±Ù‚Ø¨ÙˆØ§!",
+              "نظام الردود هذا من Munetios AI سيتوفر قريباً. ترقبوا!",
           },
           Hindi: {
             voiceChatMicDeniedSpeech:
-              "à¤®à¤¾à¤« à¤•à¥€à¤œà¤¿à¤, à¤®à¥ˆà¤‚ à¤†à¤ªà¤•à¤¾ à¤®à¤¾à¤‡à¤•à¥à¤°à¥‹à¤«à¥‹à¤¨ à¤¨à¤¹à¥€à¤‚ à¤ªà¤¾ à¤¸à¤•à¤¾à¥¤",
+              "माफ़ कीजिए, मैं आपका माइक्रोफोन नहीं पा सका।",
             voiceChatMicDeniedToast:
-              "à¤µà¥‰à¤‡à¤¸ à¤šà¥ˆà¤Ÿ à¤•à¤¾ à¤‰à¤ªà¤¯à¥‹à¤— à¤•à¤°à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤®à¤¾à¤‡à¤•à¥à¤°à¥‹à¤«à¥‹à¤¨ à¤¸à¤•à¥à¤°à¤¿à¤¯ à¤•à¤°à¥‡à¤‚à¥¤",
+              "वॉइस चैट का उपयोग करने के लिए माइक्रोफोन सक्रिय करें।",
             voiceChatMicNoDeviceToast:
-              "à¤µà¥‰à¤‡à¤¸ à¤šà¥ˆà¤Ÿ à¤•à¥‡ à¤²à¤¿à¤ à¤à¤• à¤®à¤¾à¤‡à¤•à¥à¤°à¥‹à¤«à¥‹à¤¨ à¤•à¤¨à¥‡à¤•à¥à¤Ÿ à¤•à¤°à¥‡à¤‚à¥¤",
-            comingSoonResponse1:
-              "Munetios AI à¤œà¤²à¥à¤¦ à¤† à¤°à¤¹à¤¾ à¤¹à¥ˆà¥¤ à¤¬à¤¨à¥‡ à¤°à¤¹à¤¿à¤!",
+              "वॉइस चैट के लिए एक माइक्रोफोन कनेक्ट करें।",
+            comingSoonResponse1: "Munetios AI जल्द आ रहा है। बने रहिए!",
             comingSoonResponse2:
-              "Munetios AI à¤…à¤­à¥€ à¤µà¤¿à¤•à¤¾à¤¸ à¤®à¥‡à¤‚ à¤¹à¥ˆà¥¤ à¤œà¤²à¥à¤¦ à¤”à¤° à¤­à¥€ à¤†à¤à¤—à¤¾à¥¤",
+              "Munetios AI अभी विकास में है। जल्द और भी आएगा।",
             comingSoonResponse3:
-              "Munetios AI à¤•à¤¾ à¤¯à¤¹ à¤°à¤¿à¤¸à¥à¤ªà¥‰à¤¨à¥à¤¸ à¤¸à¤¿à¤¸à¥à¤Ÿà¤® à¤œà¤²à¥à¤¦ à¤†à¤à¤—à¤¾à¥¤ à¤¬à¤¨à¥‡ à¤°à¤¹à¤¿à¤!",
+              "Munetios AI का यह रिस्पॉन्स सिस्टम जल्द आएगा। बने रहिए!",
           },
           Turkish: {
             voiceChatMicDeniedSpeech: "ÃœzgÃ¼nÃ¼m, mikrofonuna eriÅŸemedim.",
@@ -10674,6 +11136,345 @@
             searchChatsEmpty: "No se encontraron chats.",
           },
         };
+        const fullUiTranslationCoverageOverrides = {
+          Spanish: {
+            personalizationTab: "Personalizaci\u00f3n",
+            privacyTab: "Privacidad",
+            shortcutsTab: "Atajos",
+            voiceChatLayoutLabel: "Dise\u00f1o del chat de voz",
+            voiceChatLayoutWrapper: "Ventana",
+            voiceChatLayoutFullscreen: "Pantalla completa",
+            colorValueLabel: "Valor del color",
+            promptLayoutLabel: "Dise\u00f1o del cuadro de texto",
+            promptLayoutDual: "2 contenedores",
+            promptLayoutMulti: "Multi",
+            exportImportTitle: "Exportar e importar",
+            exportChatHistory: "Exportar historial de chats",
+            importChatHistory: "Importar historial de chats",
+            developerTitle: "Desarrollador",
+            debugModeTitle: "Modo depuraci\u00f3n",
+            debugModeDesc:
+              "Registrar informaci\u00f3n de diagn\u00f3stico en la consola del navegador.",
+            experimentalFeaturesTitle: "Funciones experimentales",
+            experimentalFeaturesDesc:
+              "Habilita funciones de acceso anticipado que pueden ser inestables.",
+            clearAllLocalData: "Borrar todos los datos locales",
+            nameLabel: "Nombre",
+            toneLabel: "Tono",
+            customInstructionsLabel: "Instrucciones personalizadas",
+            personalizationTitle: "Personalizaci\u00f3n",
+            personalizationDesc:
+              "Permite que Munetios AI recuerde tus preferencias entre conversaciones.",
+            suggestionsTitle: "Sugerencias",
+            suggestionsDesc:
+              "Mostrar sugerencias de seguimiento despu\u00e9s de las respuestas de la IA.",
+            reduceMotionTitle: "Reducir movimiento",
+            reduceMotionDesc:
+              "Limitar animaciones y transiciones en toda la interfaz.",
+            personalizedContentTitle: "Contenido personalizado",
+            personalizedContentDesc:
+              "Permitir que Munetios AI adapte las respuestas seg\u00fan tu historial y preferencias.",
+            forYouSuggestionsTitle: "Sugerencias para ti",
+            forYouSuggestionsDesc:
+              "Mostrar sugerencias de prompts personalizadas en la pantalla principal.",
+            chatHistoryTitle: "Historial de chats",
+            chatHistoryDesc:
+              "Guardar tus conversaciones localmente en este navegador.",
+            autoDeleteChatHistoryLabel: "Borrado autom\u00e1tico del historial",
+            dragToMove: "Arrastra para mover",
+            endVoiceChat: "Finalizar chat de voz",
+          },
+          French: {
+            personalizationTab: "Personnalisation",
+            privacyTab: "Confidentialit\u00e9",
+            shortcutsTab: "Raccourcis",
+            voiceChatLayoutLabel: "Disposition du chat vocal",
+            voiceChatLayoutWrapper: "Fen\u00eatre",
+            voiceChatLayoutFullscreen: "Plein \u00e9cran",
+            colorValueLabel: "Valeur de la couleur",
+            promptLayoutLabel: "Disposition du champ de saisie",
+            promptLayoutDual: "2 conteneurs",
+            promptLayoutMulti: "Multi",
+            exportImportTitle: "Exporter et importer",
+            exportChatHistory: "Exporter l'historique des discussions",
+            importChatHistory: "Importer l'historique des discussions",
+            developerTitle: "D\u00e9veloppeur",
+            debugModeTitle: "Mode d\u00e9bogage",
+            debugModeDesc:
+              "Journaliser les informations de diagnostic dans la console du navigateur.",
+            experimentalFeaturesTitle:
+              "Fonctionnalit\u00e9s exp\u00e9rimentales",
+            experimentalFeaturesDesc:
+              "Activer des fonctionnalit\u00e9s en acc\u00e8s anticip\u00e9 qui peuvent \u00eatre instables.",
+            clearAllLocalData: "Effacer toutes les donn\u00e9es locales",
+            nameLabel: "Nom",
+            toneLabel: "Ton",
+            customInstructionsLabel: "Instructions personnalis\u00e9es",
+            personalizationTitle: "Personnalisation",
+            personalizationDesc:
+              "Permettre \u00e0 Munetios AI de se souvenir de vos pr\u00e9f\u00e9rences entre les conversations.",
+            suggestionsTitle: "Suggestions",
+            suggestionsDesc:
+              "Afficher des suggestions de suivi apr\u00e8s les r\u00e9ponses de l'IA.",
+            reduceMotionTitle: "R\u00e9duire les animations",
+            reduceMotionDesc:
+              "Limiter les animations et transitions dans toute l'interface.",
+            personalizedContentTitle: "Contenu personnalis\u00e9",
+            personalizedContentDesc:
+              "Permettre \u00e0 Munetios AI d'adapter les r\u00e9ponses selon votre historique et vos pr\u00e9f\u00e9rences.",
+            forYouSuggestionsTitle: "Suggestions pour vous",
+            forYouSuggestionsDesc:
+              "Afficher des suggestions de prompts personnalis\u00e9es sur l'\u00e9cran d'accueil.",
+            chatHistoryTitle: "Historique des discussions",
+            chatHistoryDesc:
+              "Enregistrer vos conversations localement dans ce navigateur.",
+            autoDeleteChatHistoryLabel:
+              "Suppression automatique de l'historique",
+            dragToMove: "Faites glisser pour d\u00e9placer",
+            endVoiceChat: "Terminer le chat vocal",
+          },
+          German: {
+            personalizationTab: "Personalisierung",
+            privacyTab: "Datenschutz",
+            shortcutsTab: "Kurzbefehle",
+            voiceChatLayoutLabel: "Sprachchat-Layout",
+            voiceChatLayoutWrapper: "Fenster",
+            voiceChatLayoutFullscreen: "Vollbild",
+            colorValueLabel: "Farbwert",
+            promptLayoutLabel: "Prompt-Layout",
+            promptLayoutDual: "2 Container",
+            promptLayoutMulti: "Multi",
+            exportImportTitle: "Export und Import",
+            exportChatHistory: "Chatverlauf exportieren",
+            importChatHistory: "Chatverlauf importieren",
+            developerTitle: "Entwickler",
+            debugModeTitle: "Debug-Modus",
+            debugModeDesc:
+              "Diagnoseinformationen in der Browserkonsole protokollieren.",
+            experimentalFeaturesTitle: "Experimentelle Funktionen",
+            experimentalFeaturesDesc:
+              "Fr\u00fchen Zugriff auf Funktionen aktivieren, die instabil sein k\u00f6nnen.",
+            clearAllLocalData: "Alle lokalen Daten l\u00f6schen",
+            nameLabel: "Name",
+            toneLabel: "Ton",
+            customInstructionsLabel: "Benutzerdefinierte Anweisungen",
+            personalizationTitle: "Personalisierung",
+            personalizationDesc:
+              "Munetios AI erlauben, sich Ihre Einstellungen \u00fcber Gespr\u00e4che hinweg zu merken.",
+            suggestionsTitle: "Vorschl\u00e4ge",
+            suggestionsDesc: "Nach KI-Antworten Folgeempfehlungen anzeigen.",
+            reduceMotionTitle: "Bewegung reduzieren",
+            reduceMotionDesc:
+              "Animationen und \u00dcberg\u00e4nge in der gesamten Oberfl\u00e4che begrenzen.",
+            personalizedContentTitle: "Personalisierte Inhalte",
+            personalizedContentDesc:
+              "Munetios AI erlauben, Antworten anhand Ihres Verlaufs und Ihrer Einstellungen anzupassen.",
+            forYouSuggestionsTitle: "Empfehlungen f\u00fcr Sie",
+            forYouSuggestionsDesc:
+              "Personalisierte Prompt-Vorschl\u00e4ge auf der Startseite anzeigen.",
+            chatHistoryTitle: "Chatverlauf",
+            chatHistoryDesc:
+              "Ihre Unterhaltungen lokal in diesem Browser speichern.",
+            autoDeleteChatHistoryLabel: "Chatverlauf automatisch l\u00f6schen",
+            dragToMove: "Zum Verschieben ziehen",
+            endVoiceChat: "Sprachchat beenden",
+          },
+          Italian: {
+            personalizationTab: "Personalizzazione",
+            privacyTab: "Privacy",
+            shortcutsTab: "Scorciatoie",
+            voiceChatLayoutLabel: "Layout chat vocale",
+            voiceChatLayoutWrapper: "Finestra",
+            voiceChatLayoutFullscreen: "Schermo intero",
+            colorValueLabel: "Valore colore",
+            promptLayoutLabel: "Layout del prompt",
+            promptLayoutDual: "2 contenitori",
+            promptLayoutMulti: "Multi",
+            exportImportTitle: "Esporta e importa",
+            exportChatHistory: "Esporta cronologia chat",
+            importChatHistory: "Importa cronologia chat",
+            developerTitle: "Sviluppatore",
+            debugModeTitle: "Modalit\u00e0 debug",
+            debugModeDesc:
+              "Registra informazioni diagnostiche nella console del browser.",
+            experimentalFeaturesTitle: "Funzioni sperimentali",
+            experimentalFeaturesDesc:
+              "Abilita funzioni in accesso anticipato che possono essere instabili.",
+            clearAllLocalData: "Cancella tutti i dati locali",
+            nameLabel: "Nome",
+            toneLabel: "Tono",
+            customInstructionsLabel: "Istruzioni personalizzate",
+            personalizationTitle: "Personalizzazione",
+            personalizationDesc:
+              "Consenti a Munetios AI di ricordare le tue preferenze tra le conversazioni.",
+            suggestionsTitle: "Suggerimenti",
+            suggestionsDesc:
+              "Mostra suggerimenti di follow-up dopo le risposte dell'IA.",
+            reduceMotionTitle: "Riduci movimento",
+            reduceMotionDesc:
+              "Limita animazioni e transizioni in tutta l'interfaccia.",
+            personalizedContentTitle: "Contenuti personalizzati",
+            personalizedContentDesc:
+              "Consenti a Munetios AI di adattare le risposte in base alla cronologia e alle preferenze.",
+            forYouSuggestionsTitle: "Suggerimenti per te",
+            forYouSuggestionsDesc:
+              "Mostra suggerimenti di prompt personalizzati nella schermata iniziale.",
+            chatHistoryTitle: "Cronologia chat",
+            chatHistoryDesc:
+              "Salva le tue conversazioni localmente in questo browser.",
+            autoDeleteChatHistoryLabel:
+              "Eliminazione automatica della cronologia",
+            dragToMove: "Trascina per spostare",
+            endVoiceChat: "Termina chat vocale",
+          },
+          Portuguese: {
+            personalizationTab: "Personaliza\u00e7\u00e3o",
+            privacyTab: "Privacidade",
+            shortcutsTab: "Atalhos",
+            voiceChatLayoutLabel: "Layout do chat de voz",
+            voiceChatLayoutWrapper: "Janela",
+            voiceChatLayoutFullscreen: "Tela cheia",
+            colorValueLabel: "Valor da cor",
+            promptLayoutLabel: "Layout do prompt",
+            promptLayoutDual: "2 cont\u00eaineres",
+            promptLayoutMulti: "Multi",
+            exportImportTitle: "Exportar e importar",
+            exportChatHistory: "Exportar hist\u00f3rico de chats",
+            importChatHistory: "Importar hist\u00f3rico de chats",
+            developerTitle: "Desenvolvedor",
+            debugModeTitle: "Modo de depura\u00e7\u00e3o",
+            debugModeDesc:
+              "Registrar informa\u00e7\u00f5es de diagn\u00f3stico no console do navegador.",
+            experimentalFeaturesTitle: "Recursos experimentais",
+            experimentalFeaturesDesc:
+              "Ativar recursos de acesso antecipado que podem estar inst\u00e1veis.",
+            clearAllLocalData: "Limpar todos os dados locais",
+            nameLabel: "Nome",
+            toneLabel: "Tom",
+            customInstructionsLabel: "Instru\u00e7\u00f5es personalizadas",
+            personalizationTitle: "Personaliza\u00e7\u00e3o",
+            personalizationDesc:
+              "Permitir que Munetios AI lembre suas prefer\u00eancias entre conversas.",
+            suggestionsTitle: "Sugest\u00f5es",
+            suggestionsDesc:
+              "Mostrar sugest\u00f5es de acompanhamento ap\u00f3s as respostas da IA.",
+            reduceMotionTitle: "Reduzir movimento",
+            reduceMotionDesc:
+              "Limitar anima\u00e7\u00f5es e transi\u00e7\u00f5es em toda a interface.",
+            personalizedContentTitle: "Conte\u00fado personalizado",
+            personalizedContentDesc:
+              "Permitir que Munetios AI adapte respostas com base no seu hist\u00f3rico e prefer\u00eancias.",
+            forYouSuggestionsTitle: "Sugest\u00f5es para voc\u00ea",
+            forYouSuggestionsDesc:
+              "Mostrar sugest\u00f5es de prompt personalizadas na tela inicial.",
+            chatHistoryTitle: "Hist\u00f3rico de chats",
+            chatHistoryDesc:
+              "Salvar suas conversas localmente neste navegador.",
+            autoDeleteChatHistoryLabel:
+              "Exclus\u00e3o autom\u00e1tica do hist\u00f3rico",
+            dragToMove: "Arraste para mover",
+            endVoiceChat: "Encerrar chat de voz",
+          },
+          Chinese: {
+            personalizationTab: "\u4e2a\u6027\u5316",
+            privacyTab: "\u9690\u79c1",
+            shortcutsTab: "\u5feb\u6377\u65b9\u5f0f",
+            voiceChatLayoutLabel: "\u8bed\u97f3\u804a\u5929\u5e03\u5c40",
+            voiceChatLayoutWrapper: "\u5c0f\u7a97\u53e3",
+            voiceChatLayoutFullscreen: "\u5168\u5c4f",
+            colorValueLabel: "\u989c\u8272\u503c",
+            promptLayoutLabel: "\u63d0\u793a\u6846\u5e03\u5c40",
+            promptLayoutDual: "2 \u5217\u5bb9\u5668",
+            promptLayoutMulti: "\u591a\u5217",
+            exportImportTitle: "\u5bfc\u51fa\u4e0e\u5bfc\u5165",
+            exportChatHistory: "\u5bfc\u51fa\u804a\u5929\u8bb0\u5f55",
+            importChatHistory: "\u5bfc\u5165\u804a\u5929\u8bb0\u5f55",
+            developerTitle: "\u5f00\u53d1\u8005",
+            debugModeTitle: "\u8c03\u8bd5\u6a21\u5f0f",
+            debugModeDesc:
+              "\u5728\u6d4f\u89c8\u5668\u63a7\u5236\u53f0\u8bb0\u5f55\u8bca\u65ad\u4fe1\u606f\u3002",
+            experimentalFeaturesTitle: "\u5b9e\u9a8c\u529f\u80fd",
+            experimentalFeaturesDesc:
+              "\u542f\u7528\u53ef\u80fd\u4e0d\u7a33\u5b9a\u7684\u62a2\u5148\u4f53\u9a8c\u529f\u80fd\u3002",
+            clearAllLocalData:
+              "\u6e05\u9664\u6240\u6709\u672c\u5730\u6570\u636e",
+            nameLabel: "\u540d\u79f0",
+            toneLabel: "\u8bed\u6c14",
+            customInstructionsLabel: "\u81ea\u5b9a\u4e49\u6307\u4ee4",
+            personalizationTitle: "\u4e2a\u6027\u5316",
+            personalizationDesc:
+              "\u5141\u8bb8 Munetios AI \u5728\u4e0d\u540c\u5bf9\u8bdd\u4e4b\u95f4\u8bb0\u4f4f\u60a8\u7684\u504f\u597d\u3002",
+            suggestionsTitle: "\u5efa\u8bae",
+            suggestionsDesc:
+              "\u5728 AI \u56de\u590d\u540e\u663e\u793a\u540e\u7eed\u5efa\u8bae\u3002",
+            reduceMotionTitle: "\u51cf\u5c11\u52a8\u753b",
+            reduceMotionDesc:
+              "\u9650\u5236\u6574\u4e2a\u754c\u9762\u4e2d\u7684\u52a8\u753b\u548c\u8fc7\u6e21\u6548\u679c\u3002",
+            personalizedContentTitle: "\u4e2a\u6027\u5316\u5185\u5bb9",
+            personalizedContentDesc:
+              "\u5141\u8bb8 Munetios AI \u6839\u636e\u60a8\u7684\u5386\u53f2\u8bb0\u5f55\u548c\u504f\u597d\u8c03\u6574\u56de\u590d\u3002",
+            forYouSuggestionsTitle: "\u4e3a\u60a8\u63a8\u8350",
+            forYouSuggestionsDesc:
+              "\u5728\u4e3b\u9875\u663e\u793a\u4e2a\u6027\u5316\u63d0\u793a\u5efa\u8bae\u3002",
+            chatHistoryTitle: "\u804a\u5929\u8bb0\u5f55",
+            chatHistoryDesc:
+              "\u5c06\u60a8\u7684\u5bf9\u8bdd\u4fdd\u5b58\u5728\u672c\u6d4f\u89c8\u5668\u4e2d\u3002",
+            autoDeleteChatHistoryLabel:
+              "\u81ea\u52a8\u5220\u9664\u804a\u5929\u8bb0\u5f55",
+            dragToMove: "\u62d6\u52a8\u4ee5\u79fb\u52a8",
+            endVoiceChat: "\u7ed3\u675f\u8bed\u97f3\u804a\u5929",
+          },
+          Turkish: {
+            personalizationTab: "Ki\u015fiselle\u015ftirme",
+            privacyTab: "Gizlilik",
+            shortcutsTab: "K\u0131sayollar",
+            voiceChatLayoutLabel: "Sesli sohbet d\u00fczeni",
+            voiceChatLayoutWrapper: "Pencere",
+            voiceChatLayoutFullscreen: "Tam ekran",
+            colorValueLabel: "Renk de\u011feri",
+            promptLayoutLabel: "\u0130stem d\u00fczeni",
+            promptLayoutDual: "2 kapsay\u0131c\u0131",
+            promptLayoutMulti: "Multi",
+            exportImportTitle: "D\u0131\u015fa aktar ve i\u00e7e aktar",
+            exportChatHistory:
+              "Sohbet ge\u00e7mi\u015fini d\u0131\u015fa aktar",
+            importChatHistory: "Sohbet ge\u00e7mi\u015fini i\u00e7e aktar",
+            developerTitle: "Geli\u015ftirici",
+            debugModeTitle: "Hata ay\u0131klama modu",
+            debugModeDesc:
+              "Tan\u0131 bilgilerini taray\u0131c\u0131 konsoluna kaydet.",
+            experimentalFeaturesTitle: "Deneysel \u00f6zellikler",
+            experimentalFeaturesDesc:
+              "Karars\u0131z olabilecek erken eri\u015fim \u00f6zelliklerini etkinle\u015ftir.",
+            clearAllLocalData: "T\u00fcm yerel verileri temizle",
+            nameLabel: "\u0130sim",
+            toneLabel: "Ton",
+            customInstructionsLabel: "\u00d6zel talimatlar",
+            personalizationTitle: "Ki\u015fiselle\u015ftirme",
+            personalizationDesc:
+              "Munetios AI'\u0131n sohbetler aras\u0131nda tercihlerinizi hat\u0131rlamas\u0131na izin verin.",
+            suggestionsTitle: "\u00d6neriler",
+            suggestionsDesc:
+              "YZ yan\u0131tlar\u0131ndan sonra takip \u00f6nerilerini g\u00f6ster.",
+            reduceMotionTitle: "Hareketi azalt",
+            reduceMotionDesc:
+              "Aray\u00fcz genelindeki animasyonlar\u0131 ve ge\u00e7i\u015fleri s\u0131n\u0131rla.",
+            personalizedContentTitle:
+              "Ki\u015fiselle\u015ftirilmi\u015f i\u00e7erik",
+            personalizedContentDesc:
+              "Munetios AI'\u0131n yan\u0131tlar\u0131n\u0131 ge\u00e7mi\u015finize ve tercihlerinize g\u00f6re uyarlamas\u0131na izin verin.",
+            forYouSuggestionsTitle: "Senin i\u00e7in \u00f6neriler",
+            forYouSuggestionsDesc:
+              "Ana ekranda ki\u015fiselle\u015ftirilmi\u015f istem \u00f6nerileri g\u00f6ster.",
+            chatHistoryTitle: "Sohbet ge\u00e7mi\u015fi",
+            chatHistoryDesc:
+              "Konu\u015fmalar\u0131n\u0131z\u0131 bu taray\u0131c\u0131da yerel olarak kaydet.",
+            autoDeleteChatHistoryLabel:
+              "Sohbet ge\u00e7mi\u015fini otomatik sil",
+            dragToMove: "Ta\u015f\u0131mak i\u00e7in s\u00fcr\u00fckle",
+            endVoiceChat: "Sesli sohbeti bitir",
+          },
+        };
         Object.entries(runtimeTranslationUnicodeOverrides).forEach(
           ([language, values]) => {
             translations[language] = {
@@ -10714,6 +11515,14 @@
             };
           },
         );
+        Object.entries(fullUiTranslationCoverageOverrides).forEach(
+          ([language, values]) => {
+            translations[language] = {
+              ...(translations[language] || translations.English),
+              ...values,
+            };
+          },
+        );
         const DB_NAME = "munetios-ai-home";
         const STORE_NAME = "chats";
         const SETTINGS_STORE_NAME = "app-settings";
@@ -10721,6 +11530,7 @@
         const BOOKS_STORE_NAME = "books-library";
         const ACTIVE_CHAT_KEY = "munetios-active-chat-id";
         const VOICE_KEY = "munetios-selected-voice";
+        const VOICE_CHAT_MODE_KEY = "munetios-voice-chat-mode";
         const APPEARANCE_KEY = "munetios-chat-appearance";
         const BOOKS_STORAGE_KEY = "munetios-books-library";
         const state = {
@@ -10734,6 +11544,10 @@
           voiceChatOpen: false,
           voiceChatRecognition: null,
           voiceChatMicDenied: false,
+          voiceChatTranscript: [],
+          voiceChatPreferredMode:
+            localStorage.getItem(VOICE_CHAT_MODE_KEY) || "wrapper",
+          voiceChatWrapperPosition: { x: null, y: null },
           homeRecognition: null,
           homeSstPending: false,
           homeMicDenied: false,
@@ -10748,6 +11562,7 @@
           books: [],
           codeProjects: [],
           activeCodeProjectId: "",
+          accentColorHsv: { h: 261, s: 0.78, v: 0.83 },
         };
         const els = {
           promptInput: document.getElementById("promptInput"),
@@ -10799,6 +11614,31 @@
             "imagePreviewModalClose",
           ),
           imagePreviewModalImg: document.getElementById("imagePreviewModalImg"),
+          voiceChatWrapper: document.getElementById("voiceChatWrapper"),
+          voiceChatWrapperDragHandle: document.getElementById(
+            "voiceChatWrapperDragHandle",
+          ),
+          voiceChatWrapperFullscreenBtn: document.getElementById(
+            "voiceChatWrapperFullscreenBtn",
+          ),
+          voiceChatWrapperCloseBtn: document.getElementById(
+            "voiceChatWrapperCloseBtn",
+          ),
+          voiceChatWrapperMicBtn: document.getElementById(
+            "voiceChatWrapperMicBtn",
+          ),
+          voiceChatWrapperListeningCircle: document.getElementById(
+            "voiceChatWrapperListeningCircle",
+          ),
+          voiceChatWrapperCircleIcon: document.getElementById(
+            "voiceChatWrapperCircleIcon",
+          ),
+          voiceChatWrapperTranscriptList: document.getElementById(
+            "voiceChatWrapperTranscriptList",
+          ),
+          voiceChatWrapperStatusText: document.getElementById(
+            "voiceChatWrapperStatusText",
+          ),
           voiceChatOverlay: document.getElementById("voiceChatOverlay"),
           voiceChatCloseBtn: document.getElementById("voiceChatCloseBtn"),
           voiceChatChooseVoiceBtn: document.getElementById(
@@ -10819,6 +11659,7 @@
           openVoicePickerFromSettings: document.getElementById(
             "openVoicePickerFromSettings",
           ),
+          voiceChatModeInput: document.getElementById("voiceChatModeInput"),
           chatFontBtn: document.getElementById("chatFontBtn"),
           chatFontDropdown: document.getElementById("chatFontDropdown"),
           customChatFontRow: document.getElementById("customChatFontRow"),
@@ -10828,7 +11669,16 @@
           accentColorBtn: document.getElementById("accentColorBtn"),
           accentColorSwatch: document.getElementById("accentColorSwatch"),
           accentColorValue: document.getElementById("accentColorValue"),
-          accentColorInput: document.getElementById("accentColorInput"),
+          accentColorDropdown: document.getElementById("accentColorDropdown"),
+          accentColorCanvas: document.getElementById("accentColorCanvas"),
+          accentColorCanvasThumb: document.getElementById(
+            "accentColorCanvasThumb",
+          ),
+          accentColorHue: document.getElementById("accentColorHue"),
+          accentColorHueThumb: document.getElementById("accentColorHueThumb"),
+          accentColorPreview: document.getElementById("accentColorPreview"),
+          accentColorHexInput: document.getElementById("accentColorHexInput"),
+          accentColorSwatches: document.getElementById("accentColorSwatches"),
           chatLineHeightRange: document.getElementById("chatLineHeightRange"),
           chatLineHeightValue: document.getElementById("chatLineHeightValue"),
           chatBubbleRadiusRange: document.getElementById(
@@ -10944,6 +11794,80 @@
           const numeric = Number.parseInt(safe, 16);
           return `${(numeric >> 16) & 255}, ${(numeric >> 8) & 255}, ${numeric & 255}`;
         }
+        function clamp(value, min, max) {
+          return Math.min(Math.max(value, min), max);
+        }
+        function normalizeHexColor(hex = "#5c2fd4") {
+          const raw = String(hex || "")
+            .trim()
+            .replace(/[^0-9a-f]/gi, "");
+          const expanded =
+            raw.length === 3
+              ? raw
+                  .split("")
+                  .map((char) => char + char)
+                  .join("")
+              : raw.slice(0, 6);
+          const safe = expanded.padEnd(6, "0");
+          return `#${safe.toUpperCase()}`;
+        }
+        function hexToRgb(hex) {
+          const safe = normalizeHexColor(hex).slice(1);
+          return {
+            r: Number.parseInt(safe.slice(0, 2), 16),
+            g: Number.parseInt(safe.slice(2, 4), 16),
+            b: Number.parseInt(safe.slice(4, 6), 16),
+          };
+        }
+        function rgbToHex(r, g, b) {
+          return `#${[r, g, b]
+            .map((value) =>
+              clamp(Math.round(value), 0, 255).toString(16).padStart(2, "0"),
+            )
+            .join("")
+            .toUpperCase()}`;
+        }
+        function rgbToHsv(r, g, b) {
+          const rr = r / 255;
+          const gg = g / 255;
+          const bb = b / 255;
+          const max = Math.max(rr, gg, bb);
+          const min = Math.min(rr, gg, bb);
+          const delta = max - min;
+          let h = 0;
+          if (delta) {
+            if (max === rr) h = ((gg - bb) / delta) % 6;
+            else if (max === gg) h = (bb - rr) / delta + 2;
+            else h = (rr - gg) / delta + 4;
+            h *= 60;
+            if (h < 0) h += 360;
+          }
+          return {
+            h,
+            s: max === 0 ? 0 : delta / max,
+            v: max,
+          };
+        }
+        function hsvToRgb(h, s, v) {
+          const hh = ((h % 360) + 360) % 360;
+          const c = v * s;
+          const x = c * (1 - Math.abs(((hh / 60) % 2) - 1));
+          const m = v - c;
+          let r1 = 0;
+          let g1 = 0;
+          let b1 = 0;
+          if (hh < 60) [r1, g1, b1] = [c, x, 0];
+          else if (hh < 120) [r1, g1, b1] = [x, c, 0];
+          else if (hh < 180) [r1, g1, b1] = [0, c, x];
+          else if (hh < 240) [r1, g1, b1] = [0, x, c];
+          else if (hh < 300) [r1, g1, b1] = [x, 0, c];
+          else [r1, g1, b1] = [c, 0, x];
+          return {
+            r: (r1 + m) * 255,
+            g: (g1 + m) * 255,
+            b: (b1 + m) * 255,
+          };
+        }
         function getFontFamilyValue(font, customFont) {
           if (font === "system")
             return 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
@@ -10991,13 +11915,44 @@
             els.chatFontSizeRange.value = String(settings.fontSize);
           if (els.chatFontSizeValue)
             els.chatFontSizeValue.textContent = `${settings.fontSize}px`;
-          if (els.accentColorInput)
-            els.accentColorInput.value = settings.accentColor;
+          const normalizedAccent = normalizeHexColor(settings.accentColor);
+          const accentRgb = hexToRgb(normalizedAccent);
+          state.accentColorHsv = rgbToHsv(
+            accentRgb.r,
+            accentRgb.g,
+            accentRgb.b,
+          );
           if (els.accentColorValue)
-            els.accentColorValue.textContent =
-              settings.accentColor.toUpperCase();
+            els.accentColorValue.textContent = normalizedAccent;
           if (els.accentColorSwatch)
-            els.accentColorSwatch.style.background = settings.accentColor;
+            els.accentColorSwatch.style.background = normalizedAccent;
+          if (els.accentColorPreview)
+            els.accentColorPreview.style.background = normalizedAccent;
+          if (els.accentColorHexInput)
+            els.accentColorHexInput.value = normalizedAccent;
+          if (els.accentColorCanvas) {
+            const pureHue = hsvToRgb(state.accentColorHsv.h, 1, 1);
+            els.accentColorCanvas.style.background = `
+              linear-gradient(to top, #000, transparent),
+              linear-gradient(to right, #fff, rgba(255, 255, 255, 0)),
+              ${rgbToHex(pureHue.r, pureHue.g, pureHue.b)}
+            `;
+          }
+          if (els.accentColorCanvasThumb) {
+            els.accentColorCanvasThumb.style.left = `${state.accentColorHsv.s * 100}%`;
+            els.accentColorCanvasThumb.style.top = `${(1 - state.accentColorHsv.v) * 100}%`;
+          }
+          if (els.accentColorHueThumb) {
+            els.accentColorHueThumb.style.left = `${(state.accentColorHsv.h / 360) * 100}%`;
+          }
+          els.accentColorSwatches
+            ?.querySelectorAll(".accent-picker-swatch")
+            .forEach((swatch) => {
+              swatch.classList.toggle(
+                "active",
+                normalizeHexColor(swatch.dataset.color) === normalizedAccent,
+              );
+            });
           if (els.chatLineHeightRange)
             els.chatLineHeightRange.value = String(settings.lineHeight);
           if (els.chatLineHeightValue)
@@ -11337,17 +12292,18 @@
           }
         }
         function setVoiceChatUnsupportedState(message) {
-          els.voiceChatListeningCircle?.classList.remove("listening");
-          els.voiceChatListeningCircle?.classList.add("warning");
-          if (els.voiceChatCircleIcon)
-            els.voiceChatCircleIcon.style.display = "block";
-          if (els.voiceChatStatusText)
-            els.voiceChatStatusText.textContent = message;
+          getVoiceChatUiTargets().forEach(({ circle, icon, status }) => {
+            circle?.classList.remove("listening");
+            circle?.classList.add("warning");
+            if (icon) icon.style.display = "block";
+            if (status) status.textContent = message;
+          });
         }
         function clearVoiceChatUnsupportedState() {
-          els.voiceChatListeningCircle?.classList.remove("warning");
-          if (els.voiceChatCircleIcon)
-            els.voiceChatCircleIcon.style.display = "none";
+          getVoiceChatUiTargets().forEach(({ circle, icon }) => {
+            circle?.classList.remove("warning");
+            if (icon) icon.style.display = "none";
+          });
         }
         function openVoiceDraftDock(config = {}) {
           state.voiceDraftContext =
@@ -12169,16 +13125,19 @@
           setCustomSelectValue(
             "bookPageCountWrapper",
             "bookPageCountSelect",
+            "bookPageCountDropdown",
             els.bookPageCountSelect?.value || "6",
           );
           setCustomSelectValue(
             "bookFormatWrapper",
             "bookFormatSelect",
+            "bookFormatDropdown",
             els.bookFormatSelect?.value || "Novel",
           );
           setCustomSelectValue(
             "bookToneWrapper",
             "bookToneSelect",
+            "bookToneDropdown",
             els.bookToneSelect?.value || "Clear",
           );
         }
@@ -13279,10 +14238,14 @@
           iconName = "mic",
           label = "Microphone",
         ) {
-          const micIcon = els.voiceChatMicBtn?.querySelector("icon");
-          const micText = els.voiceChatMicBtn?.querySelector("span");
-          if (micIcon) micIcon.textContent = iconName;
-          if (micText) micText.textContent = label;
+          [els.voiceChatMicBtn, els.voiceChatWrapperMicBtn].forEach(
+            (button) => {
+              const micIcon = button?.querySelector("icon");
+              const micText = button?.querySelector("span");
+              if (micIcon) micIcon.textContent = iconName;
+              if (micText) micText.textContent = label;
+            },
+          );
         }
         function stopHomeRecognition() {
           if (state.homeRecognition) {
@@ -13323,8 +14286,16 @@
             els.voicePickerOverlay.classList.remove("show");
             return true;
           }
+          if (els.accentColorDropdown?.style.display === "flex") {
+            closeDropdown(els.accentColorDropdown);
+            return true;
+          }
           if (els.voiceChatOverlay?.classList.contains("show")) {
             closeVoiceChatOverlay();
+            return true;
+          }
+          if (els.voiceChatWrapper?.classList.contains("show")) {
+            closeVoiceChatSession();
             return true;
           }
           if (els.shareModal?.classList.contains("show")) {
@@ -13780,13 +14751,66 @@
           renderActiveChat();
           renderEditSession();
         }
+        function normalizeVoiceChatMode(value) {
+          return value === "fullscreen" ? "fullscreen" : "wrapper";
+        }
+        function getVoiceChatModePreference() {
+          return normalizeVoiceChatMode(
+            els.voiceChatModeInput?.value ||
+              state.voiceChatPreferredMode ||
+              localStorage.getItem(VOICE_CHAT_MODE_KEY) ||
+              "wrapper",
+          );
+        }
+        function saveVoiceChatModePreference(value) {
+          const mode = normalizeVoiceChatMode(value);
+          state.voiceChatPreferredMode = mode;
+          localStorage.setItem(VOICE_CHAT_MODE_KEY, mode);
+          if (els.voiceChatModeInput) {
+            els.voiceChatModeInput.value = mode;
+          }
+          setCustomSelectValue(
+            "voiceChatModeWrapper",
+            "voiceChatModeInput",
+            "voiceChatModeDropdown",
+            mode,
+          );
+        }
+        function renderVoiceTranscriptEntries(target) {
+          if (!target) return;
+          target.innerHTML = "";
+          state.voiceChatTranscript.forEach((entry) => {
+            const row = document.createElement("div");
+            row.className = `voice-transcript-entry ${entry.type}`;
+            row.textContent = entry.text;
+            target.appendChild(row);
+          });
+          target.scrollTop = target.scrollHeight;
+        }
+        function renderVoiceChatTranscript() {
+          renderVoiceTranscriptEntries(els.voiceChatTranscriptList);
+          renderVoiceTranscriptEntries(els.voiceChatWrapperTranscriptList);
+        }
         function appendVoiceTranscript(text, type = "system") {
-          const row = document.createElement("div");
-          row.className = `voice-transcript-entry ${type}`;
-          row.textContent = text;
-          els.voiceChatTranscriptList.appendChild(row);
-          els.voiceChatTranscriptList.scrollTop =
-            els.voiceChatTranscriptList.scrollHeight;
+          state.voiceChatTranscript.push({
+            text: String(text || ""),
+            type,
+          });
+          renderVoiceChatTranscript();
+        }
+        function getVoiceChatUiTargets() {
+          return [
+            {
+              circle: els.voiceChatListeningCircle,
+              icon: els.voiceChatCircleIcon,
+              status: els.voiceChatStatusText,
+            },
+            {
+              circle: els.voiceChatWrapperListeningCircle,
+              icon: els.voiceChatWrapperCircleIcon,
+              status: els.voiceChatWrapperStatusText,
+            },
+          ];
         }
         function getSelectedVoice() {
           return (
@@ -13808,10 +14832,14 @@
         }
         function setVoiceChatListening(on) {
           clearVoiceChatUnsupportedState();
-          els.voiceChatListeningCircle.classList.toggle("listening", on);
-          els.voiceChatStatusText.textContent = on
-            ? t("voiceChatListening", "Listening")
-            : t("voiceChatTitle", "Voice Chat");
+          getVoiceChatUiTargets().forEach(({ circle, status }) => {
+            circle?.classList.toggle("listening", on);
+            if (status) {
+              status.textContent = on
+                ? t("voiceChatListening", "Listening")
+                : t("voiceChatTitle", "Voice Chat");
+            }
+          });
         }
         function stopVoiceChatRecognition() {
           if (state.voiceChatRecognition) {
@@ -13990,9 +15018,26 @@
           renderVoiceOptions();
           els.voicePickerOverlay.classList.add("show");
         }
-        function openVoiceChatOverlay() {
-          els.voiceChatOverlay.classList.add("show");
-          els.voiceChatTranscriptList.innerHTML = "";
+        function syncVoiceChatUiState() {
+          clearVoiceChatUnsupportedState();
+          if (state.voiceChatRecognition) {
+            setVoiceChatListening(true);
+            updateVoiceChatMicButton("stop_circle", "Stop Listening");
+            return;
+          }
+          if (state.voiceChatMicDenied) {
+            setVoiceChatUnsupportedState(
+              "Microphone has been denied. Please enable microphone.",
+            );
+            updateVoiceChatMicButton("mic_off", "Retry Microphone");
+            return;
+          }
+          setVoiceChatListening(false);
+          updateVoiceChatMicButton("mic", "Microphone");
+        }
+        function startVoiceChatSession() {
+          state.voiceChatTranscript = [];
+          renderVoiceChatTranscript();
           clearVoiceChatUnsupportedState();
           closeVoiceDraftDock();
           appendVoiceTranscript(
@@ -14008,14 +15053,79 @@
             ),
           );
           startVoiceChatRecognition();
+          state.voiceChatOpen = true;
         }
-        function closeVoiceChatOverlay() {
+        function applyVoiceChatWrapperPosition() {
+          if (!els.voiceChatWrapper) return;
+          const { x, y } = state.voiceChatWrapperPosition || {};
+          if (x == null || y == null) {
+            els.voiceChatWrapper.style.left = "";
+            els.voiceChatWrapper.style.top = "";
+            els.voiceChatWrapper.style.right =
+              window.innerWidth <= 900 ? "10px" : "20px";
+            els.voiceChatWrapper.style.bottom =
+              window.innerWidth <= 900 ? "10px" : "20px";
+            return;
+          }
+          const rect = els.voiceChatWrapper.getBoundingClientRect();
+          const maxX = Math.max(8, window.innerWidth - rect.width - 8);
+          const maxY = Math.max(8, window.innerHeight - rect.height - 8);
+          const nextX = Math.min(Math.max(8, x), maxX);
+          const nextY = Math.min(Math.max(8, y), maxY);
+          state.voiceChatWrapperPosition = { x: nextX, y: nextY };
+          els.voiceChatWrapper.style.left = `${nextX}px`;
+          els.voiceChatWrapper.style.top = `${nextY}px`;
+          els.voiceChatWrapper.style.right = "auto";
+          els.voiceChatWrapper.style.bottom = "auto";
+        }
+        function openVoiceChatWrapper(preserveSession = false) {
+          els.voiceChatWrapper?.classList.add("show");
+          applyVoiceChatWrapperPosition();
+          if (preserveSession) {
+            syncVoiceChatUiState();
+            state.voiceChatOpen = true;
+            return;
+          }
+          startVoiceChatSession();
+        }
+        function openVoiceChatOverlay(preserveSession = false) {
+          els.voiceChatOverlay.classList.add("show");
+          if (preserveSession) {
+            syncVoiceChatUiState();
+            state.voiceChatOpen = true;
+            return;
+          }
+          startVoiceChatSession();
+        }
+        function openPreferredVoiceChat() {
+          const preferredMode = getVoiceChatModePreference();
+          const hasActiveSession =
+            state.voiceChatOpen ||
+            els.voiceChatOverlay?.classList.contains("show") ||
+            els.voiceChatWrapper?.classList.contains("show");
+          if (preferredMode === "fullscreen") {
+            openVoiceChatOverlay(hasActiveSession);
+            return;
+          }
+          openVoiceChatWrapper(hasActiveSession);
+        }
+        function closeVoiceChatSession() {
           els.voiceChatOverlay.classList.remove("show");
+          els.voiceChatWrapper?.classList.remove("show");
           stopVoiceChatRecognition();
           if (state.voiceDraftContext === "voice") {
             closeVoiceDraftDock();
           }
           if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+          state.voiceChatOpen = false;
+        }
+        function closeVoiceChatOverlay() {
+          els.voiceChatOverlay.classList.remove("show");
+          if (els.voiceChatWrapper?.classList.contains("show")) {
+            syncVoiceChatUiState();
+            return;
+          }
+          closeVoiceChatSession();
         }
         function startHomeRecognition() {
           const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -14427,22 +15537,79 @@
         });
         els.voiceChatBtn.addEventListener("click", async () => {
           await primeToneAudio();
-          openVoiceChatOverlay();
+          openPreferredVoiceChat();
         });
         els.voiceChatCloseBtn.addEventListener("click", closeVoiceChatOverlay);
         els.voiceChatChooseVoiceBtn.addEventListener("click", openVoicePicker);
-        els.voiceChatMicBtn.addEventListener("click", async () => {
+        const toggleVoiceChatMic = async () => {
           await primeToneAudio();
           if (state.voiceChatRecognition) {
             stopVoiceChatRecognition();
             return;
           }
           startVoiceChatRecognition();
-        });
+        };
+        els.voiceChatMicBtn.addEventListener("click", toggleVoiceChatMic);
+        els.voiceChatWrapperMicBtn?.addEventListener(
+          "click",
+          toggleVoiceChatMic,
+        );
+        els.voiceChatWrapperCloseBtn?.addEventListener(
+          "click",
+          closeVoiceChatSession,
+        );
+        els.voiceChatWrapperFullscreenBtn?.addEventListener(
+          "click",
+          async () => {
+            await primeToneAudio();
+            openVoiceChatOverlay(true);
+          },
+        );
         els.openVoicePickerFromSettings.addEventListener(
           "click",
           openVoicePicker,
         );
+        let voiceChatDrag = null;
+        els.voiceChatWrapperDragHandle?.addEventListener(
+          "pointerdown",
+          (event) => {
+            if (event.target.closest("button")) return;
+            const wrapper = els.voiceChatWrapper;
+            if (!wrapper) return;
+            const rect = wrapper.getBoundingClientRect();
+            voiceChatDrag = {
+              pointerId: event.pointerId,
+              offsetX: event.clientX - rect.left,
+              offsetY: event.clientY - rect.top,
+            };
+            wrapper.setPointerCapture?.(event.pointerId);
+          },
+        );
+        window.addEventListener("pointermove", (event) => {
+          if (!voiceChatDrag || !els.voiceChatWrapper) return;
+          const rect = els.voiceChatWrapper.getBoundingClientRect();
+          const maxX = Math.max(8, window.innerWidth - rect.width - 8);
+          const maxY = Math.max(8, window.innerHeight - rect.height - 8);
+          state.voiceChatWrapperPosition = {
+            x: Math.min(
+              Math.max(8, event.clientX - voiceChatDrag.offsetX),
+              maxX,
+            ),
+            y: Math.min(
+              Math.max(8, event.clientY - voiceChatDrag.offsetY),
+              maxY,
+            ),
+          };
+          applyVoiceChatWrapperPosition();
+        });
+        window.addEventListener("pointerup", (event) => {
+          if (!voiceChatDrag || !els.voiceChatWrapper) return;
+          if (voiceChatDrag.pointerId === event.pointerId) {
+            els.voiceChatWrapper.releasePointerCapture?.(event.pointerId);
+            voiceChatDrag = null;
+          }
+        });
+        window.addEventListener("resize", applyVoiceChatWrapperPosition);
         els.voicePickerCloseBtn.addEventListener("click", () => {
           els.voicePickerOverlay.classList.remove("show");
         });
@@ -14797,47 +15964,63 @@
           ?.addEventListener("change", savePersonalizationSettings);
         loadPersonalizationSettings();
 
-        // Custom select dropdowns (CSP-safe, replaces native <select>)
-        function initCustomSelect(wrapperId, hiddenInputId) {
+        // Anchored dropdowns for settings/books controls
+        function initCustomSelect(wrapperId, hiddenInputId, dropdownId) {
           const wrapper = document.getElementById(wrapperId);
           const input = document.getElementById(hiddenInputId);
+          const dropdown = document.getElementById(dropdownId);
           if (!wrapper || !input) return;
-          const trigger = wrapper.querySelector(".settings-custom-select-btn");
-          const dropdown = wrapper.querySelector(
-            ".settings-custom-select-dropdown",
-          );
+          const trigger = wrapper.querySelector(".settings-dropdown-trigger");
           if (!trigger || !dropdown) return;
           trigger.addEventListener("click", (e) => {
             e.stopPropagation();
-            dropdown.classList.toggle("open");
+            if (dropdown.style.display === "flex") {
+              closeDropdown(dropdown);
+              return;
+            }
+            dropdown.style.display = "flex";
+            const rect = trigger.getBoundingClientRect();
+            const dropdownWidth = dropdown.offsetWidth || 180;
+            const left = Math.min(
+              Math.max(16, rect.left),
+              Math.max(16, window.innerWidth - dropdownWidth - 16),
+            );
+            dropdown.style.top = `${rect.bottom + 8}px`;
+            dropdown.style.left = `${left}px`;
+            dropdown.style.right = "auto";
           });
           dropdown
-            .querySelectorAll(".settings-custom-select-option")
+            .querySelectorAll(".settings-dropdown-option")
             .forEach((opt) => {
               opt.addEventListener("click", () => {
                 const val = opt.dataset.value;
                 input.value = val;
                 trigger.textContent = opt.textContent;
                 dropdown
-                  .querySelectorAll(".settings-custom-select-option")
+                  .querySelectorAll(".settings-dropdown-option")
                   .forEach((o) => o.classList.remove("selected"));
                 opt.classList.add("selected");
-                dropdown.classList.remove("open");
+                closeDropdown(dropdown);
                 input.dispatchEvent(new Event("change", { bubbles: true }));
               });
             });
           document.addEventListener("click", (e) => {
-            if (!wrapper.contains(e.target)) dropdown.classList.remove("open");
+            if (!wrapper.contains(e.target) && !dropdown.contains(e.target)) {
+              closeDropdown(dropdown);
+            }
           });
         }
-        function setCustomSelectValue(wrapperId, hiddenInputId, value) {
+        function setCustomSelectValue(
+          wrapperId,
+          hiddenInputId,
+          dropdownId,
+          value,
+        ) {
           const wrapper = document.getElementById(wrapperId);
           const input = document.getElementById(hiddenInputId);
+          const dropdown = document.getElementById(dropdownId);
           if (!wrapper || !input) return;
-          const trigger = wrapper.querySelector(".settings-custom-select-btn");
-          const dropdown = wrapper.querySelector(
-            ".settings-custom-select-dropdown",
-          );
+          const trigger = wrapper.querySelector(".settings-dropdown-trigger");
           if (!trigger || !dropdown) return;
           const opt = dropdown.querySelector(
             `[data-value="${CSS.escape(value)}"]`,
@@ -14846,27 +16029,60 @@
             input.value = value;
             trigger.textContent = opt.textContent;
             dropdown
-              .querySelectorAll(".settings-custom-select-option")
+              .querySelectorAll(".settings-dropdown-option")
               .forEach((o) => o.classList.remove("selected"));
             opt.classList.add("selected");
           }
         }
-        initCustomSelect("personalizationToneWrapper", "personalizationTone");
-        initCustomSelect("autoDeleteWrapper", "autoDeleteChatHistory");
-        initCustomSelect("bookPageCountWrapper", "bookPageCountSelect");
-        initCustomSelect("bookFormatWrapper", "bookFormatSelect");
-        initCustomSelect("bookToneWrapper", "bookToneSelect");
+        initCustomSelect(
+          "personalizationToneWrapper",
+          "personalizationTone",
+          "personalizationToneDropdown",
+        );
+        initCustomSelect(
+          "autoDeleteWrapper",
+          "autoDeleteChatHistory",
+          "autoDeleteDropdown",
+        );
+        initCustomSelect(
+          "voiceChatModeWrapper",
+          "voiceChatModeInput",
+          "voiceChatModeDropdown",
+        );
+        initCustomSelect(
+          "bookPageCountWrapper",
+          "bookPageCountSelect",
+          "bookPageCountDropdown",
+        );
+        initCustomSelect(
+          "bookFormatWrapper",
+          "bookFormatSelect",
+          "bookFormatDropdown",
+        );
+        initCustomSelect(
+          "bookToneWrapper",
+          "bookToneSelect",
+          "bookToneDropdown",
+        );
         // Re-apply saved values to custom selects after load
         setCustomSelectValue(
           "personalizationToneWrapper",
           "personalizationTone",
+          "personalizationToneDropdown",
           localStorage.getItem("munetios-person-tone") || "neutral",
         );
         setCustomSelectValue(
           "autoDeleteWrapper",
           "autoDeleteChatHistory",
+          "autoDeleteDropdown",
           localStorage.getItem("munetios-auto-delete") || "never",
         );
+        saveVoiceChatModePreference(
+          localStorage.getItem(VOICE_CHAT_MODE_KEY) || "wrapper",
+        );
+        els.voiceChatModeInput?.addEventListener("change", (event) => {
+          saveVoiceChatModePreference(event.target.value);
+        });
         syncBookCustomSelects();
 
         // Export / Import / Clear all data
@@ -14962,11 +16178,113 @@
         els.chatFontSizeRange?.addEventListener("input", (event) => {
           updateAppearanceSetting("fontSize", Number(event.target.value));
         });
-        els.accentColorBtn?.addEventListener("click", () => {
-          els.accentColorInput?.click();
+        function setAccentColorFromHsv(h, s, v) {
+          state.accentColorHsv = {
+            h: clamp(h, 0, 360),
+            s: clamp(s, 0, 1),
+            v: clamp(v, 0, 1),
+          };
+          const rgb = hsvToRgb(
+            state.accentColorHsv.h,
+            state.accentColorHsv.s,
+            state.accentColorHsv.v,
+          );
+          updateAppearanceSetting("accentColor", rgbToHex(rgb.r, rgb.g, rgb.b));
+        }
+        function setAccentColorFromHex(hex) {
+          updateAppearanceSetting("accentColor", normalizeHexColor(hex));
+        }
+        function updateAccentCanvasFromPointer(clientX, clientY) {
+          const rect = els.accentColorCanvas?.getBoundingClientRect();
+          if (!rect) return;
+          const s = clamp((clientX - rect.left) / rect.width, 0, 1);
+          const v = clamp(1 - (clientY - rect.top) / rect.height, 0, 1);
+          setAccentColorFromHsv(state.accentColorHsv.h, s, v);
+        }
+        function updateAccentHueFromPointer(clientX) {
+          const rect = els.accentColorHue?.getBoundingClientRect();
+          if (!rect) return;
+          const hue = clamp((clientX - rect.left) / rect.width, 0, 1) * 360;
+          setAccentColorFromHsv(
+            hue,
+            state.accentColorHsv.s,
+            state.accentColorHsv.v,
+          );
+        }
+        els.accentColorBtn?.addEventListener("click", (event) => {
+          event.stopPropagation();
+          if (els.accentColorDropdown?.style.display === "flex") {
+            closeDropdown(els.accentColorDropdown);
+            return;
+          }
+          const rect = els.accentColorBtn.getBoundingClientRect();
+          els.accentColorDropdown.style.display = "flex";
+          const dropdownWidth = els.accentColorDropdown.offsetWidth || 320;
+          const left = Math.min(
+            Math.max(16, rect.left),
+            Math.max(16, window.innerWidth - dropdownWidth - 16),
+          );
+          els.accentColorDropdown.style.top = `${rect.bottom + 8}px`;
+          els.accentColorDropdown.style.left = `${left}px`;
+          els.accentColorDropdown.style.right = "auto";
         });
-        els.accentColorInput?.addEventListener("input", (event) => {
-          updateAppearanceSetting("accentColor", event.target.value);
+        let accentCanvasPointerId = null;
+        let accentHuePointerId = null;
+        els.accentColorCanvas?.addEventListener("pointerdown", (event) => {
+          accentCanvasPointerId = event.pointerId;
+          els.accentColorCanvas.setPointerCapture?.(event.pointerId);
+          updateAccentCanvasFromPointer(event.clientX, event.clientY);
+        });
+        els.accentColorHue?.addEventListener("pointerdown", (event) => {
+          accentHuePointerId = event.pointerId;
+          els.accentColorHue.setPointerCapture?.(event.pointerId);
+          updateAccentHueFromPointer(event.clientX);
+        });
+        window.addEventListener("pointermove", (event) => {
+          if (accentCanvasPointerId === event.pointerId) {
+            updateAccentCanvasFromPointer(event.clientX, event.clientY);
+          }
+          if (accentHuePointerId === event.pointerId) {
+            updateAccentHueFromPointer(event.clientX);
+          }
+        });
+        window.addEventListener("pointerup", (event) => {
+          if (accentCanvasPointerId === event.pointerId) {
+            els.accentColorCanvas?.releasePointerCapture?.(event.pointerId);
+            accentCanvasPointerId = null;
+          }
+          if (accentHuePointerId === event.pointerId) {
+            els.accentColorHue?.releasePointerCapture?.(event.pointerId);
+            accentHuePointerId = null;
+          }
+        });
+        els.accentColorSwatches
+          ?.querySelectorAll(".accent-picker-swatch")
+          .forEach((swatch) => {
+            swatch.addEventListener("click", () => {
+              setAccentColorFromHex(swatch.dataset.color || "#5C2FD4");
+            });
+          });
+        els.accentColorHexInput?.addEventListener("input", (event) => {
+          const normalized = String(event.target.value || "")
+            .replace(/[^#0-9a-f]/gi, "")
+            .replace(/^([^#])/, "#$1")
+            .toUpperCase();
+          event.target.value = normalized;
+        });
+        els.accentColorHexInput?.addEventListener("change", (event) => {
+          const raw = String(event.target.value || "").trim();
+          if (!/^#?[0-9A-Fa-f]{3,6}$/.test(raw)) {
+            applyAppearanceSettings();
+            return;
+          }
+          setAccentColorFromHex(raw);
+        });
+        els.accentColorHexInput?.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            els.accentColorHexInput.blur();
+          }
         });
         els.chatLineHeightRange?.addEventListener("input", (event) => {
           updateAppearanceSetting("lineHeight", Number(event.target.value));
@@ -14992,6 +16310,12 @@
             !event.target.closest("#chatFontDropdown")
           ) {
             closeDropdown(els.chatFontDropdown);
+          }
+          if (
+            !event.target.closest("#accentColorBtn") &&
+            !event.target.closest("#accentColorDropdown")
+          ) {
+            closeDropdown(els.accentColorDropdown);
           }
           if (
             !event.target.closest("#chatHistoryItemMenu") &&
@@ -15062,7 +16386,7 @@
           if (key === "v") {
             event.preventDefault();
             await primeToneAudio();
-            openVoiceChatOverlay();
+            openPreferredVoiceChat();
             return;
           }
           if (key === "s") {
@@ -15193,6 +16517,21 @@
               renderAttachments();
               renderBooksPagesPreview();
               renderBooksLibrary();
+              setCustomSelectValue(
+                "personalizationToneWrapper",
+                "personalizationTone",
+                "personalizationToneDropdown",
+                localStorage.getItem("munetios-person-tone") || "neutral",
+              );
+              setCustomSelectValue(
+                "autoDeleteWrapper",
+                "autoDeleteChatHistory",
+                "autoDeleteDropdown",
+                localStorage.getItem("munetios-auto-delete") || "never",
+              );
+              saveVoiceChatModePreference(
+                localStorage.getItem(VOICE_CHAT_MODE_KEY) || "wrapper",
+              );
               syncBookCustomSelects();
               updateComposerState();
             }, 30);
